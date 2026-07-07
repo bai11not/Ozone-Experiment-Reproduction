@@ -13,294 +13,34 @@
 
 ## 📋 目录
 
-- [项目简介](#项目简介)
 - [仓库结构](#仓库结构)
-- [环境配置](#环境配置)
-- [快速开始](#快速开始)
-- [实验矩阵](#实验矩阵)
-- [核心结果](#核心结果)
-- [命名规范](#命名规范)
 - [周进度](#周进度)
 
----
-
-## 项目简介
-
-### 研究背景
-
-地面臭氧 (O₃) 是主要大气污染物之一，其时空演变受排放源、气象条件和光化学反应共同影响，呈现强非线性与多尺度耦合特征。本项目基于扩散概率模型，结合 **排列熵 (Permutation Entropy, PE)** 刻画不同站点的序列复杂性差异，构建 95 站联合预测平台。
-
-### 核心创新: PE 三角色
-
-Permutation Entropy（排列熵）量化时间序列中相邻值的相对顺序模式的多样性——**PE 越高，序列越复杂、越难预测**。本项目将 PE 从诊断指标升级为模型架构的三个组件:
-
-| 角色 | 机制 | 作用 |
-|:----:|------|------|
-| **PE Graph** | 站点间 PE 相似度 → 图邻接边 | 让"同样难/易预测"的站点共享信息 |
-| **PE FiLM** | PE 特征 → 线性调制 γ, β | 自适应调整每站点每层的特征处理强度 |
-| **PE-guided Loss** | PE 值 → 损失权重 | 让模型更关注高复杂度（难预测）站点 |
-
-### 模型架构
-
-```
-原始 O₃ 序列 → 多尺度 PE 计算 (1h~48h) → PE 特征向量 (95×6)
-                │
-    ┌───────────┼───────────┐
-    ▼           ▼           ▼
- PE Graph    PE FiLM    PE-guided Loss
- (图结构)    (调制)      (损失加权)
-    └───────────┼───────────┘
-                ▼
-        Diffusion Denoiser
-         (50 steps, DDPM)
-                │
-                ▼
-        预测 ŷ ∈ R^(T_p × 95)
-```
-
-> 📖 PE 的详细介绍见 [assignment/week1/03_pediffwavenet/pediffwavenet_experiment.md](assignment/week1/03_pediffwavenet/pediffwavenet_experiment.md)
-
-### 数据规模
-
-| 项目 | 值 |
-|------|-----|
-| 站点数 | **95** (京津冀及周边 20 城) |
-| 时间范围 | 2022-01-01 ~ 2022-12-31 |
-| 时间点数 | **8,717** |
-| 输入特征 | **15** (O₃ + 14 气象因子) |
-| 训练/验证/测试 | 7,378 / 669 / 670 (no-leak split) |
-| 预测目标 | 未来 1h / 3h / 6h / 12h / 24h O₃ 浓度 |
-
----
 
 ## 仓库结构
 
 ```
-📂 .
-├── 📂 assignment/                    # 📝 实习交付物
-│   ├── PROJECT_REQUIREMENTS.md       #   项目全部规范要求 (10章)
-│   └── week1/                        #   第 1 周产出
-│       ├── README.md                 #     本周总结
-│       ├── commands.sh               #     全部可复现运行命令
-│       ├── 01_data_organization/     #     任务①: 数据整理
-│       │   ├── data_organization.py
-│       │   └── data_organization_output/
-│       │       ├── data_description_draft.md
-│       │       ├── station_missing_summary.csv
-│       │       └── figures/          #   8 张数据探索图
-│       ├── 02_baseline/              #     任务②: Baseline 调研
-│       │   └── baseline_report.md
-│       ├── 03_pediffwavenet/         #     任务③: PE-DiffWaveNet
-│       │   └── pediffwavenet_experiment.md
-│       └── 04_results_organization/  #     任务④: 结果整理
-│           ├── results.csv           #     统一结果表 (27 行)
-│           ├── chart_naming_convention.md
-│           └── results_organization_report.md
-│
-├── 📂 code/                          # 🔧 核心模型代码
-│   ├── train_pediffwavenet_noleak.py #   PE-DiffWaveNet 训练 (no-leak)
-│   ├── train_atgcn_pe3_noleak.py     #   ATGCN-PE3 Baseline 训练
-│   ├── pediffwavenet_model.py        #   模型定义
-│   └── eval_pediffwavenet_noleak.py  #   评估脚本
-│
-├── 📂 scripts/                       # 🚀 运行脚本
-│   ├── run_smoke_cpu.sh              #   Smoke test (CPU, 1 epoch)
-│   └── run_train_pediffwavenet.sh    #   正式训练启动脚本
-│
-├── 📂 external_baselines/            # 🌐 外部 Baseline
-│   └── DiffSTG/                      #   SIGSPATIAL 2023
-│       ├── train_air_n95.py          #   AIR_N95 适配器
-│       └── data/dataset/AIR_N95/     #   预处理数据
-│
-├── 📂 data_N95/                      # 🗄️ 原始数据 (365 CSV)
-├── 📂 matrix_N95/                    # 📊 模型处理后数据
-├── 📂 xlsx_N95/                      # 📍 站点信息 & 距离表
-├── 📂 paper_assets_pediffwavenet/    # 📄 论文原始表格 (只读参考)
-├── 📂 templates/                     # 📋 实验记录 & 报告模板
-├── 📂 docs_word/                     # 📑 任务文档 (只读)
-│
-├── README.md                         # 📘 本文件
-└── environment.yml                   # 🐍 Conda 环境定义
-```
-
----
-
-## 环境配置
-
-### 依赖安装
-
-```bash
-# 方式一: Conda 环境
-conda env create -f environment.yml
-conda activate atgcn
-
-# 方式二: pip 手动安装
-pip install torch numpy pandas scipy matplotlib scikit-learn openpyxl geopy
-```
-
-### 硬件要求
-
-| 模式 | GPU | 显存 | Epochs | 预计时间 |
-|------|:---:|------|:------:|------|
-| Smoke test (最小) | ❌ CPU | — | 1 | ~2 min |
-| Debug (小配置) | ❌ CPU | — | 3 | ~10 min |
-| 正式训练 | ✅ CUDA | ≥ 8 GB | 120 | ~2 h |
-| 完整实验矩阵 | ✅ CUDA | ≥ 8 GB | — | ~24 h |
-
----
-
-## 快速开始
-
-### 1. 验证环境
-
-```bash
-python -c "import torch; print(f'PyTorch {torch.__version__}, CUDA: {torch.cuda.is_available()}')"
-# 期望输出: PyTorch 2.5.1+cu121, CUDA: True
-```
-
-### 2. Smoke Test (确认管道正常)
-
-```bash
-# 最小配置验证 — 仅 1 epoch, CPU, 极小网络
-bash scripts/run_smoke_cpu.sh
-
-# 检查输出
-ls matrix_N95_PEDiffWaveNet_noleak_student_smoke_cpu/
-cat matrix_N95_PEDiffWaveNet_noleak_student_smoke_cpu/metrics_summary.json
-```
-
-输出验证清单:
-
-- [x] `config.json` — 78 个配置字段完整
-- [x] `split_summary.json` — no-leak 切分 (train_rate=0.8465)
-- [x] `graph_summary.json` — S/T/PE 三图统计
-- [x] `metrics_summary.json` — RMSE/MAE/MAPE/Peak/Per-step
-- [x] `S_matrix.npy` / `T_matrix.npy` / `PE_matrix.npy` — 图矩阵 (95, 95)
-- [x] `pe_node_features.npy` — PE 节点特征 (95, 6)
-
-> ⚠️ Smoke test 指标无参考意义 (仅 1 epoch)，仅用于验证代码/数据路径。
-
-### 3. 正式训练
-
-```bash
-# 主实验 (GPU, 120 epochs, pre_len=6, seq_len=24, seed=42)
-DEVICE=cuda EPOCHS=120 EXP_NAME=main_p6_s42 \
-  bash scripts/run_train_pediffwavenet.sh 6 24 42
-
-# 多 seed 复现
-for S in 52 62; do
-  DEVICE=cuda EPOCHS=120 EXP_NAME=main_p6_s${S} \
-    bash scripts/run_train_pediffwavenet.sh 6 24 ${S}
-done
-```
-
-### 4. 读取指标
-
-```bash
-python -c "
-import json
-with open('matrix_N95_PEDiffWaveNet_noleak_main_p6_s42/metrics_summary.json') as f:
-    m = json.load(f)
-print(f'RMSE={m[\"test_rmse\"]:.4f}, MAE={m[\"test_mae\"]:.4f}, MAPE={m[\"test_mape\"]:.2f}%')
-"
-```
-
----
-
-## 实验矩阵
-
-### 主实验
-
-| 类型 | 配置 | 说明 |
-|------|------|------|
-| 主模型 | pre_len=6, seq_len=24, seed=42 | 基准实验 |
-| 多 seed | seed=52, 62 | 稳定性评估 |
-| 多预测步长 | pre_len=1, 3, 6, 12, 24 | 预测能力边界 |
-| 多输入窗口 | seq_len=12, 24, 48 | 历史信息利用 |
-
-### 消融实验
-
-| 实验 | 开关 | 验证假设 |
-|------|:--:|------|
-| 无扩散 | `USE_DIFFUSION=0` | 扩散去噪机制是否必要？ |
-| 无 PE 图 | `USE_PE_GRAPH=0` | PE 相似度边是否提供有效信息？ |
-| 无 PE FiLM | `USE_PE_FILM=0` | PE 条件调制是否改善预测？ |
-| PE shuffle | `PE_SHUFFLE_SEED=52` | PE 站点特异性是否关键？（因果验证） |
-
-### Baseline 对比
-
-| 方法 | 类型 | 来源 | 状态 |
-|------|------|------|:--:|
-| **MTGNN** | 时空图神经网络 | table1 | ✅ verified |
-| **Graph WaveNet** | 时空图卷积 | table1 | ✅ verified |
-| **AGCRN** | 自适应图卷积 | table1 | ✅ verified |
-| **DCRNN** | 扩散卷积循环 | table1 | ✅ verified |
-| **ATGCN-PE3** | 注意力时序 + PE | 本仓库 | ✅ verified |
-| **DiffSTG** | 扩散时空图 (SIGSPATIAL'23) | 外部 | ⏳ adapted |
-
----
-
-## 核心结果
-
-### Table 1: 主对比 (pre_len=6, O₃)
-
-| 方法 | RMSE ↓ | MAE ↓ | MAPE ↓ | Peak RMSE ↓ | Step6 RMSE ↓ |
-|------|:------:|:-----:|:------:|:-----------:|:------------:|
-| **MTGNN (L=24)** | **10.662** | 7.338 | 29.99 | 13.354 | 13.181 |
-| PE-DiffWaveNet backbone | 10.938 ±0.34 | 7.562 ±0.20 | 30.79 ±0.85 | 13.829 ±1.09 | 13.610 ±0.61 |
-| Graph WaveNet (L=12) | 11.535 | 7.798 | 33.60 | 11.822 | 14.627 |
-| AGCRN (L=12) | 11.686 | 8.209 | 34.78 | 15.021 | 14.560 |
-| ATGCN-PE3 + horizon-weight | 11.755 | 8.487 | 35.98 | 15.628 | 14.551 |
-| ATGCN-PE3 | 11.894 | 8.602 | 35.46 | 16.112 | 14.674 |
-| DCRNN | 12.281 | 8.512 | 36.46 | 15.574 | 15.714 |
-
-> 📊 扩散模型 (PE-DiffWaveNet) 与最优 GNN baseline (MTGNN) 处于同一水平，验证了扩散机制在空气质量预测中的有效性。± 表示 3 seeds 标准差。
-
-### 数据概览
-
-- O₃ 缺失率 **2.25%**, PM₂.₅ **1.33%**, PM₁₀ **1.55%** — 数据质量良好
-- 95 站点覆盖 20 城市，经度 111.6°E~119.6°E，纬度 35.7°N~41.0°N
-- O₃ 呈**夏高冬低**季节特征，PM 反之；二者日均 Pearson r = **-0.302**
-
----
-
-## 命名规范
-
-本仓库所有输出文件遵循统一命名规范，确保可追溯:
+── 📂 assignment/                    # 📝 实习交付物
+   ├── PROJECT_REQUIREMENTS.md       #   项目全部规范要求 (10章)
+   └── week1/                        #   第 1 周产出
+       ├── README.md                 #     本周总结
+       ├── commands.sh               #     全部可复现运行命令
+       ├── 01_data_organization/     #     任务①: 数据整理
+       │   ├── data_organization.py
+       │   └── data_organization_output/
+       │       ├── data_description_draft.md
+       │       ├── station_missing_summary.csv
+       │       └── figures/          #   8 张数据探索图
+       ├── 02_baseline/              #     任务②: Baseline 调研
+       │   └── baseline_report.md
+       ├── 03_pediffwavenet/         #     任务③: PE-DiffWaveNet
+       │   └── pediffwavenet_experiment.md
+       └── 04_results_organization/  #     任务④: 结果整理
+           ├── results.csv           #     统一结果表 (27 行)
+           ├── chart_naming_convention.md
+          └── results_organization_report.md
 
 ```
-{category}_{content}_{config}[_{suffix}].{ext}
-
-示例:
-  ts_pollutant_daily_timeseries.png      时间序列-污染物-日均
-  cmp_main_rmse_bar.png                  对比图-主实验-RMSE-柱状图
-  ablation_rmse_bar_L24_P6_D0.png        消融图-无扩散
-  err_per_step_rmse_pedw_P6.png          逐步长误差-PE-DiffWaveNet
-  box_o3_station_boxplot.png             箱线图-臭氧-各站点
-  heat_o3_missing_heatmap.png            热力图-臭氧缺失情况
-```
-
-| 前缀 | 用途 | 前缀 | 用途 |
-|:----:|------|:----:|------|
-| `ts_` | 时间序列图 | `cmp_` | 模型对比图 |
-| `err_` | 误差分析图 | `dist_` | 分布图 |
-| `heat_` | 热力图 | `bar_` | 柱状图 |
-| `scatter_` | 散点图 | `box_` | 箱线图 |
-| `map_` | 地理/空间分布 | `ablation_` | 消融分析图 |
-
-| 配置标识 | 格式 | 示例 |
-|:----:|------|------|
-| 序列长度 | `L{seq_len}` | `L24` |
-| 预测步长 | `P{pre_len}` | `P6` |
-| 随机种子 | `S{seed}` | `S42` |
-| 扩散开关 | `D1` / `D0` | `D1` |
-| PE图开关 | `G1` / `G0` | `G1` |
-| PE FiLM开关 | `F1` / `F0` | `F1` |
-
-> 📖 完整规范: [chart_naming_convention.md](assignment/week1/04_results_organization/chart_naming_convention.md)
-
----
-
 ## 周进度
 
 ### ✅ 第 1 周: 数据理解 & 代码跑通 (已完成)
@@ -352,12 +92,9 @@ print(f'RMSE={m[\"test_rmse\"]:.4f}, MAE={m[\"test_mae\"]:.4f}, MAPE={m[\"test_m
 
 ---
 
-<div align="center">
-
 **🏫 生产实习 · 2026 年夏季**  
 *基于扩散模型的多站点空气质量预测实验平台*
 
-</div>
 
 
 
