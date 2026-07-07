@@ -1,13 +1,1 @@
-臭氧预测资料/data_N95/
-臭氧预测资料/xlsx_N95/
-臭氧预测资料/matrix_N95/
-臭氧预测资料/paper_assets_pediffwavenet/
 臭氧预测资料/.venv/
-*.png
-*.csv
-*.xlsx
-*.json
-*.txt
-*.npy
-*.npz
-output/
