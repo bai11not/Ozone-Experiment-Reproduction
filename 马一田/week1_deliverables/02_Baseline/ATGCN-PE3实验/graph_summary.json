@@ -1,0 +1,17 @@
+{
+  "S_nnz": 691,
+  "T_nnz": 1570,
+  "PE_nnz": 7219,
+  "temporal_topk": 12,
+  "temporal_stride": 1,
+  "disable_pe": 0,
+  "pe_scales": [
+    6,
+    9,
+    12,
+    24,
+    48,
+    72
+  ],
+  "pe_window_step": 168
+}

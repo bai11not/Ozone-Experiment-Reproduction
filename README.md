@@ -1,76 +1,57 @@
-# 生产实习材料包：PE-DiffWaveNet 空气质量预测
+# 🌫️ 臭氧预测项目导航
 
-本目录用于“生产实习”课程，目标是让学生基于现有臭氧、PM 和气象因子数据，围绕扩散模型空气质量预测完成可复现实验、结果整理和报告初稿。
+欢迎来到臭氧预测项目！点击下方链接快速跳转至各模块。
 
-核心要求很简单：不重新找数据，不随意改核心模型，重点帮助完成数据说明、baseline 对比、消融实验、图表和报告材料。
+---
 
-## 目录结构
+## 📁 目录索引
 
-```text
-production_internship_pediffwavenet/
-  README.md
-  environment.yml
-  code/                         # 当前模型核心代码副本
-  data_N95/                     # 原始污染物逐日 CSV，含 O3/PM 等
-  matrix_N95/                   # 当前模型直接使用的处理后数据和气象缓存
-  xlsx_N95/                     # 95 个站点信息和辅助表
-  paper_assets_pediffwavenet/   # 已有论文表格，学生结果需向这些字段对齐
-  docs/                         # 任务书、三周安排、数据说明、提交规范
-  templates/                    # 实验记录、结果汇总、报告提纲模板
-  scripts/                      # 学生运行脚本
-```
+### 核心代码与数据
+- [💻 代码库](./臭氧预测资料/code/) —— 模型训练、预测、评估脚本
+- [📊 数据文件](./臭氧预测资料/data_N95/) —— N95 原始数据集
+- [📈 特征矩阵](./臭氧预测资料/matrix_N95/) —— 模型输入特征矩阵
+- [⚖️ 模型权重](./臭氧预测资料/weights_N95/) —— 已训练好的权重文件
+- [📋 Excel 数据](./臭氧预测资料/xlsx_N95/) —— 表格格式数据文件
 
-## 快速检查
+### 文档与资料
+- [📝 文档资料](./臭氧预测资料/docs_word/) —— Word 格式技术文档与说明
+- [📄 论文素材](./臭氧预测资料/paper_assets_pediffwaveNet/) —— 论文插图、表格等资源
+- [📜 剧本](./臭氧预测资料/剧本/) —— 实验流程与运行脚本说明
+- [📐 模板](./臭氧预测资料/模板/) —— 报告或代码模板文件
 
-先跑一个 CPU smoke test，确认环境和数据没有问题：
+### 其他
+- [📦 归档](./臭氧预测资料/归档/) —— 历史版本或废弃文件
 
-```bash
-cd "d:\时空数据\臭氧预测资料\臭氧预测资料"
-bash scripts/run_smoke_cpu.sh
-```
+---
 
-这只跑极少窗口和 1 个 epoch，用于验证代码、数据路径、气象缓存和输出目录是否正常。
+## 📚 推荐论文
 
-## 正式训练示例
+### DiffSTG: Probabilistic Spatio-Temporal Graph Forecasting with Denoising Diffusion Models
 
-默认任务是历史 24 小时预测未来 6 小时，seed=42：
+| 项目 | 信息 |
+|------|------|
+| **会议** | ACM SIGSPATIAL 2023 |
+| **论文** | [https://arxiv.org/abs/2301.13629](https://arxiv.org/abs/2301.13629) |
+| **代码** | [https://github.com/wenhaomin/DiffSTG](https://github.com/wenhaomin/DiffSTG) |
+| **框架** | PyTorch |
 
-```bash
-cd "d:\时空数据\臭氧预测资料\臭氧预测资料"
-DEVICE=cuda EPOCHS=120 EXP_NAME=student_pedw_p6_s42 bash scripts/run_train_pediffwavenet.sh 6 24 42
-```
+> 该工作将去噪扩散概率模型应用于时空图预测，在多个基准数据集上取得了先进性能，对本项目具有重要参考价值。
 
-如果 GPU 不够，可以先用更小配置：
+---
 
-```bash
-DEVICE=cpu EPOCHS=3 HIDDEN_SIZE=16 MAX_TRAIN_WINDOWS=64 MAX_VALID_WINDOWS=32 MAX_TEST_WINDOWS=32 \
-  EXP_NAME=student_debug_cpu bash scripts/run_train_pediffwavenet.sh 6 24 42
-```
+## 📌 快速链接
 
-## 学生最终交付
+- [查看最新提交记录](./) —— 点击仓库顶部的 "Commits" 查看
+- [返回仓库首页](./) —— 点击项目名称返回
 
-每个实验必须提交：
+---
 
-- 运行命令或配置；
-- 日志文件；
-- 输出目录；
-- 指标结果 CSV；
-- 1 页以内实验结论；
-- 可放入报告的图表。
+## 🚀 开始使用
 
-统一结果模板见 `templates/experiment_result_template.csv`。
+1. 克隆仓库：`git clone <仓库地址>`
+2. 安装依赖：参考 [代码库](./臭氧预测资料/code/) 中的 `requirements.txt`
+3. 运行训练：进入 [代码库](./臭氧预测资料/code/) 执行主程序
 
-## 教师侧建议
+---
 
-把学生分成四类任务最省事：
-
-- 数据整理组：补数据说明、缺失统计、相关性图、站点图；
-- baseline 组：跑通已有 baseline 或开源论文代码；
-- 本模型实验组：跑 PE-DiffWaveNet 的主实验、多 seed、预测步长、消融；
-- 结果整理组：统一表格、画图、整理报告初稿。
-
-详细安排见 `docs/02_三周安排与分工.md`。
-
-有代码论文推荐见 `docs/05_有代码论文推荐_DiffSTG.md`。首选 DiffSTG 作为扩散类时空图 baseline，能较自然地迁移到 95 站点空气质量预测。
-
-学生实际执行顺序见 `docs/06_学生执行顺序.md`。
+> 📅 最后更新：2026-07-07

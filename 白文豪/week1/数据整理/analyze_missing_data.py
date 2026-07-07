@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data_N95')
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '臭氧预测资料', 'data_N95')
 
 pollutants = ['O3', 'PM2.5', 'PM10']
 

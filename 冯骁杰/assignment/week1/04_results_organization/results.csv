@@ -1,0 +1,26 @@
+group,student,experiment_id,model,seq_len,pre_len,seed,use_diffusion,use_pe_graph,use_pe_film,pe_adaptive_loss,lr,epochs,best_epoch,rmse,mae,mape,peak_rmse,step1_rmse,step6_rmse,output_dir,log_file,status,source,notes
+main_comparison,,table1_mtgnn_l24,MTGNN,24,6,42,,,,,,,,10.6620,7.3383,29.99,13.3536,,13.1806,,,verified,paper_table1,"official raw, seed42"
+main_comparison,,table1_mtgnn_l12,MTGNN,12,6,42,,,,,,,,10.8028,7.3465,30.50,13.3002,,13.3112,,,verified,paper_table1,"official raw, seed42"
+main_comparison,,table1_gwnet_l12,Graph WaveNet,12,6,42,,,,,,,,11.5354,7.7982,33.60,11.8217,,14.6265,,,verified,paper_table1,"official raw, seed42"
+main_comparison,,table1_agcrn_l12,AGCRN,12,6,42,,,,,,,,11.6858,8.2093,34.78,15.0214,,14.5599,,,verified,paper_table1,"official raw, seed42"
+main_comparison,,table1_dcrnn,DCRNN,12,6,42,,,,,,,,12.2813,8.5124,36.46,15.5737,,15.7136,,,verified,paper_table1,"official raw, seed42"
+main_comparison,,table1_atgcn_pe3_noleak,ATGCN-PE3 noleak,12,6,42,,,,,,,,11.8944,8.6023,35.46,16.1119,,14.6744,,,verified,paper_table1,ATGCN raw seed42
+main_comparison,,table1_atgcn_pe3_hw,ATGCN-PE3 + horizon-weight,12,6,42,,,,,,,,11.7549,8.4868,35.98,15.6276,,14.5510,,,verified,paper_table1,ATGCN raw seed42
+main_comparison,,table1_pedw_backbone,PE-DiffWaveNet backbone,24,6,"42,52,62",1,1,1,0,7e-4,120,,10.9380,7.5618,30.79,13.8293,,13.6100,,,verified,paper_table1,"ours raw, ±0.34/0.20/0.85"
+main_comparison,,table1_pedw_pe_loss,PE-DiffWaveNet + PE-guided loss,24,6,"42,52,62",1,1,1,1,7e-4,120,,11.1021,7.7966,31.88,13.8010,,13.6831,,,verified,paper_table1,"ours raw, ±0.15/0.13/0.52"
+smoke_test,,smoke_cpu_1ep,PE-DiffWaveNet smoke,24,6,42,1,1,1,0,7e-4,1,1,166.7862,164.6774,848.02,,,,,matrix_N95_PEDiffWaveNet_noleak_student_smoke_cpu,,verified,smoke_test,"H=16, 8 win, CPU, 1ep - not converged"
+main_experiment,,pedw_main_s42,PE-DiffWaveNet,24,6,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,主实验待GPU运行
+main_experiment,,pedw_main_s52,PE-DiffWaveNet,24,6,52,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+main_experiment,,pedw_main_s62,PE-DiffWaveNet,24,6,62,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+ablation,,ablation_nodiff,PE-DiffWaveNet no diffusion,24,6,42,0,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,USE_DIFFUSION=0
+ablation,,ablation_nopegraph,PE-DiffWaveNet no PE graph,24,6,42,1,0,1,0,7e-4,120,,,,,,,,,,pending,to_run,USE_PE_GRAPH=0
+ablation,,ablation_nopefilm,PE-DiffWaveNet no PE FiLM,24,6,42,1,1,0,0,7e-4,120,,,,,,,,,,pending,to_run,USE_PE_FILM=0
+ablation,,ablation_peshuffle,PE-DiffWaveNet PE shuffle,24,6,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,PE_SHUFFLE_SEED=52
+seq_len,,seqlen_l12,PE-DiffWaveNet,12,6,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+seq_len,,seqlen_l48,PE-DiffWaveNet,48,6,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+pre_len,,prelen_p1,PE-DiffWaveNet,24,1,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+pre_len,,prelen_p3,PE-DiffWaveNet,24,3,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+pre_len,,prelen_p12,PE-DiffWaveNet,24,12,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+pre_len,,prelen_p24,PE-DiffWaveNet,24,24,42,1,1,1,0,7e-4,120,,,,,,,,,,pending,to_run,
+baseline,,atgcn_pe3_repro,ATGCN-PE3 noleak,12,6,42,,,,,,,,,,,,,,pending,to_reproduce,复核已有结果
+baseline,,diffstg_l12,DiffSTG,12,12,42,,,,,,,,,,,,,,pending,to_run,T_p=T_h per DiffSTG native

@@ -1,0 +1,196 @@
+
+===== Slide 1 =====
+基于扩散模型的
+多站点空气质量预测
+以 95 个空气质量监测站点的 2022 年数据为基础，完成数据整理、模型运行、实验对比、消融分析和结果可视化。
+95
+空气质量监测站点
+8717
+小时时间索引
+15
+O3 + 14 个气象变量
+
+===== Slide 2 =====
+课程定位
+核心是把真实数据变成可复现实验资产
+01
+数据
+理解 O3、PM、站点信息和气象因子，说明字段、缺失和分布。
+02
+模型
+跑通 PE-DiffWaveNet 或 baseline，输出统一指标。
+03
+证据
+保留命令、日志、表格、图表和报告段落，支撑结论。
+
+===== Slide 3 =====
+学习产出
+三周结束时，每组至少要交出五类材料
+01
+README
+说明本组做了什么
+02
+commands.sh
+记录实际运行命令
+03
+results.csv
+统一字段的指标表
+04
+figures/ 与 logs/
+保留图表和关键日志
+05
+report
+形成报告和答辩PPT
+
+===== Slide 4 =====
+分工方式
+四类任务并行，但最后必须汇总成同一套实验证据
+数据整理
+• 清洗说明、字段解释和缺失统计
+• 站点城市、经纬度分布
+• 污染物和气象因子相关性分析
+实验与报告
+• baseline 复现与 DiffSTG 适配
+• PE-DiffWaveNet 主实验和消融
+• 汇总表格、误差图和报告初稿
+
+===== Slide 5 =====
+数据地图
+要知道每个目录在实验链路中的位置
+01
+matrix_N95/
+模型直接读取的处理后数据：data.npy、time_index.npy、met_raw_aligned_cache.npz、data_combined_m15.npy。
+02
+data_N95/
+原始污染物逐日 CSV，可抽取 O3、PM2.5、PM10 等污染物序列。
+03
+xlsx_N95/
+站点和辅助信息，station_loc1.xlsx 用于 95 个站点编码、城市、经纬度。
+04
+训练输出
+matrix_N95_PEDiffWaveNet_noleak_<EXP_NAME>/ 和 weights_N95/ 保存结果与权重。
+
+===== Slide 6 =====
+数据泄漏控制
+no-leak 流程要写进报告，因为它决定实验可信度
+1
+先切分原始时间轴
+2
+只在训练段拟合归一化
+3
+各 split 内部做滑动窗口
+4
+只用训练段构建 T 图和 PE 图
+报告中要明确：测试集信息没有参与归一化、滑窗构造或图结构构建。
+
+===== Slide 7 =====
+第 1 周
+第一周先跑通最小实验，再谈批量实验
+数据整理
+• 阅读数据说明
+• 统计 O3、PM2.5、PM10 缺失
+• 画整体时间序列
+baseline
+• 确认 MTGNN、Graph WaveNet、AGCRN
+• 优先调研 DiffSTG
+• 跑通一个 baseline 或复核结果
+PE-DiffWaveNet
+• 运行 smoke test
+• 小配置跑 1-3 epoch
+• 检查日志和 metrics_summary.json
+第一周的验收点：每个人都能说清楚数据是什么、命令怎么跑、输出在哪里。
+
+===== Slide 8 =====
+第 2 周
+第二周按固定矩阵跑出可比较结果
+实验类型 | 推荐配置
+主模型 | PE-DiffWaveNet, seq_len=24, pre_len=6, seed=42
+多 seed | seed=42, 52, 62
+输入窗口 | seq_len=12, 24, 48
+预测步长 | pre_len=1, 3, 6, 12, 24
+消融 | USE_DIFFUSION=0; USE_PE_GRAPH=0; USE_PE_FILM=0
+PE shuffle | PE_SHUFFLE_SEED=52
+小样本 debug | 限制 MAX_*_WINDOWS，仅用于检查流程
+每次实验必须记录命令、seed、窗口、预测步长、开关项、输出目录、指标和失败原因。
+
+===== Slide 9 =====
+第 3 周
+第三周把实验结果整理成老师和论文都能继续使用的材料
+主对比表
+消融实验表
+不同预测步长误差曲线
+真实值 vs 预测值曲线
+站点误差分布图
+高值区误差分析图
+PE 分层结果图
+结论必须能回到具体实验结果，每个图表都要有对应数据源。
+
+===== Slide 10 =====
+运行规范
+先通过 smoke test，再启动正式实验
+推荐环境
+• 优先使用已有 atgcn conda 环境
+• 也可通过 environment.yml 创建
+• 先运行 scripts/run_smoke_cpu.sh
+通过标准
+• 无 FileNotFoundError
+• 打印 train/valid/test shape
+• 生成输出目录并完成 1 个 epoch
+• 保存 config、split_summary、graph_summary
+
+===== Slide 11 =====
+结果规范
+统一字段让不同小组的结果能合并、比较和复核
+身份
+group, student, experiment_id, model
+配置
+seq_len, pre_len, seed, use_diffusion, use_pe_graph, use_pe_film
+指标
+rmse, mae, mape, peak_rmse, step6_rmse
+证据
+output_dir, log_file, notes
+实验名建议：组名_模型_关键配置_seed，例如 g3_pedw_p6_l24_s42。
+
+===== Slide 12 =====
+开源 baseline
+DiffSTG 适合作为扩散类时空图 baseline
+DiffSTG: Probabilistic Spatio-Temporal Graph Forecasting with Denoising Diffusion Models
+ACM SIGSPATIAL 2023 | PyTorch | MIT | arXiv: 2301.13629 | github.com/wenhaomin/DiffSTG
+DiffSTG | 本项目
+graph node | 95 个空气质量站点
+flow.npy | O3 或 PM2.5/PM10 时间序列
+adj.npy | 空间距离图、相关图或 PE 图
+T_h / T_p | 输入窗口 / 预测步长
+MAE / RMSE | 与主表指标对齐
+最低目标
+• 跑通官方代码
+• 生成 AIR_N95/flow.npy 和 adj.npy
+• 跑 seq_len=24, pre_len=6, seed=42
+• 输出 RMSE、MAE、MAPE 并填入模板
+
+===== Slide 13 =====
+提交红线
+最终验收看的是可复现证据，不是截图数量
+禁止事项
+• 只提交截图
+• 只说跑了但没保存日志
+• 改核心代码但不说明
+• 混用其他数据集结果
+• 把 debug 结果当正式结果
+可接受 debug
+• 资源不足时可限制 MAX_*_WINDOWS
+• debug 只检查流程
+• 正式报告中必须标注为 debug
+• 正式实验仍需独立结果
+
+===== Slide 14 =====
+课堂收束
+好的实习报告，要让别人能沿着证据链重新跑出结论
+可复现
+至少一个模型能从命令完整复现
+可比较
+每组结果表字段统一
+可追踪
+每个图表都有对应数据源
+可解释
+报告结论对应具体实验结果

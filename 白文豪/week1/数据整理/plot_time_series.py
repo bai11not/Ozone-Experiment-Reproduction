@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter, MonthLocator
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data_N95')
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '臭氧预测资料', 'data_N95')
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
 
 pollutants = ['O3', 'PM2.5', 'PM10']

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'xlsx_N95', 'station_loc1.xlsx')
+FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '臭氧预测资料', 'xlsx_N95', 'station_loc1.xlsx')
 
 def analyze_stations():
     try:
