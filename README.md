@@ -25,6 +25,21 @@
 
 ---
 
+## 📚 推荐论文
+
+### DiffSTG: Probabilistic Spatio-Temporal Graph Forecasting with Denoising Diffusion Models
+
+| 项目 | 信息 |
+|------|------|
+| **会议** | ACM SIGSPATIAL 2023 |
+| **论文** | [https://arxiv.org/abs/2301.13629](https://arxiv.org/abs/2301.13629) |
+| **代码** | [https://github.com/wenhaomin/DiffSTG](https://github.com/wenhaomin/DiffSTG) |
+| **框架** | PyTorch |
+
+> 该工作将去噪扩散概率模型应用于时空图预测，在多个基准数据集上取得了先进性能，对本项目具有重要参考价值。
+
+---
+
 ## 📌 快速链接
 
 - [查看最新提交记录](./) —— 点击仓库顶部的 "Commits" 查看
