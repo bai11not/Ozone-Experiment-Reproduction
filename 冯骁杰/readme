@@ -1,1 +1,19 @@
+# 冯骁杰 的个人作业与项目仓库 (Feng Xiaojie's Workspace)
 
+这里是 **冯骁杰** 用于存放和管理个人作业/项目代码的子文件夹。本目录主要记录每周的任务进展、模型实验及结果整理。
+
+---
+
+## 📂 目录结构说明 (Directory Structure)
+
+```text
+冯骁杰/
+├── assignment/
+│   └── week1/                        # 第一周任务/作业
+│       ├── 01_data_organization/     # 数据集准备与预处理
+│       ├── 02_baseline/              # Baseline 模型实现
+│       ├── 03_pediffwavenet/          # PeDiffWaveNet 模型核心代码与训练
+│       ├── 04_results_organization/  # 实验结果、图表与评估指标整理
+│       ├── README.md                 # 本说明文件
+│       └── commands.sh               # 一键运行/核心复现脚本
+└── PROJECT_REQUIREMENTS.md           # 项目总体需求与任务书
