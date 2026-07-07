@@ -1,0 +1,14 @@
+{
+  "num_stations": 95,
+  "num_cities": 20,
+  "num_csv_files": 365,
+  "time_range_start": "2022-01-01 00:00:00",
+  "time_range_end": "2022-12-31 23:00:00",
+  "total_hours": 8717,
+  "o3_missing_pct": 2.25,
+  "pm25_missing_pct": 1.33,
+  "pm10_missing_pct": 1.55,
+  "lon_range": "111.5968 ~ 119.6105",
+  "lat_range": "35.6822 ~ 41.0385",
+  "o3_pm25_corr": -0.302
+}
