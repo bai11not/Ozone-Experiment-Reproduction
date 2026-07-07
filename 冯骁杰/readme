@@ -1,66 +1,76 @@
-# 🔬 基于扩散模型的多站点空气质量预测实验平台
+# 基于扩散模型的多站点空气质量预测实验平台
 
-> **生产实习项目** · 2026 年夏季  
-> 题目: 基于扩散模型的多站点空气质量预测实验平台构建  
-> 模型: PE-DiffWaveNet (Diffusion + Permutation Entropy Graph + PE-FiLM)  
-> 任务: 95 站点臭氧 (O₃) 多步长时空预测
-
-[![Python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/pytorch-2.5.1-red)](https://pytorch.org/)
-[![CUDA](https://img.shields.io/badge/CUDA-12.1-green)](https://developer.nvidia.com/cuda-toolkit)
+> **生产实习项目** · 2026 年夏季
+> **题目**: 基于扩散模型的多站点空气质量预测实验平台构建
+> **模型**: PE-DiffWaveNet (Diffusion + Permutation Entropy Graph + PE-FiLM)
+> **数据**: 95 站点 O₃ 时空序列 (2022 全年, 8717 时间点)
 
 ---
-
-## 📋 目录
-
-- [仓库结构](#仓库结构)
-- [周进度](#周进度)
-
 
 ## 仓库结构
 
 ```
-── 📂 assignment/                    # 📝 实习交付物
-   ├── PROJECT_REQUIREMENTS.md       #   项目全部规范要求 (10章)
-   └── week1/                        #   第 1 周产出
-       ├── README.md                 #     本周总结
-       ├── commands.sh               #     全部可复现运行命令
-       ├── 01_data_organization/     #     任务①: 数据整理
-       │   ├── data_organization.py
-       │   └── data_organization_output/
-       │       ├── data_description_draft.md
-       │       ├── station_missing_summary.csv
-       │       └── figures/          #   8 张数据探索图
-       ├── 02_baseline/              #     任务②: Baseline 调研
-       │   └── baseline_report.md
-       ├── 03_pediffwavenet/         #     任务③: PE-DiffWaveNet
-       │   └── pediffwavenet_experiment.md
-       └── 04_results_organization/  #     任务④: 结果整理
-           ├── results.csv           #     统一结果表 (27 行)
-           ├── chart_naming_convention.md
-          └── results_organization_report.md
-
+📂 assignment/
+├── 📄 README.md                         # 本文件
+├── 📄 PROJECT_REQUIREMENTS.md           # 项目全部规范要求 (10章汇总)
+│
+└── 📂 week1/                            # 第 1 周: 数据理解和代码跑通
+    ├── 📄 README.md                     #   本周总结
+    ├── 📄 commands.sh                   #   全部可复现运行命令
+    │
+    ├── 📂 01_data_organization/         #   任务①: 数据整理
+    │   ├── data_organization.py         #     主脚本
+    │   └── data_organization_output/
+    │       ├── data_description_draft.md #    数据说明初稿
+    │       ├── station_missing_summary.csv
+    │       ├── summary.json
+    │       └── figures/                 #     8 张数据探索图
+    │
+    ├── 📂 02_baseline/                  #   任务②: Baseline 调研与适配
+    │   └── baseline_report.md           #     完整调研报告
+    │
+    ├── 📂 03_pediffwavenet/             #   任务③: PE-DiffWaveNet 实验
+    │   └── pediffwavenet_experiment.md  #     Smoke test + 命令记录
+    │
+    └── 📂 04_results_organization/      #   任务④: 结果整理
+        ├── results_organization_report.md
+        ├── chart_naming_convention.md   #     图表命名规范
+        └── results.csv                  #     统一结果表 (27 行)
 ```
+
+---
+
 ## 周进度
 
-### ✅ 第 1 周: 数据理解 & 代码跑通 (已完成)
+### ✅ 第 1 周: 数据理解和代码跑通
 
-| 任务 | 状态 | 产出 |
-|------|:--:|------|
-| 数据整理 | ✅ | 缺失统计 + 站点分布 + 8 张数据探索图 |
-| Baseline 调研 | ✅ | 9 baseline 确认 + DiffSTG 数据/脚本适配 |
-| PE-DiffWaveNet smoke test | ✅ | 18 文件, 管道验证全部通过 |
-| 结果整理 | ✅ | 统一结果表 + 命名规范 + 字段对齐报告 |
+| # | 任务 | 状态 | 核心产出 |
+|:--:|------|:--:|------|
+| 1 | 数据整理 — 缺失统计、站点分布、时间序列 | ✅ | 8 图 + data_description_draft.md |
+| 2 | Baseline — 已有 baseline 确认、DiffSTG 适配 | ✅ | baseline_report.md + DiffSTG 数据/脚本 |
+| 3 | PE-DiffWaveNet — Smoke test 复核、命令记录 | ✅ | 18 文件 + pediffwavenet_experiment.md |
+| 4 | 结果整理 — 统一表、字段对齐、命名规范 | ✅ | results.csv + chart_naming_convention.md |
 
-### 🔄 第 2 周: 批量实验 (待 GPU)
+**关键发现**:
+- O₃ 缺失率 2.25%, PM₂.₅ 1.33%, PM₁₀ 1.55% — 数据质量良好
+- 确认 9 个 baseline/变体，MTGNN (L=24) 最优 RMSE=10.662
+- PE-DiffWaveNet backbone RMSE=10.938，与最优 GNN baseline 同水平
+- DiffSTG 完成数据适配，T_p=T_h 限制已解耦
 
-- [ ] 主模型多 seed (42, 52, 62)
-- [ ] 多步长预测 (1, 3, 6, 12, 24)
-- [ ] 多输入窗口 (12, 24, 48)
-- [ ] 消融实验 (无扩散 / 无PE图 / 无PE FiLM / PE shuffle)
-- [ ] Baseline 正式训练 (ATGCN-PE3, DiffSTG)
+### 🔄 第 2 周: 批量实验
 
-### 📅 第 3 周: 图表 & 报告
+| 实验类型 | 配置 | 状态 |
+|----------|------|:--:|
+| 主模型多 seed | seed=42, 52, 62 | ⏳ |
+| 多预测步长 | pre_len=1, 3, 6, 12, 24 | ⏳ |
+| 多输入窗口 | seq_len=12, 24, 48 | ⏳ |
+| 消融-无扩散 | USE_DIFFUSION=0 | ⏳ |
+| 消融-无 PE 图 | USE_PE_GRAPH=0 | ⏳ |
+| 消融-无 PE FiLM | USE_PE_FILM=0 | ⏳ |
+| PE shuffle | PE_SHUFFLE_SEED=52 | ⏳ |
+| Baseline 正式运行 | ATGCN-PE3, DiffSTG | ⏳ |
+
+### 📅 第 3 周: 图表、报告和验收
 
 - [ ] 主对比图表 (Table 1 风格)
 - [ ] 消融分析图表 (Table 2 风格)
@@ -70,31 +80,4 @@
 
 ---
 
-## 规范承诺
-
-本项目严格遵守实习规范 (详见 [PROJECT_REQUIREMENTS.md](assignment/PROJECT_REQUIREMENTS.md)):
-
-| # | 要求 | |
-|:--:|------|:--:|
-| 1 | 可复现 — 记录完整命令、seed、config | ✅ |
-| 2 | 可追溯 — 统一命名，输出目录规范 | ✅ |
-| 3 | No-leak — train/valid/test 严格按时间切分 | ✅ |
-| 4 | 字段对齐 — 向 paper_assets 主表对齐 | ✅ |
-| 5 | 禁止只交截图、混用数据集、debug 当正式结果 | ✅ |
-
----
-
-## 相关资源
-
-- [DiffSTG 论文](https://github.com/wenhaomin/DiffSTG) — SIGSPATIAL 2023, MIT License
-- [项目全部规范](assignment/PROJECT_REQUIREMENTS.md) — 10 章完整要求
-- [第 1 周完整命令](assignment/week1/commands.sh) — 所有可复现运行命令
-
----
-
-**🏫 生产实习 · 2026 年夏季**  
-*基于扩散模型的多站点空气质量预测实验平台*
-
-
-
-
+*本仓库仅包含个人负责的 assignment 交付物，完整项目代码见主仓库。*
