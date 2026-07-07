@@ -92,7 +92,7 @@ DEVICE=cuda EPOCHS=120 EXP_NAME=student_pedw_p6_s42 bash scripts/run_train_pedif
 ```bash
 cd /mnt/d/时空数据/臭氧预测资料
 source .venv/bin/activate
-python3 "白文豪/week1/数据整理/analyze_missing_data.py"
+python3 "时空数据/白文豪/week1/数据整理/analyze_missing_data.py"
 ```
 
 ---
@@ -131,7 +131,7 @@ python3 "白文豪/week1/数据整理/analyze_missing_data.py"
 ```bash
 cd /mnt/d/时空数据/臭氧预测资料
 source .venv/bin/activate
-python3 "白文豪/week1/数据整理/analyze_station_locations.py"
+python3 "时空数据/白文豪/week1/数据整理/analyze_station_locations.py"
 ```
 
 ---
@@ -152,7 +152,7 @@ python3 "白文豪/week1/数据整理/analyze_station_locations.py"
 ```bash
 cd /mnt/d/时空数据/臭氧预测资料
 source .venv/bin/activate
-python3 "白文豪/week1/数据整理/plot_time_series.py"
+python3 "时空数据/白文豪/week1/数据整理/plot_time_series.py"
 ```
 
 ---
@@ -207,7 +207,7 @@ python3 "白文豪/week1/数据整理/plot_time_series.py"
 ```bash
 cd /mnt/d/时空数据/臭氧预测资料
 source .venv/bin/activate
-python3 "白文豪/week1/baseline/run_baseline_evaluation.py"
+python3 "时空数据/白文豪/week1/baseline/run_baseline_evaluation.py"
 ```
 
 **结果输出**：`白文豪/week1/output/baseline_results.csv`
@@ -230,7 +230,7 @@ python3 "白文豪/week1/baseline/run_baseline_evaluation.py"
 ```bash
 cd /mnt/d/时空数据/臭氧预测资料
 source .venv/bin/activate
-python3 "白文豪/week1/baseline/baseline_summary.py"
+python3 "时空数据/白文豪/week1/baseline/baseline_summary.py"
 ```
 
 ---
@@ -301,7 +301,7 @@ python3 "白文豪/week1/baseline/baseline_summary.py"
 ```bash
 cd /mnt/d/时空数据/臭氧预测资料
 source .venv/bin/activate
-bash "白文豪/week1/PE-DiffWaveNet 实验/run_pe_diffwavenet_experiment.sh"
+bash "时空数据/白文豪/week1/PE-DiffWaveNet 实验/run_pe_diffwavenet_experiment.sh"
 ```
 
 **验证输出**：

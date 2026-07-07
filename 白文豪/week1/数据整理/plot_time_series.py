@@ -103,6 +103,30 @@ def plot_time_series():
         print(f"  最小值日期: {min_date}")
     
     print("\n" + "="*60)
+    
+    stats_results = []
+    for pollutant in pollutants:
+        data = pd.Series(all_data[pollutant], index=dates).dropna()
+        stats_results.append({
+            'Pollutant': pollutant,
+            'Days': len(data),
+            'Mean': data.mean(),
+            'Max': data.max(),
+            'Min': data.min(),
+            'Std': data.std(),
+            'Max_Date': data.idxmax().strftime('%Y-%m-%d'),
+            'Min_Date': data.idxmin().strftime('%Y-%m-%d')
+        })
+    
+    stats_df = pd.DataFrame(stats_results)
+    stats_path = os.path.join(OUTPUT_DIR, 'time_series_stats.csv')
+    stats_df.to_csv(stats_path, index=False, encoding='utf-8-sig')
+    print(f"时间序列统计已保存到: {stats_path}")
+    
+    time_series_data = pd.DataFrame(all_data, index=dates)
+    time_series_path = os.path.join(OUTPUT_DIR, 'daily_mean_concentrations.csv')
+    time_series_data.to_csv(time_series_path, encoding='utf-8-sig')
+    print(f"日平均浓度数据已保存到: {time_series_path}")
 
 if __name__ == '__main__':
     plot_time_series()

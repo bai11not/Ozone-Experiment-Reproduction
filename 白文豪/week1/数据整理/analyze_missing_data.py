@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '臭氧预测资料', 'data_N95')
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 pollutants = ['O3', 'PM2.5', 'PM10']
 
@@ -90,6 +92,52 @@ def analyze_missing_data():
         print(f"  {date}: {missing_str}")
     
     print("\n" + "="*60)
+    
+    results = []
+    for pollutant in pollutants:
+        total = total_records[pollutant]
+        missing = total_missing[pollutant]
+        valid = total_valid[pollutant]
+        missing_rate = (missing / total) * 100 if total > 0 else 0
+        results.append({
+            'Pollutant': pollutant,
+            'Total_Records': total,
+            'Valid_Records': valid,
+            'Missing_Records': missing,
+            'Missing_Rate': missing_rate
+        })
+    
+    summary_df = pd.DataFrame(results)
+    summary_path = os.path.join(OUTPUT_DIR, 'missing_data_summary.csv')
+    summary_df.to_csv(summary_path, index=False, encoding='utf-8-sig')
+    print(f"\n缺失数据统计摘要已保存到: {summary_path}")
+    
+    date_missing_df = pd.DataFrame(date_missing).T.fillna(0)
+    date_missing_df = date_missing_df.sort_index()
+    date_missing_path = os.path.join(OUTPUT_DIR, 'missing_data_by_date.csv')
+    date_missing_df.to_csv(date_missing_path, encoding='utf-8-sig')
+    print(f"按日期缺失统计已保存到: {date_missing_path}")
+    
+    with open(os.path.join(OUTPUT_DIR, 'missing_data_report.txt'), 'w', encoding='utf-8') as f:
+        f.write("="*60 + "\n")
+        f.write("数据缺失统计报告\n")
+        f.write("="*60 + "\n")
+        f.write(f"总文件数: {len(csv_files)}\n")
+        f.write(f"时间范围: {csv_files[0].replace('china_sites_', '').replace('.csv', '')} ~ {csv_files[-1].replace('china_sites_', '').replace('.csv', '')}\n")
+        f.write(f"站点数: {len(station_cols)}\n")
+        f.write(f"总小时数: {len(csv_files) * 24}\n")
+        f.write("\n" + "-"*60 + "\n")
+        for pollutant in pollutants:
+            total = total_records[pollutant]
+            missing = total_missing[pollutant]
+            valid = total_valid[pollutant]
+            missing_rate = (missing / total) * 100 if total > 0 else 0
+            f.write(f"\n[{pollutant}]\n")
+            f.write(f"  总记录数: {total:,}\n")
+            f.write(f"  有效记录: {valid:,}\n")
+            f.write(f"  缺失记录: {missing:,}\n")
+            f.write(f"  缺失率: {missing_rate:.2f}%\n")
+    print(f"完整报告已保存到: {os.path.join(OUTPUT_DIR, 'missing_data_report.txt')}")
 
 if __name__ == '__main__':
     analyze_missing_data()

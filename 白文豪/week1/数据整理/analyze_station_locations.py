@@ -2,6 +2,8 @@ import os
 import pandas as pd
 
 FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', '臭氧预测资料', 'xlsx_N95', 'station_loc1.xlsx')
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output')
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def analyze_stations():
     try:
@@ -101,6 +103,36 @@ def analyze_stations():
         print("列数不足，无法分析经纬度")
     
     print("\n" + "="*60)
+    
+    stations_path = os.path.join(OUTPUT_DIR, 'station_locations.csv')
+    df.to_csv(stations_path, index=False, encoding='utf-8-sig')
+    print(f"站点位置详情已保存到: {stations_path}")
+    
+    if city_col and city_col in df.columns:
+        city_counts = df[city_col].value_counts().reset_index()
+        city_counts.columns = ['城市', '站点数']
+        city_stats_path = os.path.join(OUTPUT_DIR, 'city_station_counts.csv')
+        city_counts.to_csv(city_stats_path, index=False, encoding='utf-8-sig')
+        print(f"城市站点统计已保存到: {city_stats_path}")
+    
+    with open(os.path.join(OUTPUT_DIR, 'station_analysis_report.txt'), 'w', encoding='utf-8') as f:
+        f.write("="*60 + "\n")
+        f.write("站点位置信息统计报告\n")
+        f.write("="*60 + "\n")
+        f.write(f"\n数据形状: {df.shape}\n")
+        f.write(f"\n列名: {df.columns.tolist()}\n")
+        if city_col and city_col in df.columns:
+            city_counts = df[city_col].value_counts().reset_index()
+            city_counts.columns = ['城市', '站点数']
+            f.write(f"\n共 {len(city_counts)} 个城市:\n")
+            f.write(city_counts.to_string(index=False))
+        if '经度' in df.columns and '纬度' in df.columns:
+            lon_col = '经度'
+            lat_col = '纬度'
+            f.write(f"\n\n经度范围: {df[lon_col].min():.4f}°E ~ {df[lon_col].max():.4f}°E\n")
+            f.write(f"纬度范围: {df[lat_col].min():.4f}°N ~ {df[lat_col].max():.4f}°N\n")
+            f.write(f"站点密度: {len(df) / ((df[lon_col].max() - df[lon_col].min()) * (df[lat_col].max() - df[lat_col].min())):.2f} 个/度²\n")
+    print(f"站点分析报告已保存到: {os.path.join(OUTPUT_DIR, 'station_analysis_report.txt')}")
 
 if __name__ == '__main__':
     analyze_stations()
