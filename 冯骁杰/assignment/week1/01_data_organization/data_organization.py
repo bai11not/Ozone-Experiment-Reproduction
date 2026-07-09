@@ -14,6 +14,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import matplotlib.font_manager as fm
 import os
 import sys
 import io
@@ -30,13 +31,48 @@ BASE_DIR = r'd:\生产实习\臭氧数据集\臭氧预测资料'
 DATA_DIR = os.path.join(BASE_DIR, 'data_N95')
 MATRIX_DIR = os.path.join(BASE_DIR, 'matrix_N95')
 XLSX_DIR = os.path.join(BASE_DIR, 'xlsx_N95')
-OUTPUT_DIR = os.path.join(BASE_DIR, 'data_organization_output')
+OUTPUT_DIR = os.path.join(BASE_DIR, 'assignment', 'week1', '01_data_organization', 'data_organization_output')
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 FIGURES_DIR = os.path.join(OUTPUT_DIR, 'figures')
 os.makedirs(FIGURES_DIR, exist_ok=True)
 
+# ============================================================
+# 中文字体配置 (解决 Windows matplotlib 乱码问题)
+# ============================================================
+# 方法: 先清除旧缓存 → 显式加载字体文件 → 设置 rcParams
+_font_cache_dir = matplotlib.get_cachedir()
+_font_cache_files = [
+    os.path.join(_font_cache_dir, f)
+    for f in os.listdir(_font_cache_dir)
+    if f.startswith('fontlist')
+]
+for _f in _font_cache_files:
+    try:
+        os.remove(_f)
+        print(f"  已删除字体缓存: {_f}")
+    except Exception:
+        pass
+
+# 显式加载 Windows 系统中的中文字体文件
+_chinese_font_paths = [
+    r'C:\Windows\Fonts\simhei.ttf',       # 黑体 (SimHei)
+    r'C:\Windows\Fonts\msyh.ttc',         # 微软雅黑 (Microsoft YaHei)
+    r'C:\Windows\Fonts\msyhbd.ttc',       # 微软雅黑 粗体
+]
+_loaded_fonts = []
+for _font_path in _chinese_font_paths:
+    if os.path.exists(_font_path):
+        fm.fontManager.addfont(_font_path)
+        _loaded_fonts.append(os.path.basename(_font_path))
+        print(f"  已加载字体: {_font_path}")
+    else:
+        print(f"  字体不存在，跳过: {_font_path}")
+
+# 设置默认字体 (SimHei 用于中文, DejaVu Sans 作为特殊字符回退)
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
-plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['axes.unicode_minus'] = False  # 解决负号 '-' 显示为方块的问题
+print(f"  已加载中文字体: {_loaded_fonts}")
 
 print("=" * 60)
 print("数据整理脚本开始运行")
@@ -74,7 +110,8 @@ for csv_file in csv_files:
 
     date_str = csv_file.replace('china_sites_', '').replace('.csv', '')
     filepath = os.path.join(DATA_DIR, csv_file)
-    df = pd.read_csv(filepath)
+    # 使用 engine='python' 避免 C 引擎在列数不一致的 CSV 文件上 chunk 拼接崩溃
+    df = pd.read_csv(filepath, engine='python')
 
     for pol in pollutants:
         pol_rows = df[df['type'] == pol]
@@ -269,7 +306,7 @@ weekly_missing = o3_df.isnull().astype(float).resample('W').mean().T * 100
 im = ax.imshow(weekly_missing.values, aspect='auto', cmap='YlOrRd', vmin=0, vmax=100)
 ax.set_xlabel('Week', fontsize=11)
 ax.set_ylabel('Station Index', fontsize=11)
-ax.set_title('O₃ Weekly Missing Rate per Station (%, 2022)', fontsize=12)
+ax.set_title('$O_3$ Weekly Missing Rate per Station (%, 2022)', fontsize=12)
 plt.colorbar(im, ax=ax, label='Missing Rate (%)')
 fig.tight_layout()
 fig.savefig(os.path.join(FIGURES_DIR, 'o3_missing_heatmap.png'), dpi=150)
@@ -308,9 +345,9 @@ fig, ax = plt.subplots(figsize=(8, 8))
 o3_daily = o3_df.mean(axis=1).resample('D').mean()
 pm25_daily = pm25_df.mean(axis=1).resample('D').mean()
 ax.scatter(o3_daily.values, pm25_daily.values, alpha=0.4, s=10, c='#8E44AD')
-ax.set_xlabel('O₃ Daily Mean (μg/m³)', fontsize=12)
+ax.set_xlabel('$O_3$ Daily Mean (μg/m³)', fontsize=12)
 ax.set_ylabel('PM₂.₅ Daily Mean (μg/m³)', fontsize=12)
-ax.set_title('Daily O₃ vs PM₂.₅ (95-Station Average, 2022)', fontsize=13)
+ax.set_title('Daily $O_3$ vs PM₂.₅ (95-Station Average, 2022)', fontsize=13)
 ax.grid(True, alpha=0.3)
 valid_mask = ~(np.isnan(o3_daily.values) | np.isnan(pm25_daily.values))
 corr_o3_pm25 = np.corrcoef(o3_daily.values[valid_mask], pm25_daily.values[valid_mask])[0, 1]
@@ -334,8 +371,8 @@ tick_positions = list(range(1, len(target_stations) + 1, 3))
 tick_labels = [target_stations[i] for i in range(0, len(target_stations), 3)]
 ax.set_xticks(tick_positions)
 ax.set_xticklabels(tick_labels, rotation=90, ha='center', fontsize=5)
-ax.set_ylabel('O₃ Concentration (μg/m³)', fontsize=11)
-ax.set_title('O₃ Distribution per Station (2022, without outliers)', fontsize=13)
+ax.set_ylabel('$O_3$ Concentration (μg/m³)', fontsize=11)
+ax.set_title('$O_3$ Distribution per Station (2022, without outliers)', fontsize=13)
 ax.grid(axis='y', alpha=0.3)
 fig.tight_layout()
 fig.savefig(os.path.join(FIGURES_DIR, 'o3_station_boxplot.png'), dpi=150)
@@ -352,7 +389,7 @@ months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 x = range(len(months))
 
-ax.plot(x, monthly_o3.values, 'o-', color='#E74C3C', label='O₃', linewidth=2, markersize=8)
+ax.plot(x, monthly_o3.values, 'o-', color='#E74C3C', label='$O_3$', linewidth=2, markersize=8)
 ax.plot(x, monthly_pm25.values, 's-', color='#3498DB', label='PM₂.₅', linewidth=2, markersize=8)
 ax.plot(x, monthly_pm10.values, '^-', color='#2ECC71', label='PM₁₀', linewidth=2, markersize=8)
 ax.set_xticks(x)
