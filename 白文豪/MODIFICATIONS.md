@@ -354,7 +354,89 @@ python3 "/mnt/d/时空数据/白文豪/week1/结果整理/consolidate_results.py
 
 ---
 
-### 19. 当前目录结构
+## 修改时间：2026-07-09
+
+### 20. DiffSTG 代码准备与适配
+
+**目录**：`week1/DiffSTG/`
+
+**代码来源**：从 `d:\时空数据\DiffSTG_new` 复制到 `week1/DiffSTG/`
+
+**修改内容**：
+
+| 文件 | 修改说明 |
+|------|----------|
+| [train.py](file:///d:/时空数据/白文豪/week1/DiffSTG/train.py) | 添加 AIR_N95 数据集配置；支持独立设置 T_p 参数；nni 依赖改为可选 |
+| [gen_diffstg_data.py](file:///d:/时空数据/白文豪/week1/DiffSTG/gen_diffstg_data.py) | 新增数据生成脚本 |
+
+**AIR_N95 数据集配置**：
+
+| 参数 | 值 | 说明 |
+|------|-----|------|
+| num_features | 1 | O3 单变量 |
+| num_vertices | 95 | 站点数 |
+| points_per_hour | 1 | 每小时采样点 |
+| val_start_idx | 7378 | 验证集起始索引 |
+| test_start_idx | 8047 | 测试集起始索引 |
+
+**数据文件**（`data/dataset/AIR_N95/`）：
+
+| 文件 | 形状 | 说明 |
+|------|------|------|
+| flow.npy | (8717, 95, 1) | O3 时间序列 |
+| adj.npy | (95, 95) | 空间距离邻接矩阵（高斯核，σ=50km，阈值=150km） |
+
+**运行命令**：
+
+```bash
+# 生成数据
+python "白文豪/week1/DiffSTG/gen_diffstg_data.py"
+
+# CPU 调试（smoke test）
+python "白文豪/week1/DiffSTG/train.py" \
+  --data AIR_N95 \
+  --T_h 24 --T_p 6 \
+  --batch_size 4 \
+  --N 50 --sample_steps 50 \
+  --hidden_size 16 \
+  --is_train True --is_test True
+
+# 完整训练（GPU）
+python "白文豪/week1/DiffSTG/train.py" \
+  --data AIR_N95 \
+  --T_h 24 --T_p 6 \
+  --batch_size 32 \
+  --lr 1e-4
+```
+
+**训练结果**：
+
+| 实验 | hidden_size | N | batch_size | lr | MAE | RMSE | MAPE |
+|------|-------------|-----|-----------|-----|-----|------|------|
+| Smoke Test | 16 | 50 | 4 | 0.002 | 0.15 | 0.17 | 1038.72% |
+| Full Train | 32 | 200 | 32 | 0.0001 | 0.46 | 0.53 | 2785.39% |
+
+> **说明**：MAPE 数值较大是因为数据包含接近0的值，导致百分比误差放大。归一化 scale 的 MAE/RMSE 需乘以 max_value=100 转换为真实 scale。
+
+**输出文件**：
+
+| 文件 | 路径 |
+|------|------|
+| 指标结果 | `output/metrics/DiffSTG.csv` |
+| 日志文件 | `output/log/` |
+| 模型权重 | `output/model/` |
+| 预测结果 | `output/forecast/` |
+
+**关键修改点**：
+
+1. `default_config` 函数添加 AIR_N95 分支（第90-102行）
+2. `get_params` 添加 `--T_p` 参数（第45行）
+3. `main` 函数修改 T_p 赋值逻辑（第270行）
+4. nni 依赖改为可选导入，避免未安装时报错
+
+---
+
+### 21. 当前目录结构
 
 ```
 时空数据/
@@ -385,6 +467,13 @@ python3 "/mnt/d/时空数据/白文豪/week1/结果整理/consolidate_results.py
 │   │   │   ├── run_pe_diffwavenet_experiment.sh
 │   │   │   ├── verify_experiment_output.py
 │   │   │   └── experiment_run_commands.md
+│   │   ├── DiffSTG/            # DiffSTG baseline
+│   │   │   ├── algorithm/      # 算法模块
+│   │   │   ├── data/           # 数据目录
+│   │   │   │   └── dataset/AIR_N95/ # 适配数据
+│   │   │   ├── utils/          # 工具函数
+│   │   │   ├── train.py        # 训练入口
+│   │   │   └── gen_diffstg_data.py # 数据生成脚本
 │   │   ├── 结果整理/           # 结果整理脚本
 │   │   │   └── consolidate_results.py
 │   │   └── output/             # 输出文件

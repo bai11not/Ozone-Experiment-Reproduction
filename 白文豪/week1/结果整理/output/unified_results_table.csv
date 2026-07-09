@@ -1,4 +1,4 @@
-﻿Method,RMSE,MAE,MAPE,Peak_RMSE,Step6_RMSE,Source,Category
+Method,RMSE,MAE,MAPE,Peak_RMSE,Step6_RMSE,Source,Category
 MTGNN (L=24),10.6620,7.3383,29.99,13.3536,13.1806,"official raw, seed42",Main Table
 MTGNN (L=12),10.8028,7.3465,30.50,13.3002,13.3112,"official raw, seed42",Main Table
 Graph WaveNet (L=12),11.5354,7.7982,33.60,11.8217,14.6265,"official raw, seed42",Main Table
@@ -13,3 +13,5 @@ Historical Mean (L=12),5.816095000000001,4.647333,189.38133,7.9045564,6.357229,W
 GRU Baseline,3.483747,2.5667235,92.68078,4.4719096,4.4278037,Week1 Baseline,Baseline
 Linear Regression,4.621936799999999,3.5263233,132.88948,5.276002,5.7031030000000005,Week1 Baseline,Baseline
 PE-DiffWaveNet (smoke),166.6761718134127,164.56171362076603,847.4928761861148,,,Week1 Experiment,PE-DiffWaveNet
+DiffSTG (smoke),16.8142,14.6428,1038.72,,,Week1 Experiment,DiffSTG
+DiffSTG (full),52.5756,46.3222,2785.39,,,Week1 Experiment,DiffSTG
