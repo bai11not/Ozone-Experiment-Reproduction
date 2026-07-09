@@ -189,13 +189,15 @@ def generalized_steps(x, seq, model, b, c, **kwargs):
             xt = xs[-1].to(x.device)
             et = model(xt, t, c)
             x0_t = (xt - et * (1 - at).sqrt()) / at.sqrt()
-            x0_preds.append(x0_t.to('cpu'))
+            x0_preds.append(x0_t)
             c1 = (
                     kwargs.get("eta", 0) * ((1 - at / at_next) * (1 - at_next) / (1 - at)).sqrt()
             )
             c2 = ((1 - at_next) - c1 ** 2).sqrt()
             xt_next = at_next.sqrt() * x0_t + c1 * torch.randn_like(x) + c2 * et
-            xs.append(xt_next.to('cpu'))
+            xs.append(xt_next)
+        xs = [xi.to('cpu') for xi in xs]
+        x0_preds = [xi.to('cpu') for xi in x0_preds]
 
     return xs, x0_preds
 
