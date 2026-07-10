@@ -10,32 +10,40 @@
 ## 仓库结构
 
 ```
-📂 assignment/
-├── 📄 README.md                         # 本文件
-├── 📄 PROJECT_REQUIREMENTS.md           # 项目全部规范要求 (10章汇总)
+📂 臭氧预测资料/                                  # 仓库根目录
+├── 📄 README.md                                 # 本文件（与 assignment/ 同级）
 │
-└── 📂 week1/                            # 第 1 周: 数据理解和代码跑通
-    ├── 📄 README.md                     #   本周总结
-    ├── 📄 commands.sh                   #   全部可复现运行命令
-    │
-    ├── 📂 01_data_organization/         #   任务①: 数据整理
-    │   ├── data_organization.py         #     主脚本
-    │   └── data_organization_output/
-    │       ├── data_description_draft.md #    数据说明初稿
-    │       ├── station_missing_summary.csv
-    │       ├── summary.json
-    │       └── figures/                 #     8 张数据探索图
-    │
-    ├── 📂 02_baseline/                  #   任务②: Baseline 调研与适配
-    │   └── baseline_report.md           #     完整调研报告
-    │
-    ├── 📂 03_pediffwavenet/             #   任务③: PE-DiffWaveNet 实验
-    │   └── pediffwavenet_experiment.md  #     Smoke test + 命令记录
-    │
-    └── 📂 04_results_organization/      #   任务④: 结果整理
-        ├── results_organization_report.md
-        ├── chart_naming_convention.md   #     图表命名规范
-        └── results.csv                  #     统一结果表 (27 行)
+├── 📂 assignment/                               # 个人 assignment 交付物
+│   ├── 📄 PROJECT_REQUIREMENTS.md               #   项目全部规范要求（10 章汇总）
+│   │
+│   ├── 📂 week1/                                #   第 1 周: 数据理解和代码跑通
+│   │   ├── 📄 README.md                         #     本周总结
+│   │   ├── 📄 commands.sh                       #     全部可复现运行命令
+│   │   ├── 📄 代码修改记录.md                    #     代码修改追溯（11 项修改）
+│   │   │
+│   │   ├── 📂 01_data_organization/             #     步骤①: 数据整理
+│   │   │   ├── data_organization.py             #       主脚本（590 行）
+│   │   │   ├── regenerate_figures.py            #       图表修复脚本（中文乱码修复）
+│   │   │   └── data_organization_output/
+│   │   │       ├── data_description_draft.md    #       数据说明初稿
+│   │   │       ├── station_missing_summary.csv
+│   │   │       ├── summary.json
+│   │   │       └── figures/                     #       8 张数据探索图
+│   │   │
+│   │   ├── 📂 02_baseline/                      #     步骤②: Baseline 调研与适配
+│   │   │   └── baseline_report.md               #       完整调研报告
+│   │   │
+│   │   ├── 📂 03_pediffwavenet/                 #     步骤③: PE-DiffWaveNet 实验
+│   │   │   └── pediffwavenet_experiment.md      #       模型原理 + Smoke test + 实验流程
+│   │   │
+│   │   └── 📂 04_results_organization/          #     步骤④: 结果整理
+│   │       ├── results_organization_report.md   #       字段对齐 + 模板指南
+│   │       ├── chart_naming_convention.md       #       图表命名规范
+│   │       └── results.csv                      #       统一结果表（27 行）
+│   │
+│   ├── 📂 week2/                                #   第 2 周: 批量实验（进行中）
+│   └── 📂 week3/                                #   第 3 周: 图表、报告和验收
+
 ```
 
 ---
@@ -44,12 +52,13 @@
 
 ### ✅ 第 1 周: 数据理解和代码跑通
 
-| # | 任务 | 状态 | 核心产出 |
+| # | 步骤 | 状态 | 核心产出 |
 |:--:|------|:--:|------|
 | 1 | 数据整理 — 缺失统计、站点分布、时间序列 | ✅ | 8 图 + data_description_draft.md |
-| 2 | Baseline — 已有 baseline 确认、DiffSTG 适配 | ✅ | baseline_report.md + DiffSTG 数据/脚本 |
-| 3 | PE-DiffWaveNet — Smoke test 复核、命令记录 | ✅ | 18 文件 + pediffwavenet_experiment.md |
+| 2 | Baseline 调研与适配 — 已有 baseline 确认、DiffSTG 适配 | ✅ | baseline_report.md + DiffSTG 数据/脚本 |
+| 3 | PE-DiffWaveNet 实验 — Smoke test 复核、命令记录 | ✅ | 18 文件 + pediffwavenet_experiment.md |
 | 4 | 结果整理 — 统一表、字段对齐、命名规范 | ✅ | results.csv + chart_naming_convention.md |
+| 5 | 汇总文件 — 周报总览、命令汇总、修改追溯 | ✅ | README.md + commands.sh + 代码修改记录.md |
 
 **关键发现**:
 - O₃ 缺失率 2.25%, PM₂.₅ 1.33%, PM₁₀ 1.55% — 数据质量良好
@@ -80,4 +89,4 @@
 
 ---
 
-*本仓库仅包含个人负责的 assignment 交付物，完整项目代码见主仓库。*
+*本文件位于该子仓库根目录，与 `assignment/` 文件夹同级，作为 GitHub 子仓库首页 README。assignment 子目录内为个人负责的三周交付物。*
