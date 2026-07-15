@@ -1,0 +1,3 @@
+group,student,experiment_id,model,seq_len,pre_len,seed,use_diffusion,use_pe_graph,use_pe_film,pe_adaptive_loss,lr,epochs,best_epoch,rmse,mae,mape,peak_rmse,step1_rmse,step6_rmse,output_dir,log_file,notes
+g3,,g3_diffstg_p6_l24_s42,DiffSTG,24,6,42,1,0,0,0,0.0001,300,45,0.0628,0.0505,290.32,,,,白文豪/week1/DiffSTG/output/,白文豪/week2/DiffSTG/output/baseline_train.log,z-score归一化值
+g3,,g3_diffstg_p1_l24_s42,DiffSTG,24,1,42,1,0,0,0,0.0001,300,47,0.0244,0.0192,87.54,,,,白文豪/week1/DiffSTG/output/,白文豪/week2/DiffSTG/output/pre1_train.log,z-score归一化值

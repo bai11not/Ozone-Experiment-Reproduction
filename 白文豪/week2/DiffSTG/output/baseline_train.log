@@ -1,0 +1,324 @@
+nvidia-smi > /mnt/d/时空数据/白文豪/week1/DiffSTG/output/gpustat//gpustat.txt
+wrong in load gpu info dict list index out of range
+None gpu is avalible, try again later
+=== DiffSTG Training ===
+  seed:     42
+  data:     AIR_N95
+  T_h:      24
+  T_p:      6
+  hidden:   32
+  N:        200
+  lr:       0.0001
+  batch:    32
+  epochs:   300
+  params:   911,047
+sample num: 7349
+sample num: 658
+sample num: 659
+  model:    /mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95+0.0001+32+42+0.0+300+10+0.001+/mnt/d/时空数据/白文豪/week2/DiffSTG/outputN-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
+DiffSTG(
+  (eps_model): UGnet(
+    (down): ModuleList(
+      (0-1): 2 x DownBlock(
+        (res): ResidualBlock(
+          (tcn1): TcnBlock(
+            (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (tcn2): TcnBlock(
+            (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (shortcut): Identity()
+          (t_conv): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (spatial): SpatialBlock()
+          (norm): LayerNorm((95, 32), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): Downsample(
+        (conv): Conv2d(32, 32, kernel_size=(1, 3), stride=(1, 2), padding=(0, 1))
+      )
+      (3): DownBlock(
+        (res): ResidualBlock(
+          (tcn1): TcnBlock(
+            (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+            (shortcut): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (tcn2): TcnBlock(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (shortcut): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+          (t_conv): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+          (spatial): SpatialBlock()
+          (norm): LayerNorm((95, 64), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (4): DownBlock(
+        (res): ResidualBlock(
+          (tcn1): TcnBlock(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (tcn2): TcnBlock(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (shortcut): Identity()
+          (t_conv): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+          (spatial): SpatialBlock()
+          (norm): LayerNorm((95, 64), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (middle): MiddleBlock(
+      (res1): ResidualBlock(
+        (tcn1): TcnBlock(
+          (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+          (chomp): Chomp()
+          (drop): Dropout(p=0.0, inplace=False)
+          (net): Sequential(
+            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (1): Chomp()
+            (2): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (tcn2): TcnBlock(
+          (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+          (chomp): Chomp()
+          (drop): Dropout(p=0.0, inplace=False)
+          (net): Sequential(
+            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (1): Chomp()
+            (2): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (shortcut): Identity()
+        (t_conv): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+        (spatial): SpatialBlock()
+        (norm): LayerNorm((95, 64), eps=1e-05, elementwise_affine=True)
+      )
+      (res2): ResidualBlock(
+        (tcn1): TcnBlock(
+          (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+          (chomp): Chomp()
+          (drop): Dropout(p=0.0, inplace=False)
+          (net): Sequential(
+            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (1): Chomp()
+            (2): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (tcn2): TcnBlock(
+          (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+          (chomp): Chomp()
+          (drop): Dropout(p=0.0, inplace=False)
+          (net): Sequential(
+            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (1): Chomp()
+            (2): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (shortcut): Identity()
+        (t_conv): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+        (spatial): SpatialBlock()
+        (norm): LayerNorm((95, 64), eps=1e-05, elementwise_affine=True)
+      )
+    )
+    (up): ModuleList(
+      (0-1): 2 x UpBlock(
+        (res): ResidualBlock(
+          (tcn1): TcnBlock(
+            (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+            (shortcut): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (tcn2): TcnBlock(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (shortcut): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+          (t_conv): Conv2d(32, 64, kernel_size=(1, 1), stride=(1, 1))
+          (spatial): SpatialBlock()
+          (norm): LayerNorm((95, 64), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): UpBlock(
+        (res): ResidualBlock(
+          (tcn1): TcnBlock(
+            (conv): Conv2d(96, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(96, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+            (shortcut): Conv2d(96, 32, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (tcn2): TcnBlock(
+            (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (shortcut): Conv2d(96, 32, kernel_size=(1, 1), stride=(1, 1))
+          (t_conv): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (spatial): SpatialBlock()
+          (norm): LayerNorm((95, 32), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (3): Upsample(
+        (conv): ConvTranspose2d(32, 32, kernel_size=(1, 4), stride=(1, 2), padding=(0, 1))
+      )
+      (4-6): 3 x UpBlock(
+        (res): ResidualBlock(
+          (tcn1): TcnBlock(
+            (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+            (shortcut): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (tcn2): TcnBlock(
+            (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+            (chomp): Chomp()
+            (drop): Dropout(p=0.0, inplace=False)
+            (net): Sequential(
+              (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 2))
+              (1): Chomp()
+              (2): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (shortcut): Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1))
+          (t_conv): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+          (spatial): SpatialBlock()
+          (norm): LayerNorm((95, 32), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (x_proj): Conv2d(1, 32, kernel_size=(1, 1), stride=(1, 1))
+    (out): Sequential(
+      (0): Conv2d(32, 1, kernel_size=(1, 1), stride=(1, 1))
+      (1): Linear(in_features=60, out_features=30, bias=True)
+    )
+  )
+)Num_of_parameters:911047
+      |---Train--- |---Val Future-- -|-----Val History----|
+Epoch | Loss  Time | MAE     RMSE    |  MAE    RMSE   Time|
+   0.0| 10.909 2.0s   0.2| 10.081 14.2s   0.4| 9.979 26.6s   0.6| 9.710 39.0s   0.9| 9.181 51.5s |[1.6019 2.8579 ] | 1.9215 3.3456 381.50s
+   1.0| 6.207 0.3s   1.2| 5.341 12.4s   1.4| 4.905 24.9s   1.6| 4.516 38.0s   1.9| 4.167 51.5s |[0.3907 0.6000 ] | 0.3758 0.6505 379.99s
+   2.0| 3.276 0.3s   2.2| 2.700 12.4s   2.4| 2.646 24.9s   2.6| 2.558 37.3s   2.9| 2.449 49.9s |[0.2034 0.2781 ] | 0.1029 0.1706 378.87s
+   3.0| 2.571 0.3s   3.2| 2.077 12.4s   3.4| 2.093 24.8s   3.6| 2.059 37.5s   3.9| 1.995 50.3s |[0.1508 0.2062 ] | 0.0728 0.1054 382.70s
+   4.0| 2.264 0.3s   4.2| 1.822 12.4s   4.4| 1.850 24.9s   4.6| 1.827 37.3s   4.9| 1.771 49.8s |[0.0869 0.1203 ] | 0.0598 0.0847 379.21s
+   5.0| 2.031 0.3s   5.2| 1.639 12.5s   5.4| 1.671 25.0s   5.6| 1.652 37.8s   5.9| 1.600 50.2s | 0.0895 0.1242  | 0.0547 0.0763 445.60s
+   6.0| 1.852 0.3s   6.2| 1.494 15.3s   6.4| 1.530 30.3s   6.6| 1.516 45.2s   6.9| 1.470 67.8s |[0.0770 0.1009 ] | 0.0542 0.0730 641.92s
+   7.0| 1.740 0.5s   7.2| 1.395 21.1s   7.4| 1.429 44.5s   7.6| 1.420 66.0s   7.9| 1.379 89.0s | 0.1416 0.1854  | 0.0484 0.0663 611.08s
+   8.0| 1.644 0.4s   8.2| 1.319 20.1s   8.4| 1.355 39.9s   8.6| 1.349 60.4s   8.9| 1.310 81.7s | 0.1349 0.1755  | 0.0426 0.0592 609.43s
+   9.0| 1.574 0.4s   9.2| 1.259 19.2s   9.4| 1.296 39.5s   9.6| 1.291 61.0s   9.9| 1.255 85.0s | 0.1114 0.1467  | 0.0341 0.0491 666.45s
+  10.0| 1.519 0.5s  10.2| 1.211 23.2s  10.4| 1.247 47.8s  10.6| 1.243 72.8s  10.9| 1.208 94.6s | 0.1774 0.2179  | 0.0454 0.0651 674.86s
+  11.0| 1.469 0.3s  11.2| 1.173 16.3s  11.4| 1.208 32.0s  11.6| 1.203 49.5s  11.9| 1.168 66.4s | 0.1749 0.2129  | 0.0523 0.0699 686.37s
+  12.0| 1.418 0.4s  12.2| 1.140 22.6s  12.4| 1.171 45.9s  12.6| 1.167 70.8s  12.9| 1.133 96.3s | 0.1045 0.1365  | 0.0379 0.0488 706.23s
+  13.0| 1.373 0.4s  13.2| 1.083 22.6s  13.4| 1.119 50.0s  13.6| 1.118 71.7s  13.9| 1.086 93.9s |[0.0756 0.1014 ] | 0.0214 0.0292 687.10s
+  14.0| 1.340 0.5s  14.2| 1.066 25.1s  14.4| 1.101 51.3s  14.6| 1.101 76.0s  14.9| 1.069 99.0s |[0.0599 0.0798 ] | 0.0209 0.0276 692.77s
+  15.0| 1.317 0.3s  15.2| 1.052 15.1s  15.4| 1.087 30.1s  15.6| 1.085 51.2s  15.9| 1.055 77.2s |[0.0592 0.0791 ] | 0.0190 0.0253 609.97s
+  16.0| 1.297 0.4s  16.2| 1.036 19.7s  16.4| 1.071 40.2s  16.6| 1.070 59.0s  16.9| 1.039 79.2s |[0.0581 0.0776 ] | 0.0185 0.0246 588.34s
+  17.0| 1.279 0.3s  17.2| 1.021 16.3s  17.4| 1.056 31.9s  17.6| 1.054 47.6s  17.9| 1.025 61.6s |[0.0575 0.0768 ] | 0.0183 0.0244 635.00s
+  18.0| 1.262 0.4s  18.2| 1.007 20.2s  18.4| 1.041 41.4s  18.6| 1.040 61.5s  18.9| 1.011 81.7s |[0.0569 0.0761 ] | 0.0174 0.0234 601.06s
+  19.0| 1.244 0.4s  19.2| 0.994 20.8s  19.4| 1.027 40.4s  19.6| 1.026 59.4s  19.9| 0.997 78.4s |[0.0565 0.0757 ] | 0.0180 0.0243 530.58s
+  20.0| 1.229 0.5s  20.2| 0.981 20.8s  20.4| 1.014 41.5s  20.6| 1.013 63.0s  20.9| 0.984 83.7s |[0.0560 0.0751 ] | 0.0169 0.0227 603.57s
+  21.0| 1.214 0.3s  21.2| 0.969 25.2s  21.4| 1.001 54.7s  21.6| 1.001 79.9s  21.9| 0.972 102.4s |[0.0558 0.0748 ] | 0.0174 0.0234 706.31s
+  22.0| 1.198 0.5s  22.2| 0.957 23.6s  22.4| 0.989 48.0s  22.6| 0.989 69.9s  22.9| 0.960 93.4s |[0.0557 0.0746 ] | 0.0166 0.0224 621.93s
+  23.0| 1.184 0.4s  23.2| 0.947 21.6s  23.4| 0.978 42.0s  23.6| 0.977 62.6s  23.9| 0.949 83.6s |[0.0551 0.0740 ] | 0.0170 0.0228 639.67s
+  24.0| 1.170 0.5s  24.2| 0.935 24.4s  24.4| 0.966 49.2s  24.6| 0.966 68.9s  24.9| 0.938 90.6s |[0.0549 0.0737 ] | 0.0160 0.0212 462.14s
+  25.0| 1.156 0.3s  25.2| 0.925 13.1s  25.4| 0.956 26.2s  25.6| 0.956 39.1s  25.9| 0.928 53.3s |[0.0545 0.0732 ] | 0.0153 0.0203 377.91s
+  26.0| 1.145 0.3s  26.2| 0.915 12.3s  26.4| 0.945 24.3s  26.6| 0.945 37.0s  26.9| 0.917 51.0s |[0.0541 0.0727 ] | 0.0132 0.0173 383.86s
+  27.0| 1.131 0.3s  27.2| 0.905 12.0s  27.4| 0.935 24.5s  27.6| 0.935 37.3s  27.9| 0.908 50.6s |[0.0540 0.0725 ] | 0.0133 0.0173 390.85s
+  28.0| 1.120 0.3s  28.2| 0.895 12.4s  28.4| 0.925 24.7s  28.6| 0.926 38.0s  28.9| 0.898 52.1s |[0.0536 0.0720 ] | 0.0121 0.0158 382.66s
+  29.0| 1.108 0.2s  29.2| 0.887 11.6s  29.4| 0.917 23.1s  29.6| 0.917 35.0s  29.9| 0.890 48.6s |[0.0535 0.0719 ] | 0.0122 0.0159 372.54s
+  30.0| 1.098 0.3s  30.2| 0.877 12.1s  30.4| 0.908 24.1s  30.6| 0.908 36.2s  30.9| 0.881 48.5s |[0.0533 0.0717 ] | 0.0126 0.0166 391.13s
+  31.0| 1.085 0.3s  31.2| 0.869 12.6s  31.4| 0.899 25.2s  31.6| 0.899 38.0s  31.9| 0.873 51.0s | 0.0535 0.0719  | 0.0137 0.0181 391.33s
+  32.0| 1.075 0.3s  32.2| 0.861 12.8s  32.4| 0.890 25.5s  32.6| 0.891 39.5s  32.9| 0.864 53.5s |[0.0528 0.0710 ] | 0.0122 0.0163 393.75s
+  33.0| 1.064 0.3s  33.2| 0.853 12.9s  33.4| 0.882 25.7s  33.6| 0.883 38.6s  33.9| 0.857 51.7s |[0.0524 0.0706 ] | 0.0110 0.0145 378.71s
+  34.0| 1.053 0.3s  34.2| 0.845 11.8s  34.4| 0.874 23.6s  34.6| 0.875 35.5s  34.9| 0.849 47.8s |[0.0523 0.0704 ] | 0.0102 0.0134 364.72s
+  35.0| 1.044 0.3s  35.2| 0.837 12.0s  35.4| 0.866 23.9s  35.6| 0.868 36.0s  35.9| 0.841 48.4s | 0.0532 0.0715  | 0.0102 0.0133 373.44s
+  36.0| 1.035 0.2s  36.2| 0.829 11.7s  36.4| 0.859 23.5s  36.6| 0.860 35.6s  36.9| 0.834 48.0s | 0.0539 0.0724  | 0.0104 0.0135 366.76s
+  37.0| 1.026 0.2s  37.2| 0.823 12.0s  37.4| 0.852 23.9s  37.6| 0.853 36.2s  37.9| 0.828 48.7s | 0.0530 0.0713  | 0.0096 0.0125 360.45s
+  38.0| 1.017 0.3s  38.2| 0.816 11.8s  38.4| 0.844 23.5s  38.6| 0.846 35.3s  38.9| 0.821 47.3s | 0.0530 0.0713  | 0.0097 0.0126 372.43s
+  39.0| 1.008 0.2s  39.2| 0.809 11.8s  39.4| 0.837 23.5s  39.6| 0.839 36.0s  39.9| 0.814 49.1s | 0.0553 0.0741  | 0.0103 0.0134 359.08s
+  40.0| 1.001 0.2s  40.2| 0.801 11.7s  40.4| 0.830 23.5s  40.6| 0.832 35.3s  40.9| 0.807 47.9s | 0.0531 0.0714  | 0.0096 0.0125 361.04s
+  41.0| 0.992 0.2s  41.2| 0.783 11.8s  41.4| 0.810 23.5s  41.6| 0.814 35.3s  41.9| 0.790 47.3s | 0.0531 0.0722  | 0.0093 0.0121 358.24s
+  42.0| 0.978 0.2s  42.2| 0.776 11.8s  42.4| 0.806 23.5s  42.6| 0.810 35.3s  42.9| 0.786 47.3s | 0.0619 0.0838  | 0.0097 0.0129 355.98s
+  43.0| 0.974 0.2s  43.2| 0.773 11.9s  43.4| 0.802 23.4s  43.6| 0.806 35.4s  43.9| 0.783 48.5s | 0.0605 0.0814  | 0.0082 0.0109 380.21s
+  44.0| 0.969 0.3s  44.2| 0.770 12.6s  44.4| 0.799 24.8s  44.6| 0.803 37.0s  44.9| 0.779 50.8s |[0.0514 0.0696 ] | 0.0092 0.0118 372.94s
+
+[EARLY STOP] epoch=45, best_val_mae=0.0523, patience=10
+best model loaded: /mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95+0.0001+32+42+0.0+300+10+0.001+/mnt/d/时空数据/白文豪/week2/DiffSTG/outputN-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
+ |[0.0505 0.0628 ] | 0.0063 0.0076 2368.64s
+
+Metrics saved to: /mnt/d/时空数据/白文豪/week2/DiffSTG/output/metrics_summary.json
+
+==================================================
+  DiffSTG 训练完成
+  Best Epoch: 45
+  Test MAE:   0.0505
+  Test RMSE:  0.0628
+  Test MAPE:  290.32%
+==================================================
