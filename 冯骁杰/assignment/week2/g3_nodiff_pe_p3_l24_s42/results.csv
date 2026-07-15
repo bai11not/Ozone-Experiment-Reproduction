@@ -1,0 +1,2 @@
+group,student,experiment_id,model,seq_len,pre_len,seed,use_diffusion,use_pe_graph,use_pe_film,pe_adaptive_loss,lr,epochs,best_epoch,rmse,mae,mape,peak_rmse,step1_rmse,step6_rmse,output_dir,log_file,notes
+g3,A,g3_nodiff_pe_p3_l24_s42,PE-Graph(noDiff),24,3,42,0,1,1,0,7e-4,120,44,8.8114,5.9033,25.26,9.8056,6.3289,10.6172,matrix_N95_PEDiffWaveNet_noleak_g3_nodiff_pe_p3_l24_s42,assignment/week2/g3_nodiff_pe_p3_l24_s42/training.log,pe_window_step=1; no_diffusion; pre_len=3; horizon_weights=1.0,1.0,1.0; PE from cache; early_stop@44; torch_env(Win); RTX4070
