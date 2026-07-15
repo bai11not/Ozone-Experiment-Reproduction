@@ -1,0 +1,49 @@
+
+==========================================
+[1/7] s52-full-l12-p3
+==========================================
+Label:        s52-full-l12-p3
+Seed:         52
+Seq Len:      12
+Pre Len:      3
+Diffusion:    1
+PE Graph:     1
+PE FiLM:      1
+Output:       d:/妗岄潰/鑷哀棰勬祴璧勬枡/鑷哀棰勬祴璧勬枡/matrix_N95_PEDiffWaveNet_noleak_student_w2_s52-full-l12-p3
+Start:        2026-07-13 16:24:09
+==========================================
+[INFO] PE-DiffWaveNet noleak training
+[INFO] device=cuda, world_size=1
+[INFO] output_dir=d:/桌面/臭氧预测资料/臭氧预测资料\matrix_N95_PEDiffWaveNet_noleak_student_w2_s52-full-l12-p3
+[INFO] clean_room=1, pe_source=train, use_pe_graph=1, use_pe_film=1, use_diffusion=1, pe_graph_alpha=1.0, pe_film_scale=1.0, pe_film_zero_init=0, pe_shuffle_seed=-1, pe_adaptive_loss=0, pe_loss_weight=0.15
+[INFO] loading meteorological data...
+[INFO] loading met cache: d:/桌面/臭氧预测资料/臭氧预测资料\matrix_N95\met_raw_aligned_cache.npz
+[INFO] trainX=(7364, 12, 95, 15), trainY=(7364, 3, 95)
+[INFO] validX=(655, 12, 95, 15), validY=(655, 3, 95)
+[INFO] testX=(656, 12, 95, 15), testY=(656, 3, 95)
+[INFO] train-only PE time range: {'start_idx': 0, 'end_idx': 7377, 'start_time': '2022-01-01 00:00:00', 'end_time': '2022-11-05 23:00:00', 'length': 7378}
+[INFO] building PE features: nodes=95, scales=[6, 9, 12, 24, 48, 72], step=168
+[INFO] PE feature progress: 20/95
+[INFO] PE feature progress: 40/95
+[INFO] PE feature progress: 60/95
+[INFO] PE feature progress: 80/95
+[INFO] PE feature progress: 95/95
+[INFO] building PE features: nodes=95, scales=[6, 9, 12, 24, 48, 72], step=168
+[INFO] PE feature progress: 20/95
+[INFO] PE feature progress: 40/95
+[INFO] PE feature progress: 60/95
+[INFO] PE feature progress: 80/95
+[INFO] PE feature progress: 95/95
+[INFO] graph nnz: S=691, T=1570, PE=317
+[INFO] train batches/epoch=461, effective_batch=16
+[INFO] model_params=621392
+d:\桌面\臭氧预测资料\臭氧预测资料\code\train_pediffwavenet_noleak.py:410: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
+Traceback (most recent call last):
+  File "d:\桌面\臭氧预测资料\臭氧预测资料\code\train_pediffwavenet_noleak.py", line 690, in <module>
+    main()
+  File "d:\桌面\臭氧预测资料\臭氧预测资料\code\train_pediffwavenet_noleak.py", line 412, in main
+    horizon_weights_list = parse_horizon_weights(args.horizon_weights, args.pre_len)
+  File "d:\桌面\臭氧预测资料\臭氧预测资料\code\train_pediffwavenet_noleak.py", line 133, in parse_horizon_weights
+    raise ValueError(f"horizon_weights length must equal pre_len={pre_len}")
+ValueError: horizon_weights length must equal pre_len=3

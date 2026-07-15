@@ -1,0 +1,9 @@
+person,experiment_id,seed,seq_len,pre_len,use_diffusion,use_pe_graph,use_pe_film,exp_label
+C,C01,52,12,6,1,1,1,s52-full-l12-p6
+C,C02,52,12,3,1,1,1,s52-full-l12-p3
+C,C03,52,24,6,1,1,1,s52-full-l24-p6
+C,C04,52,24,3,1,1,1,s52-full-l24-p3
+C,C05,52,12,6,0,1,1,s52-nodiff-l12-p6
+C,C06,52,12,3,0,1,1,s52-nodiff-l12-p3
+C,C07,52,24,6,0,1,1,s52-nodiff-l24-p6
+C,C08,52,24,3,0,1,1,s52-nodiff-l24-p3
