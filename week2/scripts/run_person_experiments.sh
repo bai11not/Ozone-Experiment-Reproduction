@@ -13,32 +13,38 @@ PERSON="${1:?缺少人员编号 (A/B/C/D)}"
 START_FROM="${2:-1}"
 DRY_RUN="${3:-}"
 
-# ========== 人员配置 ==========
-# 每人: seed + 2 个消融类型
+# ========== 小组和人员配置 ==========
+GROUP="g3"
+
 case "${PERSON}" in
   A) SEED=42;
      TYPES=("full 1 1 1" "no_diff 0 1 1")
      RESULT_DIR="person_A_seed42_full_nodiff" ;;
   B) SEED=42;
-     TYPES=("no_graph 1 0 1" "no_film 1 1 0")
+     TYPES=("no_pe_graph 1 0 1" "no_pe_film 1 1 0")
      RESULT_DIR="person_B_seed42_nograph_nofilm" ;;
   C) SEED=52;
      TYPES=("full 1 1 1" "no_diff 0 1 1")
      RESULT_DIR="person_C_seed52_full_nodiff" ;;
   D) SEED=52;
-     TYPES=("no_graph 1 0 1" "no_film 1 1 0")
+     TYPES=("no_pe_graph 1 0 1" "no_pe_film 1 1 0")
      RESULT_DIR="person_D_seed52_nograph_nofilm" ;;
   *) echo "错误: 人员编号必须是 A/B/C/D"; exit 1 ;;
 esac
 
-# 2 消融类型 × 2 seq_len × 2 pre_len = 8 组
-# seq_len=12,24  pre_len=6,3
+# 构建 8 组实验: 2 消融 × 2 seq_len × 2 pre_len
 EXPERIMENTS=()
 for type_info in "${TYPES[@]}"; do
   read -r ABL_NAME D_VAL G_VAL F_VAL <<< "${type_info}"
   for SEQ in 12 24; do
     for PRE in 6 3; do
-      EXPERIMENTS+=("${ABL_NAME} ${D_VAL} ${G_VAL} ${F_VAL} ${SEQ} ${PRE}")
+      # 新命名: g3_pedw_{ablation?}p{pre_len}_l{seq_len}_s{seed}
+      if [ "${ABL_NAME}" = "full" ]; then
+        EXP_NAME="${GROUP}_pedw_p${PRE}_l${SEQ}_s${SEED}"
+      else
+        EXP_NAME="${GROUP}_pedw_${ABL_NAME}_p${PRE}_l${SEQ}_s${SEED}"
+      fi
+      EXPERIMENTS+=("${ABL_NAME} ${D_VAL} ${G_VAL} ${F_VAL} ${SEQ} ${PRE} ${EXP_NAME}")
     done
   done
 done
@@ -54,7 +60,7 @@ RESULT_PATH="${WEEK2_DIR}/results/${RESULT_DIR}"
 mkdir -p "${RESULT_PATH}"
 
 echo "========================================"
-echo "  消融实验: Person ${PERSON}"
+echo "  消融实验: Person ${PERSON} (${GROUP})"
 echo "  Seed: ${SEED}"
 echo "  共 ${TOTAL} 组实验"
 if [ "${START_FROM}" -gt 1 ]; then
@@ -68,14 +74,12 @@ echo ""
 
 for ((i = START_FROM - 1; i < TOTAL; i++)); do
   EXP_NUM=$((i + 1))
-  read -r ABL_NAME D_VAL G_VAL F_VAL SEQ PRE <<< "${EXPERIMENTS[$i]}"
+  read -r ABL_NAME D_VAL G_VAL F_VAL SEQ PRE EXP_NAME <<< "${EXPERIMENTS[$i]}"
 
   EXP_ID="$(printf '%s%02d' "${PERSON}" "${EXP_NUM}")"
-  EXP_LABEL="s${SEED}-${ABL_NAME}-l${SEQ}-p${PRE}"
-  EXP_NAME="${EXP_ID}_${EXP_LABEL}"
 
   echo ""
-  echo "--- 实验 ${EXP_NUM} / ${TOTAL} : ${EXP_ID} (${EXP_LABEL}) ---"
+  echo "--- 实验 ${EXP_NUM} / ${TOTAL} : ${EXP_ID} (${EXP_NAME}) ---"
   echo "    参数: seed=${SEED}, ablation=${ABL_NAME}, seq_len=${SEQ}, pre_len=${PRE}"
   echo "          use_diffusion=${D_VAL}, use_pe_graph=${G_VAL}, use_pe_film=${F_VAL}"
 
@@ -107,8 +111,8 @@ for ((i = START_FROM - 1; i < TOTAL; i++)); do
 
     cat > "${DEST_DIR}/experiment_record.txt" << EOF
 实验编号: ${EXP_ID}
-实验标签: ${EXP_LABEL}
-人员: Person ${PERSON}
+实验名称: ${EXP_NAME}
+人员: Person ${PERSON} (${GROUP})
 运行时间: $(date '+%Y-%m-%d %H:%M:%S')
 耗时: ${DURATION} 分钟
 参数:
@@ -128,26 +132,10 @@ EOF
     echo "    ✗ 失败"
     ((FAIL++)) || true
     FAILED_LIST+=("${EXP_ID}")
-
-    DEST_DIR="${RESULT_PATH}/${EXP_ID}"
-    mkdir -p "${DEST_DIR}"
-    cat > "${DEST_DIR}/FAILURE_LOG.txt" << EOF
-实验编号: ${EXP_ID}
-实验标签: ${EXP_LABEL}
-失败时间: $(date '+%Y-%m-%d %H:%M:%S')
-参数:
-  seed: ${SEED}
-  ablation: ${ABL_NAME}
-  seq_len: ${SEQ}
-  pre_len: ${PRE}
-  use_diffusion: ${D_VAL}
-  use_pe_graph: ${G_VAL}
-  use_pe_film: ${F_VAL}
-EOF
   fi
 done
 
-# ========== 汇总 ==========
+# ========== 汇总 CSV（按模板格式） ==========
 echo ""
 echo "========================================"
 echo "  Person ${PERSON} 实验完成"
@@ -160,22 +148,29 @@ echo "  结果目录: ${RESULT_PATH}"
 echo "========================================"
 
 SUMMARY_FILE="${RESULT_PATH}/person_${PERSON}_summary.csv"
-echo "exp_id,seed,ablation,seq_len,pre_len,use_diffusion,use_pe_graph,use_pe_film,status,test_rmse,test_mae,test_mape,best_epoch" > "${SUMMARY_FILE}"
+# 按模板格式: group,student,experiment_id,model,seq_len,pre_len,seed,use_diffusion,use_pe_graph,use_pe_film,pe_adaptive_loss,lr,epochs,best_epoch,rmse,mae,mape,peak_rmse,step1_rmse,step6_rmse,output_dir,log_file,notes
+echo "group,student,experiment_id,model,seq_len,pre_len,seed,use_diffusion,use_pe_graph,use_pe_film,pe_adaptive_loss,lr,epochs,best_epoch,rmse,mae,mape,peak_rmse,step1_rmse,step6_rmse,output_dir,log_file,notes" > "${SUMMARY_FILE}"
 
 for ((i = 0; i < TOTAL; i++)); do
   EXP_NUM=$((i + 1))
-  read -r ABL_NAME D_VAL G_VAL F_VAL SEQ PRE <<< "${EXPERIMENTS[$i]}"
+  read -r ABL_NAME D_VAL G_VAL F_VAL SEQ PRE EXP_NAME <<< "${EXPERIMENTS[$i]}"
   EXP_ID="$(printf '%s%02d' "${PERSON}" "${EXP_NUM}")"
   METRICS_FILE="${RESULT_PATH}/${EXP_ID}/metrics_summary.json"
+  OUTPUT_DIR="matrix_N95_PEDiffWaveNet_noleak_${EXP_NAME}"
 
   if [ -f "${METRICS_FILE}" ]; then
-    RMSE=$(python -c "import json; print(json.load(open('${METRICS_FILE}'))['test_rmse'])" 2>/dev/null || echo "")
-    MAE=$(python -c "import json; print(json.load(open('${METRICS_FILE}'))['test_mae'])" 2>/dev/null || echo "")
-    MAPE=$(python -c "import json; print(json.load(open('${METRICS_FILE}'))['test_mape'])" 2>/dev/null || echo "")
-    BEST_EPOCH=$(python -c "import json; print(json.load(open('${METRICS_FILE}'))['best_epoch'])" 2>/dev/null || echo "")
-    echo "${EXP_ID},${SEED},${ABL_NAME},${SEQ},${PRE},${D_VAL},${G_VAL},${F_VAL},success,${RMSE},${MAE},${MAPE},${BEST_EPOCH}" >> "${SUMMARY_FILE}"
+    RMSE=$(python -c "import json;print(json.load(open('${METRICS_FILE}'))['test_rmse'])" 2>/dev/null || echo "")
+    MAE=$(python -c "import json;print(json.load(open('${METRICS_FILE}'))['test_mae'])" 2>/dev/null || echo "")
+    MAPE=$(python -c "import json;print(json.load(open('${METRICS_FILE}'))['test_mape'])" 2>/dev/null || echo "")
+    BEST_EPOCH=$(python -c "import json;print(json.load(open('${METRICS_FILE}'))['best_epoch'])" 2>/dev/null || echo "")
+    PEAK_RMSE=$(python -c "import json;m=json.load(open('${METRICS_FILE}'));print(m.get('rmse_peak',''))" 2>/dev/null || echo "")
+    # step1_rmse 和 step6_rmse 从 per_step_rmse 数组提取
+    STEP1=$(python -c "import json;m=json.load(open('${METRICS_FILE}'));a=m.get('per_step_rmse',[]);print(a[0] if len(a)>0 else '')" 2>/dev/null || echo "")
+    STEP6=$(python -c "import json;m=json.load(open('${METRICS_FILE}'));a=m.get('per_step_rmse',[]);print(a[-1] if len(a)>0 else '')" 2>/dev/null || echo "")
+    PE_ADAPTIVE=$(python -c "import json;m=json.load(open('${METRICS_FILE}'));print(m.get('pe_adaptive_loss','0'))" 2>/dev/null || echo "")
+    echo "${GROUP},,${EXP_NAME},pedw,${SEQ},${PRE},${SEED},${D_VAL},${G_VAL},${F_VAL},${PE_ADAPTIVE},,,${BEST_EPOCH},${RMSE},${MAE},${MAPE},${PEAK_RMSE},${STEP1},${STEP6},${OUTPUT_DIR},," >> "${SUMMARY_FILE}"
   else
-    echo "${EXP_ID},${SEED},${ABL_NAME},${SEQ},${PRE},${D_VAL},${G_VAL},${F_VAL},failed,,,,," >> "${SUMMARY_FILE}"
+    echo "${GROUP},,${EXP_NAME},pedw,${SEQ},${PRE},${SEED},${D_VAL},${G_VAL},${F_VAL},,,,,,,,,,${OUTPUT_DIR},,failed" >> "${SUMMARY_FILE}"
   fi
 done
 

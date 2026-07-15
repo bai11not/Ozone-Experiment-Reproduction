@@ -1,21 +1,16 @@
-# Person D 消融实验
+# Person D 消融实验 (g3)
 
-**固定**: seed=52, 消融类型: no_graph + no_film
+**固定**: seed=52, 消融: no_pe_graph + no_pe_film
 
-| # | exp_id | 消融 | seq_len | pre_len | d | g | f | 标签 | 状态 | RMSE | MAE | MAPE |
-|---|--------|------|---------|---------|---|---|---|------|------|------|-----|------|
-| 1 | D01 | no_graph | 12 | 6 | 1 | 0 | 1 | s52-nograph-l12-p6 | ⬜ | | | |
-| 2 | D02 | no_graph | 12 | 3 | 1 | 0 | 1 | s52-nograph-l12-p3 | ⬜ | | | |
-| 3 | D03 | no_graph | 24 | 6 | 1 | 0 | 1 | s52-nograph-l24-p6 | ⬜ | | | |
-| 4 | D04 | no_graph | 24 | 3 | 1 | 0 | 1 | s52-nograph-l24-p3 | ⬜ | | | |
-| 5 | D05 | no_film | 12 | 6 | 1 | 1 | 0 | s52-nofilm-l12-p6 | ⬜ | | | |
-| 6 | D06 | no_film | 12 | 3 | 1 | 1 | 0 | s52-nofilm-l12-p3 | ⬜ | | | |
-| 7 | D07 | no_film | 24 | 6 | 1 | 1 | 0 | s52-nofilm-l24-p6 | ⬜ | | | |
-| 8 | D08 | no_film | 24 | 3 | 1 | 1 | 0 | s52-nofilm-l24-p3 | ⬜ | | | |
+| # | 消融 | seq_len | pre_len | d | g | f | 实验名 | 状态 | RMSE | MAE | MAPE |
+|---|------|---------|---------|---|---|---|--------|------|------|-----|------|
+| D01 | no_pe_graph | 12 | 6 | 1 | 0 | 1 | g3_pedw_no_pe_graph_p6_l12_s52 | ✅ | 11.51 | 8.34 | 34.15 |
+| D02 | no_pe_graph | 12 | 3 | 1 | 0 | 1 | g3_pedw_no_pe_graph_p3_l12_s52 | ✅ | 10.40 | 7.80 | 31.11 |
+| D03 | no_pe_graph | 24 | 6 | 1 | 0 | 1 | g3_pedw_no_pe_graph_p6_l24_s52 | ✅ | 11.11 | 8.01 | 31.55 |
+| D04 | no_pe_graph | 24 | 3 | 1 | 0 | 1 | g3_pedw_no_pe_graph_p3_l24_s52 | ✅ | **9.75** | 7.11 | 29.89 |
+| D05 | no_pe_film | 12 | 6 | 1 | 1 | 0 | g3_pedw_no_pe_film_p6_l12_s52 | ✅ | 12.01 | 8.47 | 34.20 |
+| D06 | no_pe_film | 12 | 3 | 1 | 1 | 0 | g3_pedw_no_pe_film_p3_l12_s52 | ✅ | 10.81 | 8.29 | 35.00 |
+| D07 | no_pe_film | 24 | 6 | 1 | 1 | 0 | g3_pedw_no_pe_film_p6_l24_s52 | ✅ | 11.31 | 7.93 | 30.44 |
+| D08 | no_pe_film | 24 | 3 | 1 | 1 | 0 | g3_pedw_no_pe_film_p3_l24_s52 | ✅ | 9.82 | 7.16 | 30.40 |
 
-状态: ⬜待运行 | ✅完成 | ❌失败
-
-```bash
-cd week2
-bash scripts/run_person_experiments.sh D   # 批量 8 组
-```
+**最优**: D04 (no_pe_graph, seq=24, pre=3) RMSE=9.75

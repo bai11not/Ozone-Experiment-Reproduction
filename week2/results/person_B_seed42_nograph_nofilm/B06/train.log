@@ -1,0 +1,459 @@
+[INFO] PE-DiffWaveNet noleak training
+[INFO] device=cuda, world_size=1
+[INFO] output_dir=/mnt/d/时空数据/臭氧预测资料/matrix_N95_PEDiffWaveNet_noleak_g3_pedw_no_pe_film_p3_l12_s42
+[INFO] clean_room=1, pe_source=train, use_pe_graph=1, use_pe_film=0, use_diffusion=1, pe_graph_alpha=1.0, pe_film_scale=1.0, pe_film_zero_init=0, pe_shuffle_seed=-1, pe_adaptive_loss=0, pe_loss_weight=0.15
+[INFO] loading meteorological data...
+[INFO] loading met cache: /mnt/d/时空数据/臭氧预测资料/matrix_N95/met_raw_aligned_cache.npz
+[INFO] trainX=(7364, 12, 95, 15), trainY=(7364, 3, 95)
+[INFO] validX=(655, 12, 95, 15), validY=(655, 3, 95)
+[INFO] testX=(656, 12, 95, 15), testY=(656, 3, 95)
+[INFO] train-only PE time range: {'start_idx': 0, 'end_idx': 7377, 'start_time': '2022-01-01 00:00:00', 'end_time': '2022-11-05 23:00:00', 'length': 7378}
+[INFO] building PE features: nodes=95, scales=[6, 9, 12, 24, 48, 72], step=1
+[INFO] PE feature progress: 20/95
+[INFO] PE feature progress: 40/95
+[INFO] PE feature progress: 60/95
+[INFO] PE feature progress: 80/95
+[INFO] PE feature progress: 95/95
+[INFO] graph nnz: S=691, T=1570, PE=2293
+[INFO] train batches/epoch=461, effective_batch=16
+[INFO] model_params=614224
+[INFO] start epoch 1/120
+  [WARN] skip non-finite grad at epoch 1 batch 1
+  [WARN] skip non-finite grad at epoch 1 batch 2
+  [WARN] skip non-finite grad at epoch 1 batch 3
+  [WARN] skip non-finite grad at epoch 1 batch 4
+  Epoch 1 Batch 50/461 | Loss=3.004856 | diff=2.8682 | coarse=1.7087 | 12.1s
+  Epoch 1 Batch 100/461 | Loss=0.772607 | diff=0.7490 | coarse=0.2946 | 20.5s
+  Epoch 1 Batch 150/461 | Loss=0.306167 | diff=0.2905 | coarse=0.1963 | 28.7s
+  Epoch 1 Batch 200/461 | Loss=0.150403 | diff=0.1377 | coarse=0.1593 | 37.0s
+  Epoch 1 Batch 250/461 | Loss=0.155020 | diff=0.1433 | coarse=0.1470 | 45.3s
+  Epoch 1 Batch 300/461 | Loss=0.184752 | diff=0.1752 | coarse=0.1193 | 53.6s
+  Epoch 1 Batch 350/461 | Loss=0.203434 | diff=0.1890 | coarse=0.1802 | 62.1s
+  Epoch 1 Batch 400/461 | Loss=0.093907 | diff=0.0876 | coarse=0.0787 | 70.5s
+  Epoch 1 Batch 450/461 | Loss=0.264980 | diff=0.2472 | coarse=0.2222 | 78.5s
+  Epoch 1 Batch 461/461 | Loss=0.042996 | diff=0.0393 | coarse=0.0458 | 80.3s
+Epoch 1/120 | Loss=0.828733 | Val RMSE=172.6989 | Val MAE=170.7553 | Val MAPE=762.46% | LR=2.80e-04 | 180.0s
+  [BEST] epoch=1, val_rmse=172.6989
+[INFO] start epoch 2/120
+  Epoch 2 Batch 50/461 | Loss=0.093208 | diff=0.0857 | coarse=0.0937 | 9.1s
+  Epoch 2 Batch 100/461 | Loss=0.094531 | diff=0.0872 | coarse=0.0922 | 17.5s
+  Epoch 2 Batch 150/461 | Loss=0.202463 | diff=0.1902 | coarse=0.1534 | 26.1s
+  Epoch 2 Batch 200/461 | Loss=0.146970 | diff=0.1355 | coarse=0.1438 | 34.8s
+  Epoch 2 Batch 250/461 | Loss=0.113906 | diff=0.1070 | coarse=0.0864 | 43.3s
+  Epoch 2 Batch 300/461 | Loss=0.089014 | diff=0.0825 | coarse=0.0815 | 51.6s
+  Epoch 2 Batch 350/461 | Loss=0.117629 | diff=0.1104 | coarse=0.0902 | 59.9s
+  Epoch 2 Batch 400/461 | Loss=0.122906 | diff=0.1120 | coarse=0.1366 | 68.1s
+  Epoch 2 Batch 450/461 | Loss=0.075646 | diff=0.0673 | coarse=0.1044 | 76.4s
+  Epoch 2 Batch 461/461 | Loss=0.096303 | diff=0.0943 | coarse=0.0248 | 78.1s
+Epoch 2/120 | Loss=0.113276 | Val RMSE=116.1260 | Val MAE=114.5882 | Val MAPE=512.01% | LR=4.20e-04 | 173.4s
+  [BEST] epoch=2, val_rmse=116.1260
+[INFO] start epoch 3/120
+  Epoch 3 Batch 50/461 | Loss=0.086939 | diff=0.0799 | coarse=0.0874 | 9.4s
+  Epoch 3 Batch 100/461 | Loss=0.083760 | diff=0.0770 | coarse=0.0841 | 18.1s
+  Epoch 3 Batch 150/461 | Loss=0.210648 | diff=0.1982 | coarse=0.1557 | 27.5s
+  Epoch 3 Batch 200/461 | Loss=0.139649 | diff=0.1308 | coarse=0.1111 | 36.8s
+  Epoch 3 Batch 250/461 | Loss=0.110040 | diff=0.1037 | coarse=0.0789 | 45.3s
+  Epoch 3 Batch 300/461 | Loss=0.076594 | diff=0.0709 | coarse=0.0718 | 53.7s
+  Epoch 3 Batch 350/461 | Loss=0.099826 | diff=0.0933 | coarse=0.0819 | 62.3s
+  Epoch 3 Batch 400/461 | Loss=0.121693 | diff=0.1096 | coarse=0.1515 | 70.4s
+  Epoch 3 Batch 450/461 | Loss=0.078833 | diff=0.0708 | coarse=0.1007 | 78.6s
+  Epoch 3 Batch 461/461 | Loss=0.086510 | diff=0.0848 | coarse=0.0211 | 80.4s
+Epoch 3/120 | Loss=0.103452 | Val RMSE=71.2711 | Val MAE=69.9134 | Val MAPE=312.21% | LR=5.60e-04 | 178.6s
+  [BEST] epoch=3, val_rmse=71.2711
+[INFO] start epoch 4/120
+  Epoch 4 Batch 50/461 | Loss=0.078342 | diff=0.0717 | coarse=0.0833 | 20.9s
+  Epoch 4 Batch 100/461 | Loss=0.081261 | diff=0.0748 | coarse=0.0811 | 29.5s
+  Epoch 4 Batch 150/461 | Loss=0.203659 | diff=0.1924 | coarse=0.1407 | 38.6s
+  Epoch 4 Batch 200/461 | Loss=0.137208 | diff=0.1283 | coarse=0.1112 | 48.7s
+  Epoch 4 Batch 250/461 | Loss=0.102275 | diff=0.0963 | coarse=0.0747 | 57.8s
+  Epoch 4 Batch 300/461 | Loss=0.070351 | diff=0.0649 | coarse=0.0680 | 66.4s
+  Epoch 4 Batch 350/461 | Loss=0.089007 | diff=0.0830 | coarse=0.0753 | 75.0s
+  Epoch 4 Batch 400/461 | Loss=0.130370 | diff=0.1176 | coarse=0.1600 | 84.4s
+  Epoch 4 Batch 450/461 | Loss=0.083633 | diff=0.0768 | coarse=0.0855 | 93.9s
+  Epoch 4 Batch 461/461 | Loss=0.078064 | diff=0.0766 | coarse=0.0185 | 95.9s
+Epoch 4/120 | Loss=0.097950 | Val RMSE=47.6501 | Val MAE=45.9034 | Val MAPE=204.25% | LR=7.00e-04 | 196.7s
+  [BEST] epoch=4, val_rmse=47.6501
+[INFO] start epoch 5/120
+  Epoch 5 Batch 50/461 | Loss=0.072923 | diff=0.0674 | coarse=0.0689 | 8.9s
+  Epoch 5 Batch 100/461 | Loss=0.079484 | diff=0.0729 | coarse=0.0828 | 17.3s
+  Epoch 5 Batch 150/461 | Loss=0.190797 | diff=0.1823 | coarse=0.1056 | 26.0s
+  Epoch 5 Batch 200/461 | Loss=0.131746 | diff=0.1224 | coarse=0.1167 | 34.8s
+  Epoch 5 Batch 250/461 | Loss=0.094701 | diff=0.0889 | coarse=0.0722 | 43.4s
+  Epoch 5 Batch 300/461 | Loss=0.067436 | diff=0.0623 | coarse=0.0645 | 52.2s
+  Epoch 5 Batch 350/461 | Loss=0.086682 | diff=0.0810 | coarse=0.0705 | 60.5s
+  Epoch 5 Batch 400/461 | Loss=0.127756 | diff=0.1156 | coarse=0.1515 | 68.8s
+  Epoch 5 Batch 450/461 | Loss=0.081731 | diff=0.0760 | coarse=0.0711 | 77.3s
+  Epoch 5 Batch 461/461 | Loss=0.074262 | diff=0.0729 | coarse=0.0171 | 79.2s
+Epoch 5/120 | Loss=0.092121 | Val RMSE=33.0882 | Val MAE=30.8579 | Val MAPE=134.34% | LR=7.00e-04 | 179.6s
+  [BEST] epoch=5, val_rmse=33.0882
+[INFO] start epoch 6/120
+  Epoch 6 Batch 50/461 | Loss=0.072630 | diff=0.0669 | coarse=0.0716 | 8.8s
+  Epoch 6 Batch 100/461 | Loss=0.074404 | diff=0.0677 | coarse=0.0842 | 17.2s
+  Epoch 6 Batch 150/461 | Loss=0.152794 | diff=0.1462 | coarse=0.0823 | 25.8s
+  Epoch 6 Batch 200/461 | Loss=0.115436 | diff=0.1072 | coarse=0.1024 | 34.2s
+  Epoch 6 Batch 250/461 | Loss=0.086652 | diff=0.0811 | coarse=0.0695 | 42.3s
+  Epoch 6 Batch 300/461 | Loss=0.063146 | diff=0.0581 | coarse=0.0627 | 50.8s
+  Epoch 6 Batch 350/461 | Loss=0.078666 | diff=0.0732 | coarse=0.0687 | 59.0s
+  Epoch 6 Batch 400/461 | Loss=0.113321 | diff=0.1027 | coarse=0.1333 | 67.3s
+  Epoch 6 Batch 450/461 | Loss=0.074903 | diff=0.0695 | coarse=0.0673 | 75.6s
+  Epoch 6 Batch 461/461 | Loss=0.067661 | diff=0.0661 | coarse=0.0190 | 77.4s
+Epoch 6/120 | Loss=0.083292 | Val RMSE=28.8568 | Val MAE=26.4349 | Val MAPE=112.66% | LR=7.00e-04 | 175.5s
+  [BEST] epoch=6, val_rmse=28.8568
+[INFO] start epoch 7/120
+  Epoch 7 Batch 50/461 | Loss=0.069277 | diff=0.0637 | coarse=0.0697 | 9.9s
+  Epoch 7 Batch 100/461 | Loss=0.071529 | diff=0.0654 | coarse=0.0767 | 18.5s
+  Epoch 7 Batch 150/461 | Loss=0.128772 | diff=0.1225 | coarse=0.0790 | 27.0s
+  Epoch 7 Batch 200/461 | Loss=0.105012 | diff=0.0975 | coarse=0.0936 | 35.5s
+  Epoch 7 Batch 250/461 | Loss=0.085617 | diff=0.0801 | coarse=0.0686 | 43.8s
+  Epoch 7 Batch 300/461 | Loss=0.060305 | diff=0.0556 | coarse=0.0585 | 52.2s
+  Epoch 7 Batch 350/461 | Loss=0.067230 | diff=0.0620 | coarse=0.0657 | 60.5s
+  Epoch 7 Batch 400/461 | Loss=0.104888 | diff=0.0960 | coarse=0.1108 | 68.9s
+  Epoch 7 Batch 450/461 | Loss=0.069691 | diff=0.0648 | coarse=0.0607 | 77.7s
+  Epoch 7 Batch 461/461 | Loss=0.042799 | diff=0.0411 | coarse=0.0216 | 79.6s
+Epoch 7/120 | Loss=0.078183 | Val RMSE=23.7447 | Val MAE=21.3575 | Val MAPE=94.04% | LR=6.99e-04 | 177.7s
+  [BEST] epoch=7, val_rmse=23.7447
+[INFO] start epoch 8/120
+  Epoch 8 Batch 50/461 | Loss=0.066698 | diff=0.0613 | coarse=0.0680 | 9.0s
+  Epoch 8 Batch 100/461 | Loss=0.071216 | diff=0.0652 | coarse=0.0750 | 17.4s
+  Epoch 8 Batch 150/461 | Loss=0.110691 | diff=0.1041 | coarse=0.0827 | 26.0s
+  Epoch 8 Batch 200/461 | Loss=0.109808 | diff=0.1021 | coarse=0.0963 | 34.6s
+  Epoch 8 Batch 250/461 | Loss=0.082526 | diff=0.0770 | coarse=0.0688 | 43.3s
+  Epoch 8 Batch 300/461 | Loss=0.060549 | diff=0.0559 | coarse=0.0586 | 52.5s
+  Epoch 8 Batch 350/461 | Loss=0.062014 | diff=0.0572 | coarse=0.0606 | 61.9s
+  Epoch 8 Batch 400/461 | Loss=0.106750 | diff=0.0973 | coarse=0.1187 | 71.3s
+  Epoch 8 Batch 450/461 | Loss=0.065159 | diff=0.0604 | coarse=0.0598 | 80.3s
+  Epoch 8 Batch 461/461 | Loss=0.035212 | diff=0.0333 | coarse=0.0233 | 82.1s
+Epoch 8/120 | Loss=0.074577 | Val RMSE=20.8958 | Val MAE=18.6679 | Val MAPE=84.58% | LR=6.99e-04 | 182.3s
+  [BEST] epoch=8, val_rmse=20.8958
+[INFO] start epoch 9/120
+  Epoch 9 Batch 50/461 | Loss=0.073353 | diff=0.0677 | coarse=0.0701 | 8.9s
+  Epoch 9 Batch 100/461 | Loss=0.068802 | diff=0.0630 | coarse=0.0721 | 17.3s
+  Epoch 9 Batch 150/461 | Loss=0.100000 | diff=0.0930 | coarse=0.0874 | 25.6s
+  Epoch 9 Batch 200/461 | Loss=0.099131 | diff=0.0918 | coarse=0.0915 | 33.9s
+  Epoch 9 Batch 250/461 | Loss=0.081122 | diff=0.0757 | coarse=0.0675 | 42.1s
+  Epoch 9 Batch 300/461 | Loss=0.058938 | diff=0.0543 | coarse=0.0586 | 50.2s
+  Epoch 9 Batch 350/461 | Loss=0.061975 | diff=0.0572 | coarse=0.0603 | 58.1s
+  Epoch 9 Batch 400/461 | Loss=0.095712 | diff=0.0861 | coarse=0.1206 | 66.1s
+  Epoch 9 Batch 450/461 | Loss=0.065421 | diff=0.0602 | coarse=0.0649 | 74.3s
+  Epoch 9 Batch 461/461 | Loss=0.029171 | diff=0.0273 | coarse=0.0234 | 76.0s
+Epoch 9/120 | Loss=0.070593 | Val RMSE=17.6457 | Val MAE=15.3239 | Val MAPE=69.12% | LR=6.98e-04 | 174.3s
+  [BEST] epoch=9, val_rmse=17.6457
+[INFO] start epoch 10/120
+  Epoch 10 Batch 50/461 | Loss=0.068499 | diff=0.0633 | coarse=0.0644 | 8.8s
+  Epoch 10 Batch 100/461 | Loss=0.064528 | diff=0.0593 | coarse=0.0647 | 17.2s
+  Epoch 10 Batch 150/461 | Loss=0.095878 | diff=0.0891 | coarse=0.0852 | 25.6s
+  Epoch 10 Batch 200/461 | Loss=0.091554 | diff=0.0845 | coarse=0.0877 | 33.9s
+  Epoch 10 Batch 250/461 | Loss=0.083588 | diff=0.0785 | coarse=0.0636 | 42.2s
+  Epoch 10 Batch 300/461 | Loss=0.058262 | diff=0.0538 | coarse=0.0564 | 50.8s
+  Epoch 10 Batch 350/461 | Loss=0.060277 | diff=0.0556 | coarse=0.0583 | 59.2s
+  Epoch 10 Batch 400/461 | Loss=0.091865 | diff=0.0836 | coarse=0.1039 | 67.7s
+  Epoch 10 Batch 450/461 | Loss=0.061365 | diff=0.0567 | coarse=0.0583 | 76.5s
+  Epoch 10 Batch 461/461 | Loss=0.023467 | diff=0.0217 | coarse=0.0216 | 78.3s
+Epoch 10/120 | Loss=0.068402 | Val RMSE=14.3643 | Val MAE=11.8227 | Val MAPE=50.58% | LR=6.97e-04 | 175.8s
+  [BEST] epoch=10, val_rmse=14.3643
+[INFO] start epoch 11/120
+  Epoch 11 Batch 50/461 | Loss=0.061557 | diff=0.0570 | coarse=0.0573 | 10.0s
+  Epoch 11 Batch 100/461 | Loss=0.061723 | diff=0.0567 | coarse=0.0628 | 18.6s
+  Epoch 11 Batch 150/461 | Loss=0.096377 | diff=0.0889 | coarse=0.0932 | 27.1s
+  Epoch 11 Batch 200/461 | Loss=0.085557 | diff=0.0787 | coarse=0.0852 | 35.4s
+  Epoch 11 Batch 250/461 | Loss=0.078611 | diff=0.0737 | coarse=0.0617 | 43.8s
+  Epoch 11 Batch 300/461 | Loss=0.057563 | diff=0.0531 | coarse=0.0552 | 52.3s
+  Epoch 11 Batch 350/461 | Loss=0.058397 | diff=0.0539 | coarse=0.0566 | 60.9s
+  Epoch 11 Batch 400/461 | Loss=0.081169 | diff=0.0735 | coarse=0.0963 | 69.5s
+  Epoch 11 Batch 450/461 | Loss=0.071344 | diff=0.0657 | coarse=0.0705 | 78.2s
+  Epoch 11 Batch 461/461 | Loss=0.025787 | diff=0.0243 | coarse=0.0184 | 80.0s
+Epoch 11/120 | Loss=0.067287 | Val RMSE=15.7858 | Val MAE=13.4259 | Val MAPE=59.14% | LR=6.95e-04 | 177.9s
+[INFO] start epoch 12/120
+  Epoch 12 Batch 50/461 | Loss=0.069292 | diff=0.0632 | coarse=0.0766 | 8.4s
+  Epoch 12 Batch 100/461 | Loss=0.063189 | diff=0.0578 | coarse=0.0678 | 16.5s
+  Epoch 12 Batch 150/461 | Loss=0.085647 | diff=0.0783 | coarse=0.0918 | 24.4s
+  Epoch 12 Batch 200/461 | Loss=0.085490 | diff=0.0784 | coarse=0.0887 | 32.3s
+  Epoch 12 Batch 250/461 | Loss=0.071358 | diff=0.0660 | coarse=0.0672 | 40.3s
+  Epoch 12 Batch 300/461 | Loss=0.063990 | diff=0.0595 | coarse=0.0558 | 48.2s
+  Epoch 12 Batch 350/461 | Loss=0.062836 | diff=0.0583 | coarse=0.0563 | 56.1s
+  Epoch 12 Batch 400/461 | Loss=0.089257 | diff=0.0832 | coarse=0.0754 | 64.0s
+  Epoch 12 Batch 450/461 | Loss=0.061301 | diff=0.0561 | coarse=0.0653 | 72.1s
+  Epoch 12 Batch 461/461 | Loss=0.026647 | diff=0.0253 | coarse=0.0173 | 73.7s
+Epoch 12/120 | Loss=0.066347 | Val RMSE=16.6658 | Val MAE=14.3464 | Val MAPE=64.79% | LR=6.94e-04 | 170.4s
+[INFO] start epoch 13/120
+  Epoch 13 Batch 50/461 | Loss=0.063004 | diff=0.0561 | coarse=0.0860 | 8.3s
+  Epoch 13 Batch 100/461 | Loss=0.062354 | diff=0.0574 | coarse=0.0620 | 16.5s
+  Epoch 13 Batch 150/461 | Loss=0.084605 | diff=0.0769 | coarse=0.0965 | 24.8s
+  Epoch 13 Batch 200/461 | Loss=0.084580 | diff=0.0782 | coarse=0.0802 | 33.0s
+  Epoch 13 Batch 250/461 | Loss=0.070015 | diff=0.0640 | coarse=0.0748 | 41.2s
+  Epoch 13 Batch 300/461 | Loss=0.058525 | diff=0.0542 | coarse=0.0545 | 49.5s
+  Epoch 13 Batch 350/461 | Loss=0.061868 | diff=0.0576 | coarse=0.0536 | 57.9s
+  Epoch 13 Batch 400/461 | Loss=0.086912 | diff=0.0810 | coarse=0.0735 | 66.2s
+  Epoch 13 Batch 450/461 | Loss=0.057591 | diff=0.0531 | coarse=0.0559 | 74.8s
+  Epoch 13 Batch 461/461 | Loss=0.022546 | diff=0.0213 | coarse=0.0157 | 76.5s
+Epoch 13/120 | Loss=0.062491 | Val RMSE=17.1919 | Val MAE=14.8636 | Val MAPE=68.04% | LR=6.92e-04 | 181.3s
+[INFO] start epoch 14/120
+  Epoch 14 Batch 50/461 | Loss=0.058941 | diff=0.0534 | coarse=0.0687 | 9.2s
+  Epoch 14 Batch 100/461 | Loss=0.059617 | diff=0.0550 | coarse=0.0577 | 17.5s
+  Epoch 14 Batch 150/461 | Loss=0.070838 | diff=0.0633 | coarse=0.0942 | 26.1s
+  Epoch 14 Batch 200/461 | Loss=0.081214 | diff=0.0747 | coarse=0.0815 | 34.6s
+  Epoch 14 Batch 250/461 | Loss=0.066821 | diff=0.0611 | coarse=0.0711 | 43.2s
+  Epoch 14 Batch 300/461 | Loss=0.055719 | diff=0.0514 | coarse=0.0539 | 52.1s
+  Epoch 14 Batch 350/461 | Loss=0.057178 | diff=0.0528 | coarse=0.0550 | 60.6s
+  Epoch 14 Batch 400/461 | Loss=0.079161 | diff=0.0735 | coarse=0.0714 | 69.3s
+  Epoch 14 Batch 450/461 | Loss=0.055044 | diff=0.0511 | coarse=0.0493 | 78.0s
+  Epoch 14 Batch 461/461 | Loss=0.020388 | diff=0.0192 | coarse=0.0148 | 79.8s
+Epoch 14/120 | Loss=0.059708 | Val RMSE=14.0592 | Val MAE=11.6730 | Val MAPE=52.42% | LR=6.89e-04 | 177.4s
+  [BEST] epoch=14, val_rmse=14.0592
+[INFO] start epoch 15/120
+  Epoch 15 Batch 50/461 | Loss=0.057801 | diff=0.0522 | coarse=0.0694 | 10.0s
+  Epoch 15 Batch 100/461 | Loss=0.058197 | diff=0.0538 | coarse=0.0550 | 18.7s
+  Epoch 15 Batch 150/461 | Loss=0.062578 | diff=0.0556 | coarse=0.0875 | 27.0s
+  Epoch 15 Batch 200/461 | Loss=0.082616 | diff=0.0755 | coarse=0.0884 | 36.1s
+  Epoch 15 Batch 250/461 | Loss=0.063878 | diff=0.0586 | coarse=0.0655 | 44.5s
+  Epoch 15 Batch 300/461 | Loss=0.055096 | diff=0.0510 | coarse=0.0517 | 52.9s
+  Epoch 15 Batch 350/461 | Loss=0.056316 | diff=0.0520 | coarse=0.0545 | 61.2s
+  Epoch 15 Batch 400/461 | Loss=0.076413 | diff=0.0708 | coarse=0.0698 | 69.5s
+  Epoch 15 Batch 450/461 | Loss=0.052952 | diff=0.0492 | coarse=0.0474 | 77.9s
+  Epoch 15 Batch 461/461 | Loss=0.027400 | diff=0.0262 | coarse=0.0156 | 79.7s
+Epoch 15/120 | Loss=0.058242 | Val RMSE=11.2335 | Val MAE=8.7427 | Val MAPE=37.01% | LR=6.87e-04 | 175.3s
+  [BEST] epoch=15, val_rmse=11.2335
+[INFO] start epoch 16/120
+  Epoch 16 Batch 50/461 | Loss=0.056088 | diff=0.0514 | coarse=0.0590 | 8.5s
+  Epoch 16 Batch 100/461 | Loss=0.057081 | diff=0.0528 | coarse=0.0532 | 16.5s
+  Epoch 16 Batch 150/461 | Loss=0.060788 | diff=0.0548 | coarse=0.0751 | 24.6s
+  Epoch 16 Batch 200/461 | Loss=0.077907 | diff=0.0714 | coarse=0.0808 | 32.5s
+  Epoch 16 Batch 250/461 | Loss=0.062639 | diff=0.0578 | coarse=0.0602 | 40.9s
+  Epoch 16 Batch 300/461 | Loss=0.059383 | diff=0.0553 | coarse=0.0514 | 49.9s
+  Epoch 16 Batch 350/461 | Loss=0.055557 | diff=0.0514 | coarse=0.0517 | 59.5s
+  Epoch 16 Batch 400/461 | Loss=0.073408 | diff=0.0679 | coarse=0.0692 | 69.0s
+  Epoch 16 Batch 450/461 | Loss=0.053488 | diff=0.0496 | coarse=0.0481 | 78.6s
+  Epoch 16 Batch 461/461 | Loss=0.018139 | diff=0.0170 | coarse=0.0138 | 80.4s
+Epoch 16/120 | Loss=0.058358 | Val RMSE=11.5911 | Val MAE=9.0217 | Val MAPE=37.57% | LR=6.84e-04 | 177.9s
+[INFO] start epoch 17/120
+  Epoch 17 Batch 50/461 | Loss=0.059358 | diff=0.0549 | coarse=0.0563 | 8.4s
+  Epoch 17 Batch 100/461 | Loss=0.058940 | diff=0.0540 | coarse=0.0621 | 16.5s
+  Epoch 17 Batch 150/461 | Loss=0.057144 | diff=0.0530 | coarse=0.0518 | 24.4s
+  Epoch 17 Batch 200/461 | Loss=0.092196 | diff=0.0851 | coarse=0.0891 | 32.3s
+  Epoch 17 Batch 250/461 | Loss=0.066195 | diff=0.0614 | coarse=0.0598 | 40.1s
+  Epoch 17 Batch 300/461 | Loss=0.054050 | diff=0.0500 | coarse=0.0503 | 47.9s
+  Epoch 17 Batch 350/461 | Loss=0.058967 | diff=0.0536 | coarse=0.0675 | 55.9s
+  Epoch 17 Batch 400/461 | Loss=0.072051 | diff=0.0662 | coarse=0.0728 | 64.1s
+  Epoch 17 Batch 450/461 | Loss=0.070114 | diff=0.0657 | coarse=0.0551 | 72.2s
+  Epoch 17 Batch 461/461 | Loss=0.027280 | diff=0.0260 | coarse=0.0159 | 73.9s
+Epoch 17/120 | Loss=0.060573 | Val RMSE=11.3168 | Val MAE=8.6334 | Val MAPE=35.04% | LR=6.81e-04 | 177.0s
+[INFO] start epoch 18/120
+  Epoch 18 Batch 50/461 | Loss=0.052860 | diff=0.0486 | coarse=0.0531 | 9.2s
+  Epoch 18 Batch 100/461 | Loss=0.064263 | diff=0.0572 | coarse=0.0883 | 17.6s
+  Epoch 18 Batch 150/461 | Loss=0.056093 | diff=0.0520 | coarse=0.0511 | 26.0s
+  Epoch 18 Batch 200/461 | Loss=0.077411 | diff=0.0716 | coarse=0.0724 | 34.5s
+  Epoch 18 Batch 250/461 | Loss=0.064611 | diff=0.0592 | coarse=0.0673 | 42.9s
+  Epoch 18 Batch 300/461 | Loss=0.056350 | diff=0.0520 | coarse=0.0542 | 51.2s
+  Epoch 18 Batch 350/461 | Loss=0.053932 | diff=0.0497 | coarse=0.0531 | 59.4s
+  Epoch 18 Batch 400/461 | Loss=0.086581 | diff=0.0802 | coarse=0.0793 | 67.8s
+  Epoch 18 Batch 450/461 | Loss=0.080024 | diff=0.0735 | coarse=0.0812 | 76.1s
+  Epoch 18 Batch 461/461 | Loss=0.018114 | diff=0.0171 | coarse=0.0123 | 78.0s
+Epoch 18/120 | Loss=0.058527 | Val RMSE=11.4708 | Val MAE=8.8259 | Val MAPE=37.65% | LR=6.78e-04 | 171.7s
+[INFO] start epoch 19/120
+  Epoch 19 Batch 50/461 | Loss=0.052872 | diff=0.0487 | coarse=0.0518 | 10.2s
+  Epoch 19 Batch 100/461 | Loss=0.064705 | diff=0.0572 | coarse=0.0944 | 19.6s
+  Epoch 19 Batch 150/461 | Loss=0.053160 | diff=0.0492 | coarse=0.0495 | 28.9s
+  Epoch 19 Batch 200/461 | Loss=0.075629 | diff=0.0695 | coarse=0.0769 | 37.5s
+  Epoch 19 Batch 250/461 | Loss=0.062274 | diff=0.0573 | coarse=0.0622 | 45.7s
+  Epoch 19 Batch 300/461 | Loss=0.052571 | diff=0.0484 | coarse=0.0524 | 54.0s
+  Epoch 19 Batch 350/461 | Loss=0.061775 | diff=0.0578 | coarse=0.0502 | 62.4s
+  Epoch 19 Batch 400/461 | Loss=0.084955 | diff=0.0777 | coarse=0.0901 | 70.7s
+  Epoch 19 Batch 450/461 | Loss=0.069699 | diff=0.0626 | coarse=0.0887 | 79.1s
+  Epoch 19 Batch 461/461 | Loss=0.021569 | diff=0.0204 | coarse=0.0147 | 80.8s
+Epoch 19/120 | Loss=0.057424 | Val RMSE=12.8799 | Val MAE=10.3674 | Val MAPE=45.22% | LR=6.75e-04 | 178.1s
+[INFO] start epoch 20/120
+  Epoch 20 Batch 50/461 | Loss=0.052855 | diff=0.0488 | coarse=0.0512 | 8.4s
+  Epoch 20 Batch 100/461 | Loss=0.060501 | diff=0.0533 | coarse=0.0899 | 16.6s
+  Epoch 20 Batch 150/461 | Loss=0.051046 | diff=0.0471 | coarse=0.0490 | 25.0s
+  Epoch 20 Batch 200/461 | Loss=0.073286 | diff=0.0670 | coarse=0.0787 | 33.4s
+  Epoch 20 Batch 250/461 | Loss=0.076827 | diff=0.0722 | coarse=0.0579 | 42.1s
+  Epoch 20 Batch 300/461 | Loss=0.050911 | diff=0.0469 | coarse=0.0505 | 50.7s
+  Epoch 20 Batch 350/461 | Loss=0.052095 | diff=0.0482 | coarse=0.0487 | 59.7s
+  Epoch 20 Batch 400/461 | Loss=0.074862 | diff=0.0690 | coarse=0.0737 | 69.1s
+  Epoch 20 Batch 450/461 | Loss=0.054647 | diff=0.0499 | coarse=0.0595 | 79.0s
+  Epoch 20 Batch 461/461 | Loss=0.017446 | diff=0.0164 | coarse=0.0134 | 80.9s
+Epoch 20/120 | Loss=0.057080 | Val RMSE=14.6002 | Val MAE=12.1658 | Val MAPE=53.11% | LR=6.71e-04 | 184.1s
+[INFO] start epoch 21/120
+  Epoch 21 Batch 50/461 | Loss=0.051157 | diff=0.0471 | coarse=0.0505 | 8.9s
+  Epoch 21 Batch 100/461 | Loss=0.058430 | diff=0.0530 | coarse=0.0673 | 17.6s
+  Epoch 21 Batch 150/461 | Loss=0.050860 | diff=0.0470 | coarse=0.0481 | 26.4s
+  Epoch 21 Batch 200/461 | Loss=0.073706 | diff=0.0685 | coarse=0.0649 | 35.2s
+  Epoch 21 Batch 250/461 | Loss=0.064952 | diff=0.0586 | coarse=0.0800 | 44.1s
+  Epoch 21 Batch 300/461 | Loss=0.049989 | diff=0.0462 | coarse=0.0479 | 52.5s
+  Epoch 21 Batch 350/461 | Loss=0.051433 | diff=0.0469 | coarse=0.0561 | 60.9s
+  Epoch 21 Batch 400/461 | Loss=0.070951 | diff=0.0659 | coarse=0.0635 | 69.3s
+  Epoch 21 Batch 450/461 | Loss=0.057913 | diff=0.0539 | coarse=0.0501 | 77.8s
+  Epoch 21 Batch 461/461 | Loss=0.023420 | diff=0.0222 | coarse=0.0152 | 79.6s
+Epoch 21/120 | Loss=0.057433 | Val RMSE=13.1463 | Val MAE=10.5810 | Val MAPE=44.90% | LR=6.67e-04 | 176.2s
+[INFO] start epoch 22/120
+  Epoch 22 Batch 50/461 | Loss=0.051227 | diff=0.0472 | coarse=0.0502 | 8.4s
+  Epoch 22 Batch 100/461 | Loss=0.058563 | diff=0.0542 | coarse=0.0547 | 16.7s
+  Epoch 22 Batch 150/461 | Loss=0.056090 | diff=0.0521 | coarse=0.0493 | 25.1s
+  Epoch 22 Batch 200/461 | Loss=0.086679 | diff=0.0811 | coarse=0.0692 | 33.4s
+  Epoch 22 Batch 250/461 | Loss=0.059257 | diff=0.0547 | coarse=0.0574 | 41.8s
+  Epoch 22 Batch 300/461 | Loss=0.049271 | diff=0.0456 | coarse=0.0455 | 50.3s
+  Epoch 22 Batch 350/461 | Loss=0.049760 | diff=0.0457 | coarse=0.0502 | 58.8s
+  Epoch 22 Batch 400/461 | Loss=0.070620 | diff=0.0657 | coarse=0.0615 | 67.2s
+  Epoch 22 Batch 450/461 | Loss=0.046935 | diff=0.0429 | coarse=0.0504 | 75.5s
+  Epoch 22 Batch 461/461 | Loss=0.018742 | diff=0.0176 | coarse=0.0137 | 77.3s
+Epoch 22/120 | Loss=0.054182 | Val RMSE=15.8775 | Val MAE=13.3861 | Val MAPE=58.27% | LR=6.63e-04 | 174.0s
+[INFO] start epoch 23/120
+  Epoch 23 Batch 50/461 | Loss=0.049920 | diff=0.0461 | coarse=0.0474 | 10.0s
+  Epoch 23 Batch 100/461 | Loss=0.057323 | diff=0.0532 | coarse=0.0517 | 19.8s
+  Epoch 23 Batch 150/461 | Loss=0.062155 | diff=0.0584 | coarse=0.0473 | 28.5s
+  Epoch 23 Batch 200/461 | Loss=0.071426 | diff=0.0651 | coarse=0.0795 | 37.0s
+  Epoch 23 Batch 250/461 | Loss=0.060289 | diff=0.0559 | coarse=0.0547 | 45.9s
+  Epoch 23 Batch 300/461 | Loss=0.048110 | diff=0.0445 | coarse=0.0446 | 54.6s
+  Epoch 23 Batch 350/461 | Loss=0.048382 | diff=0.0444 | coarse=0.0503 | 63.2s
+  Epoch 23 Batch 400/461 | Loss=0.066022 | diff=0.0613 | coarse=0.0590 | 71.7s
+  Epoch 23 Batch 450/461 | Loss=0.049255 | diff=0.0447 | coarse=0.0569 | 80.4s
+  Epoch 23 Batch 461/461 | Loss=0.017451 | diff=0.0164 | coarse=0.0133 | 82.2s
+Epoch 23/120 | Loss=0.051614 | Val RMSE=14.0964 | Val MAE=11.2846 | Val MAPE=47.67% | LR=6.59e-04 | 184.0s
+[INFO] start epoch 24/120
+  Epoch 24 Batch 50/461 | Loss=0.050374 | diff=0.0464 | coarse=0.0493 | 8.5s
+  Epoch 24 Batch 100/461 | Loss=0.054855 | diff=0.0507 | coarse=0.0514 | 16.8s
+  Epoch 24 Batch 150/461 | Loss=0.068547 | diff=0.0642 | coarse=0.0539 | 25.3s
+  Epoch 24 Batch 200/461 | Loss=0.067284 | diff=0.0615 | coarse=0.0722 | 33.6s
+  Epoch 24 Batch 250/461 | Loss=0.066537 | diff=0.0617 | coarse=0.0605 | 42.2s
+  Epoch 24 Batch 300/461 | Loss=0.046523 | diff=0.0430 | coarse=0.0441 | 50.8s
+  Epoch 24 Batch 350/461 | Loss=0.047150 | diff=0.0434 | coarse=0.0467 | 59.5s
+  Epoch 24 Batch 400/461 | Loss=0.064510 | diff=0.0599 | coarse=0.0582 | 68.1s
+  Epoch 24 Batch 450/461 | Loss=0.053947 | diff=0.0490 | coarse=0.0623 | 76.7s
+  Epoch 24 Batch 461/461 | Loss=0.015494 | diff=0.0146 | coarse=0.0116 | 78.6s
+Epoch 24/120 | Loss=0.050789 | Val RMSE=13.7239 | Val MAE=10.8028 | Val MAPE=46.02% | LR=6.54e-04 | 176.7s
+[INFO] start epoch 25/120
+  Epoch 25 Batch 50/461 | Loss=0.051675 | diff=0.0476 | coarse=0.0505 | 8.9s
+  Epoch 25 Batch 100/461 | Loss=0.050727 | diff=0.0468 | coarse=0.0488 | 17.3s
+  Epoch 25 Batch 150/461 | Loss=0.068085 | diff=0.0628 | coarse=0.0663 | 26.0s
+  Epoch 25 Batch 200/461 | Loss=0.068697 | diff=0.0633 | coarse=0.0675 | 34.8s
+  Epoch 25 Batch 250/461 | Loss=0.065922 | diff=0.0605 | coarse=0.0674 | 43.8s
+  Epoch 25 Batch 300/461 | Loss=0.045016 | diff=0.0415 | coarse=0.0435 | 52.3s
+  Epoch 25 Batch 350/461 | Loss=0.046613 | diff=0.0430 | coarse=0.0448 | 60.8s
+  Epoch 25 Batch 400/461 | Loss=0.063119 | diff=0.0586 | coarse=0.0564 | 69.1s
+  Epoch 25 Batch 450/461 | Loss=0.055096 | diff=0.0484 | coarse=0.0839 | 77.6s
+  Epoch 25 Batch 461/461 | Loss=0.015496 | diff=0.0144 | coarse=0.0132 | 79.5s
+Epoch 25/120 | Loss=0.050016 | Val RMSE=13.5821 | Val MAE=10.5491 | Val MAPE=44.29% | LR=6.49e-04 | 175.7s
+[INFO] start epoch 26/120
+  Epoch 26 Batch 50/461 | Loss=0.052763 | diff=0.0482 | coarse=0.0573 | 8.4s
+  Epoch 26 Batch 100/461 | Loss=0.050342 | diff=0.0464 | coarse=0.0497 | 16.7s
+  Epoch 26 Batch 150/461 | Loss=0.055775 | diff=0.0489 | coarse=0.0859 | 25.0s
+  Epoch 26 Batch 200/461 | Loss=0.066293 | diff=0.0615 | coarse=0.0602 | 33.4s
+  Epoch 26 Batch 250/461 | Loss=0.059347 | diff=0.0544 | coarse=0.0615 | 41.9s
+  Epoch 26 Batch 300/461 | Loss=0.043895 | diff=0.0405 | coarse=0.0425 | 50.2s
+  Epoch 26 Batch 350/461 | Loss=0.048343 | diff=0.0439 | coarse=0.0556 | 58.5s
+  Epoch 26 Batch 400/461 | Loss=0.059511 | diff=0.0550 | coarse=0.0558 | 67.0s
+  Epoch 26 Batch 450/461 | Loss=0.061729 | diff=0.0522 | coarse=0.1197 | 75.3s
+  Epoch 26 Batch 461/461 | Loss=0.017690 | diff=0.0162 | coarse=0.0182 | 77.1s
+Epoch 26/120 | Loss=0.049838 | Val RMSE=13.1418 | Val MAE=10.1768 | Val MAPE=41.44% | LR=6.44e-04 | 173.2s
+[INFO] start epoch 27/120
+  [WARN] skip non-finite grad at epoch 27 batch 34
+  Epoch 27 Batch 50/461 | Loss=0.052835 | diff=0.0483 | coarse=0.0568 | 8.5s
+  Epoch 27 Batch 100/461 | Loss=0.050915 | diff=0.0471 | coarse=0.0480 | 16.7s
+  Epoch 27 Batch 150/461 | Loss=0.047682 | diff=0.0426 | coarse=0.0630 | 24.8s
+  Epoch 27 Batch 200/461 | Loss=0.074688 | diff=0.0693 | coarse=0.0674 | 33.0s
+  Epoch 27 Batch 250/461 | Loss=0.060796 | diff=0.0566 | coarse=0.0523 | 41.3s
+  Epoch 27 Batch 300/461 | Loss=0.045564 | diff=0.0421 | coarse=0.0439 | 49.5s
+  Epoch 27 Batch 350/461 | Loss=0.048614 | diff=0.0431 | coarse=0.0684 | 57.7s
+  Epoch 27 Batch 400/461 | Loss=0.058918 | diff=0.0545 | coarse=0.0553 | 65.8s
+  Epoch 27 Batch 450/461 | Loss=0.060017 | diff=0.0500 | coarse=0.1250 | 73.9s
+  Epoch 27 Batch 461/461 | Loss=0.018051 | diff=0.0164 | coarse=0.0209 | 75.6s
+Epoch 27/120 | Loss=0.049582 | Val RMSE=13.5692 | Val MAE=10.6623 | Val MAPE=42.79% | LR=6.39e-04 | 172.7s
+[INFO] start epoch 28/120
+  Epoch 28 Batch 50/461 | Loss=0.055234 | diff=0.0511 | coarse=0.0514 | 8.6s
+  Epoch 28 Batch 100/461 | Loss=0.048122 | diff=0.0443 | coarse=0.0476 | 17.0s
+  Epoch 28 Batch 150/461 | Loss=0.048605 | diff=0.0448 | coarse=0.0474 | 25.4s
+  Epoch 28 Batch 200/461 | Loss=0.068861 | diff=0.0629 | coarse=0.0747 | 33.8s
+  Epoch 28 Batch 250/461 | Loss=0.059330 | diff=0.0540 | coarse=0.0668 | 42.1s
+  Epoch 28 Batch 300/461 | Loss=0.045920 | diff=0.0424 | coarse=0.0442 | 50.5s
+  Epoch 28 Batch 350/461 | Loss=0.048753 | diff=0.0446 | coarse=0.0525 | 59.0s
+  Epoch 28 Batch 400/461 | Loss=0.060727 | diff=0.0561 | coarse=0.0575 | 67.4s
+  Epoch 28 Batch 450/461 | Loss=0.050964 | diff=0.0442 | coarse=0.0842 | 75.7s
+  Epoch 28 Batch 461/461 | Loss=0.036863 | diff=0.0355 | coarse=0.0174 | 77.5s
+Epoch 28/120 | Loss=0.050759 | Val RMSE=14.6188 | Val MAE=11.7777 | Val MAPE=46.85% | LR=6.33e-04 | 174.5s
+[INFO] start epoch 29/120
+  Epoch 29 Batch 50/461 | Loss=0.052314 | diff=0.0486 | coarse=0.0458 | 8.8s
+  Epoch 29 Batch 100/461 | Loss=0.048312 | diff=0.0445 | coarse=0.0472 | 17.8s
+  Epoch 29 Batch 150/461 | Loss=0.046075 | diff=0.0428 | coarse=0.0405 | 26.7s
+  Epoch 29 Batch 200/461 | Loss=0.073350 | diff=0.0681 | coarse=0.0661 | 36.1s
+  Epoch 29 Batch 250/461 | Loss=0.051459 | diff=0.0466 | coarse=0.0603 | 44.9s
+  Epoch 29 Batch 300/461 | Loss=0.045118 | diff=0.0417 | coarse=0.0433 | 53.9s
+  Epoch 29 Batch 350/461 | Loss=0.050201 | diff=0.0464 | coarse=0.0471 | 62.5s
+  Epoch 29 Batch 400/461 | Loss=0.059881 | diff=0.0553 | coarse=0.0571 | 70.8s
+  Epoch 29 Batch 450/461 | Loss=0.048536 | diff=0.0441 | coarse=0.0557 | 79.1s
+  Epoch 29 Batch 461/461 | Loss=0.026106 | diff=0.0248 | coarse=0.0158 | 80.8s
+Epoch 29/120 | Loss=0.050220 | Val RMSE=16.6329 | Val MAE=13.9491 | Val MAPE=58.28% | LR=6.27e-04 | 179.0s
+[INFO] start epoch 30/120
+  Epoch 30 Batch 50/461 | Loss=0.046120 | diff=0.0422 | coarse=0.0496 | 8.4s
+  Epoch 30 Batch 100/461 | Loss=0.049072 | diff=0.0454 | coarse=0.0462 | 16.7s
+  Epoch 30 Batch 150/461 | Loss=0.043846 | diff=0.0408 | coarse=0.0383 | 24.9s
+  Epoch 30 Batch 200/461 | Loss=0.082954 | diff=0.0764 | coarse=0.0816 | 33.4s
+  Epoch 30 Batch 250/461 | Loss=0.054003 | diff=0.0497 | coarse=0.0536 | 42.0s
+  Epoch 30 Batch 300/461 | Loss=0.049197 | diff=0.0455 | coarse=0.0461 | 50.4s
+  Epoch 30 Batch 350/461 | Loss=0.051492 | diff=0.0481 | coarse=0.0426 | 58.9s
+  Epoch 30 Batch 400/461 | Loss=0.060996 | diff=0.0554 | coarse=0.0694 | 67.5s
+  Epoch 30 Batch 450/461 | Loss=0.041262 | diff=0.0379 | coarse=0.0424 | 76.0s
+  Epoch 30 Batch 461/461 | Loss=0.020361 | diff=0.0192 | coarse=0.0144 | 77.7s
+Epoch 30/120 | Loss=0.049648 | Val RMSE=14.8338 | Val MAE=11.8538 | Val MAPE=49.34% | LR=6.21e-04 | 174.7s
+[EARLY STOP] patience=15, best_val_rmse=11.2335 at epoch 15
+[INFO] PE-DiffWaveNet noleak training finished
+{
+  "split_mode": "noleak",
+  "model_name": "PE-DiffWaveNet",
+  "best_epoch": 15,
+  "best_valid_rmse": 11.233491735333438,
+  "best_valid_mae": 8.742742145475093,
+  "best_valid_mape": 37.01426806454031,
+  "test_rmse": 10.662989319467473,
+  "test_mae": 8.255981663471749,
+  "test_mape": 34.36236188279593,
+  "relative_rmse": 2.6007291023091397,
+  "relative_mae": 2.0136540642614023,
+  "train_scale_max": 410.0,
+  "world_size": 1,
+  "eval_inference_steps": 50,
+  "eval_num_samples": 3,
+  "eval_t_start_ratio": 0.25,
+  "use_diffusion": 1,
+  "use_pe_graph": 1,
+  "use_pe_film": 0,
+  "pe_source": "train",
+  "pe_graph_alpha": 1.0,
+  "pe_film_scale": 1.0,
+  "pe_film_zero_init": 0,
+  "normalize_pe_features": 1,
+  "pe_shuffle_seed": -1,
+  "pe_adaptive_loss": 0,
+  "pe_loss_weight": 0.15,
+  "pe_loss_start_step": 4,
+  "pe_loss_normalize": 1,
+  "per_step_rmse": [
+    10.1415032986931,
+    9.500786025915453,
+    12.16482632073302
+  ],
+  "per_step_mae": [
+    8.307338996315497,
+    7.088640600954494,
+    9.371965393145238
+  ],
+  "step4_6_rmse_avg": null,
+  "peak_mode": "percentile",
+  "peak_threshold": 64.99999910593033,
+  "peak_count": 20819,
+  "peak_ratio": 0.11135537013264869,
+  "rmse_peak": 10.970746444389299,
+  "mae_peak": 8.393725843273339
+}
+  Peak_mode      : percentile
+  Peak_threshold : 65.00 μg/m³
+  Peak_count     : 20819
+  Peak_ratio     : 11.14%
+  RMSE_peak      : 10.9707
+  MAE_peak       : 8.3937
+Per-step metrics:
+  Step        RMSE         MAE
+     1     10.1415      8.3073
+     2      9.5008      7.0886
+     3     12.1648      9.3720
+[INFO] outputs: /mnt/d/时空数据/臭氧预测资料/matrix_N95_PEDiffWaveNet_noleak_g3_pedw_no_pe_film_p3_l12_s42
+[INFO] weights: /mnt/d/时空数据/臭氧预测资料/weights_N95/weights_pediffwavenet_noleak_g3_pedw_no_pe_film_p3_l12_s42
