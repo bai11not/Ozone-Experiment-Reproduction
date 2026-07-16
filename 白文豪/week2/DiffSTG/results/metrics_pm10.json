@@ -1,0 +1,14 @@
+{
+  "model": "DiffSTG",
+  "seed": 42,
+  "data": "AIR_N95_PM10",
+  "T_h": 24,
+  "T_p": 6,
+  "best_epoch": 27,
+  "best_val_mae": 0.0128,
+  "best_val_rmse": 0.018,
+  "test_mae": 0.014,
+  "test_rmse": 0.04,
+  "test_mape": 63.28,
+  "test_crps": 0.3969
+}

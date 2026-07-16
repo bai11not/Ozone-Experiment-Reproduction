@@ -1,6 +1,5 @@
-{'PATH_MOD': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/', 'PATH_LOG': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log/', 'PATH_FORECAST': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/forecast/', 'data': {'name': 'AIR_N95', 'path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/', 'feature_file': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95/flow.npy', 'spatial': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95/adj.npy', 'num_recent': 1, 'num_features': 1, 'num_vertices': 95, 'points_per_hour': 1, 'val_start_idx': 7378, 'test_start_idx': 8047}, 'gpu_id': None, 'model': {'T_p': 6, 'T_h': 24, 'V': 95, 'F': 1, 'week_len': 7, 'day_len': 24, 'device': device(type='cuda'), 'd_h': 32, 'N': 200, 'sample_steps': 200, 'epsilon_theta': 'UGnet', 'is_label_condition': True, 'beta_end': 0.1, 'beta_schedule': 'quad', 'sample_strategy': 'ddpm', 'channel_multipliers': [1, 2], 'supports_len': 2, 'C': 32, 'n_channels': 32}, 'n_samples': 8, 'model_name': 'DiffSTG', 'is_test': True, 'epoch': 300, 'optimizer': 'adam', 'lr': 0.0001, 'batch_size': 32, 'wd': 1e-05, 'early_stop': 10, 'start_epoch': 0, 'device': device(type='cuda'), 'logger': <utils.common_utils.Logger object at 0x7e7f0d29fb90>, 'nni': False, 'mask_ratio': 0.0, 'T_h': 24, 'T_p': 6, 'trial_name': 'UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32', 'log_path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log//UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32.log'}
-model path:/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32N-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
-forecast_path:/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32N-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
+{'PATH_MOD': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/', 'PATH_LOG': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log/', 'PATH_FORECAST': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/forecast/', 'data': {'name': 'AIR_N95', 'path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/', 'feature_file': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95/flow.npy', 'spatial': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95/adj.npy', 'num_recent': 1, 'num_features': 1, 'num_vertices': 95, 'points_per_hour': 1, 'val_start_idx': 7378, 'test_start_idx': 8047}, 'gpu_id': None, 'model': {'T_p': 6, 'T_h': 24, 'V': 95, 'F': 1, 'week_len': 7, 'day_len': 24, 'device': device(type='cuda'), 'd_h': 32, 'N': 200, 'sample_steps': 200, 'epsilon_theta': 'UGnet', 'is_label_condition': True, 'beta_end': 0.1, 'beta_schedule': 'quad', 'sample_strategy': 'ddpm', 'channel_multipliers': [1, 2], 'supports_len': 2, 'C': 32, 'n_channels': 32}, 'n_samples': 8, 'model_name': 'DiffSTG', 'is_test': False, 'epoch': 300, 'optimizer': 'adam', 'lr': 0.0001, 'batch_size': 32, 'wd': 1e-05, 'early_stop': 10, 'start_epoch': 0, 'device': device(type='cuda'), 'logger': <utils.common_utils.Logger object at 0x74d70bf205d0>, 'mask_ratio': 0.0, 'T_h': 24, 'T_p': 6, 'trial_name': 'UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95+0.0001+32+42+0.0+300+10+/mnt/d/时空数据/白文豪/week2/DiffSTG/output', 'log_path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log//UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95+0.0001+32+42+0.0+300+10+/mnt/d/时空数据/白文豪/week2/DiffSTG/output.log'}
+model path:/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95+0.0001+32+42+0.0+300+10+/mnt/d/时空数据/白文豪/week2/DiffSTG/outputN-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
 DiffSTG(
   (eps_model): UGnet(
     (down): ModuleList(
@@ -248,4 +247,26 @@ DiffSTG(
 )Num_of_parameters:911047
       |---Train--- |---Val Future-- -|-----Val History----|
 Epoch | Loss  Time | MAE     RMSE    |  MAE    RMSE   Time|
-   0.0| 10.349 3.1s |[2.62   4.49   ] | 2.50   4.35   40.14s
+   1.0| 8.809 62.7s |[1.60   2.86   ] | 1.92   3.35   373.52s
+   2.0| 3.995 57.1s |[0.39   0.60   ] | 0.38   0.65   389.06s
+   3.0| 2.400 58.1s |[0.20   0.28   ] | 0.10   0.17   382.63s
+   4.0| 1.969 58.2s |[0.15   0.21   ] | 0.07   0.11   393.62s
+   5.0| 1.750 60.3s |[0.09   0.12   ] | 0.06   0.08   395.98s
+   6.0| 1.582 59.4s | 0.09   0.12    | 0.05   0.08   393.86s
+   7.0| 1.456 61.4s |[0.08   0.10   ] | 0.05   0.07   398.49s
+   8.0| 1.367 61.4s | 0.14   0.19    | 0.05   0.07   403.21s
+   9.0| 1.300 61.3s | 0.13   0.18    | 0.04   0.06   402.89s
+  10.0| 1.245 61.5s | 0.11   0.15    | 0.03   0.05   395.30s
+  11.0| 1.199 59.6s | 0.18   0.22    | 0.05   0.07   392.82s
+  12.0| 1.159 59.9s | 0.17   0.21    | 0.05   0.07   399.05s
+  13.0| 1.125 57.0s | 0.10   0.14    | 0.04   0.05   374.99s
+  14.0| 1.079 57.2s |[0.08   0.10   ] | 0.02   0.03   375.87s
+  15.0| 1.063 57.4s |[0.06   0.08   ] | 0.02   0.03   378.20s
+  16.0| 1.048 55.6s |[0.06   0.08   ] | 0.02   0.03   370.58s
+  17.0| 1.032 56.0s |[0.06   0.08   ] | 0.02   0.02   368.98s
+  18.0| 1.018 57.3s |[0.06   0.08   ] | 0.02   0.02   365.57s
+  19.0| 1.004 56.2s |[0.06   0.08   ] | 0.02   0.02   368.60s
+  20.0| 0.991 56.2s |[0.06   0.08   ] | 0.02   0.02   368.36s
+  21.0| 0.978 56.1s |[0.06   0.08   ] | 0.02   0.02   368.26s
+  22.0| 0.966 55.6s |[0.06   0.07   ] | 0.02   0.02   368.31s
+  23.0| 0.954 55.9s |[0.06   0.07   ] | 0.02   0.02   380.55s

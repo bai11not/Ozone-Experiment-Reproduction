@@ -55,6 +55,7 @@ def get_params():
     parser.add_argument("--nni", type=bool, default=False)
     parser.add_argument("--lr", type=float, default=0.002)
     parser.add_argument("--batch_size", type=int, default=8)
+    parser.add_argument("--seed", type=int, default=2022)
 
     args, _ = parser.parse_known_args()
     return args
@@ -254,7 +255,7 @@ def evals(model, data_loader, epoch, metric, config, clean_data, mode='Test'):
 from pprint import  pprint
 def main(params: dict):
     # torch.manual_seed(2022)
-    setup_seed(2022)
+    setup_seed(params.get('seed', 2022))
     torch.set_num_threads(2)
     config = default_config(params['data'])
 

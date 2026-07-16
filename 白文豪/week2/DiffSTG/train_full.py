@@ -115,6 +115,20 @@ def default_config(data='AIR_N95'):
         config.data.val_start_idx = 7378
         config.data.test_start_idx = 8047
 
+    if config.data.name == 'AIR_N95_CORR':
+        config.data.num_features = 1
+        config.data.num_vertices = 95
+        config.data.points_per_hour = 1
+        config.data.val_start_idx = 7378
+        config.data.test_start_idx = 8047
+
+    if config.data.name == 'AIR_N95_PE':
+        config.data.num_features = 1
+        config.data.num_vertices = 95
+        config.data.points_per_hour = 1
+        config.data.val_start_idx = 7378
+        config.data.test_start_idx = 8047
+
     gpu_id = GPU().get_usefuel_gpu(max_memory=6000, condidate_gpu_id=[0,1,2,3,4,6,7,8])
     config.gpu_id = gpu_id
     if gpu_id is not None:

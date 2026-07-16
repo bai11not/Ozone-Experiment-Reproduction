@@ -1,6 +1,5 @@
-{'PATH_MOD': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/', 'PATH_LOG': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log/', 'PATH_FORECAST': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/forecast/', 'data': {'name': 'AIR_N95', 'path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/', 'feature_file': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95/flow.npy', 'spatial': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95/adj.npy', 'num_recent': 1, 'num_features': 1, 'num_vertices': 95, 'points_per_hour': 1, 'val_start_idx': 7378, 'test_start_idx': 8047}, 'gpu_id': None, 'model': {'T_p': 6, 'T_h': 24, 'V': 95, 'F': 1, 'week_len': 7, 'day_len': 24, 'device': device(type='cuda'), 'd_h': 32, 'N': 200, 'sample_steps': 200, 'epsilon_theta': 'UGnet', 'is_label_condition': True, 'beta_end': 0.1, 'beta_schedule': 'quad', 'sample_strategy': 'ddpm', 'channel_multipliers': [1, 2], 'supports_len': 2, 'C': 32, 'n_channels': 32}, 'n_samples': 8, 'model_name': 'DiffSTG', 'is_test': True, 'epoch': 300, 'optimizer': 'adam', 'lr': 0.0001, 'batch_size': 32, 'wd': 1e-05, 'early_stop': 10, 'start_epoch': 0, 'device': device(type='cuda'), 'logger': <utils.common_utils.Logger object at 0x7e7f0d29fb90>, 'nni': False, 'mask_ratio': 0.0, 'T_h': 24, 'T_p': 6, 'trial_name': 'UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32', 'log_path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log//UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32.log'}
-model path:/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32N-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
-forecast_path:/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+True+AIR_N95+0.0+True+False+0.0001+32N-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
+{'PATH_MOD': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/', 'PATH_LOG': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log/', 'PATH_FORECAST': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/forecast/', 'data': {'name': 'AIR_N95_PM25', 'path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/', 'feature_file': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95_PM25/flow.npy', 'spatial': '/mnt/d/时空数据/白文豪/week1/DiffSTG/data/dataset/AIR_N95_PM25/adj.npy', 'num_recent': 1, 'num_features': 1, 'num_vertices': 95, 'points_per_hour': 1, 'val_start_idx': 7378, 'test_start_idx': 8047}, 'gpu_id': None, 'model': {'T_p': 6, 'T_h': 24, 'V': 95, 'F': 1, 'week_len': 7, 'day_len': 24, 'device': device(type='cuda'), 'd_h': 32, 'N': 200, 'sample_steps': 200, 'epsilon_theta': 'UGnet', 'is_label_condition': True, 'beta_end': 0.1, 'beta_schedule': 'quad', 'sample_strategy': 'ddpm', 'channel_multipliers': [1, 2], 'supports_len': 2, 'C': 32, 'n_channels': 32}, 'n_samples': 8, 'model_name': 'DiffSTG', 'is_test': False, 'epoch': 300, 'optimizer': 'adam', 'lr': 0.0001, 'batch_size': 32, 'wd': 1e-05, 'early_stop': 10, 'start_epoch': 0, 'device': device(type='cuda'), 'logger': <utils.common_utils.Logger object at 0x7f8d2aec4610>, 'mask_ratio': 0.0, 'T_h': 24, 'T_p': 6, 'trial_name': 'UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95_PM25+0.0001+32+42+0.0+300+10+0.001+/mnt/d/时空数据/白文豪/week2/DiffSTG/output', 'log_path': '/mnt/d/时空数据/白文豪/week1/DiffSTG/output/log//UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95_PM25+0.0001+32+42+0.0+300+10+0.001+/mnt/d/时空数据/白文豪/week2/DiffSTG/output.log'}
+model path:/mnt/d/时空数据/白文豪/week1/DiffSTG/output/model/UGnet+32+200+quad+0.1+200+ddpm+24+6+8+AIR_N95_PM25+0.0001+32+42+0.0+300+10+0.001+/mnt/d/时空数据/白文豪/week2/DiffSTG/outputN-200+T_h-24+T_p-6+epsilon_theta-UGnet.dm4stg
 DiffSTG(
   (eps_model): UGnet(
     (down): ModuleList(
@@ -248,4 +247,54 @@ DiffSTG(
 )Num_of_parameters:911047
       |---Train--- |---Val Future-- -|-----Val History----|
 Epoch | Loss  Time | MAE     RMSE    |  MAE    RMSE   Time|
-   0.0| 10.349 3.1s |[2.62   4.49   ] | 2.50   4.35   40.14s
+   1.0| 8.702 60.9s |[0.7461 1.3142 ] | 0.8721 1.4948 405.07s
+   2.0| 4.066 68.1s |[0.2726 0.4292 ] | 0.2062 0.3475 448.93s
+   3.0| 2.489 70.6s |[0.0967 0.1439 ] | 0.0619 0.0862 409.15s
+   4.0| 2.020 61.4s |[0.0759 0.1085 ] | 0.0479 0.0656 396.75s
+   5.0| 1.801 60.4s |[0.0666 0.0919 ] | 0.0411 0.0540 399.30s
+   6.0| 1.639 60.8s | 0.1054 0.1427  | 0.0458 0.0605 372.43s
+   7.0| 1.511 57.1s | 0.1065 0.1413  | 0.0406 0.0537 379.85s
+   8.0| 1.418 61.3s | 0.0695 0.0980  | 0.0225 0.0298 376.53s
+   9.0| 1.343 57.2s | 0.0702 0.0971  | 0.0219 0.0290 388.82s
+  10.0| 1.284 59.5s |[0.0509 0.0719 ] | 0.0195 0.0251 384.39s
+  11.0| 1.232 60.1s | 0.0692 0.0928  | 0.0181 0.0245 383.02s
+  12.0| 1.187 58.1s | 0.0637 0.0847  | 0.0159 0.0218 372.35s
+  13.0| 1.145 58.7s |[0.0484 0.0668 ] | 0.0217 0.0262 369.98s
+  14.0| 1.109 57.0s |[0.0440 0.0622 ] | 0.0180 0.0220 383.62s
+  15.0| 1.077 57.8s | 0.0441 0.0622  | 0.0152 0.0190 381.80s
+  16.0| 1.048 58.4s |[0.0437 0.0617 ] | 0.0147 0.0180 374.10s
+  17.0| 1.021 56.7s |[0.0429 0.0619 ] | 0.0113 0.0144 370.30s
+  18.0| 0.997 56.8s |[0.0427 0.0620 ] | 0.0111 0.0140 370.95s
+  19.0| 0.974 56.5s |[0.0426 0.0623 ] | 0.0145 0.0177 373.25s
+  20.0| 0.953 55.5s |[0.0424 0.0619 ] | 0.0141 0.0171 369.06s
+  21.0| 0.933 57.3s |[0.0421 0.0616 ] | 0.0149 0.0179 367.85s
+  22.0| 0.915 58.3s |[0.0419 0.0612 ] | 0.0156 0.0185 370.47s
+  23.0| 0.898 57.1s |[0.0415 0.0608 ] | 0.0145 0.0173 378.85s
+  24.0| 0.881 58.2s | 0.0416 0.0612  | 0.0117 0.0144 375.03s
+  25.0| 0.866 58.1s | 0.0417 0.0599  | 0.0160 0.0187 378.69s
+  26.0| 0.851 58.5s | 0.0428 0.0603  | 0.0171 0.0198 374.80s
+  27.0| 0.838 56.7s | 0.0439 0.0609  | 0.0181 0.0206 395.03s
+  28.0| 0.824 62.6s | 0.0442 0.0609  | 0.0172 0.0197 370.51s
+  29.0| 0.811 58.8s | 0.0423 0.0597  | 0.0138 0.0163 386.44s
+  30.0| 0.780 58.4s |[0.0399 0.0587 ] | 0.0051 0.0067 380.22s
+  31.0| 0.772 59.7s | 0.0440 0.0646  | 0.0070 0.0088 381.38s
+  32.0| 0.767 58.9s | 0.0418 0.0621  | 0.0047 0.0063 383.50s
+  33.0| 0.760 58.5s |[0.0386 0.0568 ] | 0.0058 0.0075 381.36s
+  34.0| 0.755 57.9s | 0.0390 0.0581  | 0.0049 0.0064 385.70s
+  35.0| 0.749 57.7s | 0.0387 0.0577  | 0.0049 0.0064 379.52s
+  36.0| 0.743 59.0s | 0.0386 0.0576  | 0.0049 0.0064 391.01s
+  37.0| 0.737 60.3s | 0.0400 0.0599  | 0.0044 0.0059 377.29s
+  38.0| 0.731 56.4s | 0.0396 0.0593  | 0.0045 0.0060 376.54s
+  39.0| 0.726 57.0s | 0.0395 0.0593  | 0.0043 0.0057 374.25s
+  40.0| 0.710 58.6s |[0.0374 0.0554 ] | 0.0043 0.0056 378.47s
+  41.0| 0.708 57.8s | 0.0374 0.0555  | 0.0038 0.0050 374.97s
+  42.0| 0.705 56.9s | 0.0375 0.0540  | 0.0037 0.0050 373.24s
+  43.0| 0.702 57.6s | 0.0379 0.0539  | 0.0037 0.0051 378.43s
+  44.0| 0.699 59.9s |[0.0369 0.0545 ] | 0.0035 0.0046 376.61s
+  45.0| 0.696 59.0s | 0.0370 0.0549  | 0.0034 0.0045 371.72s
+  46.0| 0.693 55.6s | 0.0370 0.0549  | 0.0033 0.0045 370.12s
+  47.0| 0.690 56.4s |[0.0369 0.0549 ] | 0.0033 0.0044 364.78s
+  48.0| 0.687 56.7s |[0.0369 0.0550 ] | 0.0033 0.0044 364.53s
+  49.0| 0.685 56.4s | 0.0371 0.0554  | 0.0033 0.0044 366.73s
+  50.0| 0.682 56.9s | 0.0371 0.0553  | 0.0033 0.0043 363.36s
+ |[0.0283 0.0537 ] | 0.0041 0.0058 6596.87s
