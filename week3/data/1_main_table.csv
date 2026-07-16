@@ -1,0 +1,4 @@
+模型,污染物,pre_len,RMSE,MAE,MAPE,备注
+PE-DiffWaveNet,O3,3,8.62,5.84,24.00%,full/seq=24/seed=42 (A06)
+PE-DiffWaveNet,O3,6,11.07,7.67,30.88%,full/seq=24/seed=42 (A08)
+DiffSTG,O3,6,25.75,20.71,—,z-score换算×410

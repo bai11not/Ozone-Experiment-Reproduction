@@ -1,0 +1,5 @@
+消融类型,seed42_peakRMSE,seed42_peakMAE,seed52_peakRMSE,seed52_peakMAE
+full,14.52,9.53,15.36,10.50
+no_diff,15.36,10.50,13.19,8.79
+no_pe_graph,13.19,8.79,9.02,6.03
+no_pe_film,13.36,8.59,9.78,6.15
