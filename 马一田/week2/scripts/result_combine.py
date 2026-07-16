@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # ============================================================
-# Week 2: Person C 消融实验结果合并
+# Week 2: Person C 消融实验结果合并 (seed=52 + seed=62)
 # 用法: python result_combine.py
 # ============================================================
 import json
@@ -8,9 +8,10 @@ import csv
 from pathlib import Path
 
 ROOT = Path("d:/桌面/臭氧预测资料/臭氧预测资料")
-OUT_CSV = Path(__file__).resolve().parent.parent / "results" / "person_C_seed52_full_nodiff" / "person_C_results.csv"
+RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
 
 EXPERIMENTS = [
+    # seed=52 (C01-C08)
     ("C01", 52, 12, 6, 1, 1, 1, "s52-full-l12-p6"),
     ("C02", 52, 12, 3, 1, 1, 1, "s52-full-l12-p3"),
     ("C03", 52, 24, 6, 1, 1, 1, "s52-full-l24-p6"),
@@ -19,6 +20,15 @@ EXPERIMENTS = [
     ("C06", 52, 12, 3, 0, 1, 1, "s52-nodiff-l12-p3"),
     ("C07", 52, 24, 6, 0, 1, 1, "s52-nodiff-l24-p6"),
     ("C08", 52, 24, 3, 0, 1, 1, "s52-nodiff-l24-p3"),
+    # seed=62 (C09-C16)
+    ("C09", 62, 12, 6, 1, 1, 1, "s62-full-l12-p6"),
+    ("C10", 62, 12, 3, 1, 1, 1, "s62-full-l12-p3"),
+    ("C11", 62, 24, 6, 1, 1, 1, "s62-full-l24-p6"),
+    ("C12", 62, 24, 3, 1, 1, 1, "s62-full-l24-p3"),
+    ("C13", 62, 12, 6, 0, 1, 1, "s62-nodiff-l12-p6"),
+    ("C14", 62, 12, 3, 0, 1, 1, "s62-nodiff-l12-p3"),
+    ("C15", 62, 24, 6, 0, 1, 1, "s62-nodiff-l24-p6"),
+    ("C16", 62, 24, 3, 0, 1, 1, "s62-nodiff-l24-p3"),
 ]
 
 
@@ -69,21 +79,32 @@ def main():
         "ablation", "use_diffusion", "use_pe_graph", "use_pe_film",
         "test_rmse", "test_mae", "test_mape", "peak_rmse", "best_epoch", "status"
     ]
-    with open(OUT_CSV, "w", newline="", encoding="utf-8-sig") as f:
+
+    # 分别输出两个 seed 的 CSV
+    for seed_val, subdir in [(52, "person_C_seed52_full_nodiff"), (62, "person_C_seed62_full_nodiff")]:
+        out_csv = RESULTS_DIR / subdir / "person_C_results.csv"
+        seed_rows = [r for r in rows if r["seed"] == seed_val]
+        with open(out_csv, "w", newline="", encoding="utf-8-sig") as f:
+            w = csv.DictWriter(f, fieldnames=fieldnames)
+            w.writeheader()
+            w.writerows(seed_rows)
+        done = [r for r in seed_rows if r["status"] == "done"]
+        print(f"seed={seed_val}: {len(done)}/{len(seed_rows)} done → {out_csv}")
+
+    # 合并 CSV
+    out_all = RESULTS_DIR / "person_C_all_results.csv"
+    with open(out_all, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=fieldnames)
         w.writeheader()
         w.writerows(rows)
+    done_all = [r for r in rows if r["status"] == "done"]
+    print(f"All: {len(done_all)}/{len(rows)} done → {out_all}")
 
-    done = [r for r in rows if r["status"] == "done"]
-    not_run = [r for r in rows if r["status"] == "not_run"]
-
-    print(f"Person C: {len(done)}/8 done, {len(not_run)} remaining")
-    print(f"Output: {OUT_CSV}")
-
-    if done:
-        print(f"\n{'Label':<25} {'RMSE':>8} {'MAE':>8} {'MAPE':>8} {'Peak':>8} {'Epoch':>6}")
-        for r in done:
-            print(f"{r['exp_label']:<25} {r['test_rmse']:>8.2f} {r['test_mae']:>8.2f} {r['test_mape']:>7.1f}% {r['peak_rmse']:>8.2f} {r['best_epoch']:>6}")
+    # 打印汇总
+    print(f"\n{'ID':<4} {'Label':<23} {'Seed':>4} {'RMSE':>8} {'MAE':>8} {'MAPE':>8} {'Peak':>8}")
+    for r in rows:
+        if r["status"] == "done":
+            print(f"{r['experiment_id']:<4} {r['exp_label']:<23} {r['seed']:>4} {r['test_rmse']:>8.2f} {r['test_mae']:>8.2f} {r['test_mape']:>7.1f}% {r['peak_rmse']:>8.2f}")
 
 
 if __name__ == "__main__":
