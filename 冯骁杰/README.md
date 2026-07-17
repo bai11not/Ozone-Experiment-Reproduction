@@ -45,16 +45,7 @@
 │   │   └── 📂 g3_noPEgraph_p6_l24_s62/          #     实验 11: no PE Graph seq24 pre6
 │   │
 │   └── 📂 week3/                                #   第 3 周: 图表、报告和验收
-│
-├── 📂 code/                                     # 通用代码（模型、训练脚本、PE 实现）
-├── 📂 templates/                                # 实验输出规范模板
-│   ├── 📄 experiment_output_standard.md
-│   ├── 📄 experiment_result_template.csv
-│   └── 📄 experiment_log_template.md
-│
-├── 📂 matrix_N95/                               # 数据矩阵（原始 O₃ + 气象缓存）
-├── 📂 weights_N95/                              # 模型权重文件
-└── 📂 matrix_N95_PEDiffWaveNet_noleak_*/       # 各实验的输出目录
+
 ```
 
 ---
