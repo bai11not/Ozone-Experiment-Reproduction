@@ -5,8 +5,8 @@
 - 组别：3
 - 学生：A
 - 日期：2026-07-15
-- 实验编号：g3_noPEgraph_p3_l12_s62
-- 模型：PE-DiffWaveNet no PE Graph (Diffusion + PE-FiLM，无 PE Graph)
+- 实验编号：g3_pedw_p3_l12_s62
+- 模型：PE-DiffWaveNet (全组件: Diffusion + PE Graph + PE-FiLM)
 - 数据目录：matrix_N95/
 
 ## 运行命令
