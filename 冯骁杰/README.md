@@ -20,30 +20,41 @@
 │   │   ├── 📄 README.md                         #     本周总结
 │   │   ├── 📄 commands.sh                       #     全部可复现运行命令
 │   │   ├── 📄 代码修改记录.md                    #     代码修改追溯（11 项修改）
-│   │   │
 │   │   ├── 📂 01_data_organization/             #     步骤①: 数据整理
-│   │   │   ├── data_organization.py             #       主脚本（590 行）
-│   │   │   ├── regenerate_figures.py            #       图表修复脚本（中文乱码修复）
-│   │   │   └── data_organization_output/
-│   │   │       ├── data_description_draft.md    #       数据说明初稿
-│   │   │       ├── station_missing_summary.csv
-│   │   │       ├── summary.json
-│   │   │       └── figures/                     #       8 张数据探索图
-│   │   │
 │   │   ├── 📂 02_baseline/                      #     步骤②: Baseline 调研与适配
-│   │   │   └── baseline_report.md               #       完整调研报告
-│   │   │
 │   │   ├── 📂 03_pediffwavenet/                 #     步骤③: PE-DiffWaveNet 实验
-│   │   │   └── pediffwavenet_experiment.md      #       模型原理 + Smoke test + 实验流程
-│   │   │
 │   │   └── 📂 04_results_organization/          #     步骤④: 结果整理
-│   │       ├── results_organization_report.md   #       字段对齐 + 模板指南
-│   │       ├── chart_naming_convention.md       #       图表命名规范
-│   │       └── results.csv                      #       统一结果表（27 行）
 │   │
-│   ├── 📂 week2/                                #   第 2 周: 批量实验（进行中）
+│   ├── 📂 week2/                                #   第 2 周: 批量实验
+│   │   ├── 📄 experiment_comparison_summary.md   #     实验对比总结报告
+│   │   ├── 📄 experiment_reflection.md           #     实验心得与体会
+│   │   ├── 📄 results_summary_all.csv            #     汇总结果表（13 组）
+│   │   │
+│   │   ├── 📂 g3_pedw_p6_l24_s42/               #     实验 0: 基准实验
+│   │   ├── 📂 g3_nodiff_pe_p6_l24_s42/          #     实验 0b: 基准 noDiff 消融
+│   │   ├── 📂 g3_pedw_p3_l24_s42/               #     实验 1: pre_len=3
+│   │   ├── 📂 g3_pedw_p3_l12_s42/               #     实验 2: seq12 pre3
+│   │   ├── 📂 g3_pedw_p6_l12_s42/               #     实验 3: seq12 pre6
+│   │   ├── 📂 g3_nodiff_pe_p3_l24_s42/          #     实验 4: noDiff pre3
+│   │   ├── 📂 g3_nodiff_pe_p3_l12_s42/          #     实验 5: noDiff seq12 pre3
+│   │   ├── 📂 g3_nodiff_pe_p6_l12_s42/          #     实验 6: noDiff seq12 pre6
+│   │   ├── 📂 g3_pedw_p6_l12_s62/               #     实验 7: seed=62 主实验
+│   │   ├── 📂 g3_noPEgraph_p6_l12_s62/          #     实验 8: no PE Graph seq12 pre6
+│   │   ├── 📂 g3_noPEgraph_p3_l12_s62/          #     实验 9: no PE Graph seq12 pre3
+│   │   ├── 📂 g3_noPEgraph_p3_l24_s62/          #     实验 10: no PE Graph seq24 pre3
+│   │   └── 📂 g3_noPEgraph_p6_l24_s62/          #     实验 11: no PE Graph seq24 pre6
+│   │
 │   └── 📂 week3/                                #   第 3 周: 图表、报告和验收
-
+│
+├── 📂 code/                                     # 通用代码（模型、训练脚本、PE 实现）
+├── 📂 templates/                                # 实验输出规范模板
+│   ├── 📄 experiment_output_standard.md
+│   ├── 📄 experiment_result_template.csv
+│   └── 📄 experiment_log_template.md
+│
+├── 📂 matrix_N95/                               # 数据矩阵（原始 O₃ + 气象缓存）
+├── 📂 weights_N95/                              # 模型权重文件
+└── 📂 matrix_N95_PEDiffWaveNet_noleak_*/       # 各实验的输出目录
 ```
 
 ---
@@ -60,24 +71,32 @@
 | 4 | 结果整理 — 统一表、字段对齐、命名规范 | ✅ | results.csv + chart_naming_convention.md |
 | 5 | 汇总文件 — 周报总览、命令汇总、修改追溯 | ✅ | README.md + commands.sh + 代码修改记录.md |
 
-**关键发现**:
-- O₃ 缺失率 2.25%, PM₂.₅ 1.33%, PM₁₀ 1.55% — 数据质量良好
-- 确认 9 个 baseline/变体，MTGNN (L=24) 最优 RMSE=10.662
-- PE-DiffWaveNet backbone RMSE=10.938，与最优 GNN baseline 同水平
-- DiffSTG 完成数据适配，T_p=T_h 限制已解耦
+**关键发现**: O₃ 缺失率 2.25%, MTGNN (L=24) 最优 RMSE=10.662, PE-DiffWaveNet backbone RMSE=10.938
 
-### 🔄 第 2 周: 批量实验
+---
 
-| 实验类型 | 配置 | 状态 |
-|----------|------|:--:|
-| 主模型多 seed | seed=42, 52, 62 | ⏳ |
-| 多预测步长 | pre_len=1, 3, 6, 12, 24 | ⏳ |
-| 多输入窗口 | seq_len=12, 24, 48 | ⏳ |
-| 消融-无扩散 | USE_DIFFUSION=0 | ⏳ |
-| 消融-无 PE 图 | USE_PE_GRAPH=0 | ⏳ |
-| 消融-无 PE FiLM | USE_PE_FILM=0 | ⏳ |
-| PE shuffle | PE_SHUFFLE_SEED=52 | ⏳ |
-| Baseline 正式运行 | ATGCN-PE3, DiffSTG | ⏳ |
+### ✅ 第 2 周: 批量实验（13 组完成）
+
+> 详见 [experiment_comparison_summary.md](week2/experiment_comparison_summary.md) 和 [experiment_reflection.md](week2/experiment_reflection.md)
+
+| 维度 | 实验范围 | 组数 | 状态 |
+|------|----------|:--:|:--:|
+| 参数扫描 | pre_len=3/6, seq_len=12/24 | 3 | ✅ |
+| 扩散消融 | use_diffusion=0 × 4 配置 | 4 | ✅ |
+| PE Graph 消融 | use_pe_graph=0 × 4 配置 (seed=62) | 4 | ✅ |
+| 多种子 | seed=42 vs seed=62 | 2 | ✅ |
+
+**核心结论**:
+
+| 发现 | 详细 |
+|------|------|
+| 参数重要性 | pre_len ≫ seq_len ≫ seed ≈ diffusion > PE Graph |
+| 扩散模块价值 | 整体 RMSE 影响 < 3%，但 Peak RMSE 恶化 1.4~1.8 |
+| PE Graph 贡献 | 同种子下开关结果完全一致（Δ=0.00），与 S/T 矩阵高度冗余 |
+| 最佳配置 | seed=42, seq24, pre3, diff=1 → RMSE=8.62, MAPE=24.00% |
+| 跨种子对比 | 种子差异 ~0.05，与消融效应同量级，不可混用 |
+
+**待补**: seed=62 的 PE Graph=1 主实验（3 组，由小组成员运行）
 
 ### 📅 第 3 周: 图表、报告和验收
 
