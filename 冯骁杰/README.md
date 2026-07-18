@@ -25,27 +25,31 @@
 │   │   ├── 📂 03_pediffwavenet/                 #     步骤③: PE-DiffWaveNet 实验
 │   │   └── 📂 04_results_organization/          #     步骤④: 结果整理
 │   │
-│   ├── 📂 week2/                                #   第 2 周: 批量实验
+│   ├── 📂 week2/                                #   第 2 周: 批量实验（18 组）
 │   │   ├── 📄 experiment_comparison_summary.md   #     实验对比总结报告
 │   │   ├── 📄 experiment_reflection.md           #     实验心得与体会
-│   │   ├── 📄 results_summary_all.csv            #     汇总结果表（13 组）
+│   │   ├── 📄 results_summary_all.csv            #     汇总结果表（18 组）
 │   │   │
-│   │   ├── 📂 g3_pedw_p6_l24_s42/               #     实验 0: 基准实验
-│   │   ├── 📂 g3_nodiff_pe_p6_l24_s42/          #     实验 0b: 基准 noDiff 消融
-│   │   ├── 📂 g3_pedw_p3_l24_s42/               #     实验 1: pre_len=3
-│   │   ├── 📂 g3_pedw_p3_l12_s42/               #     实验 2: seq12 pre3
-│   │   ├── 📂 g3_pedw_p6_l12_s42/               #     实验 3: seq12 pre6
-│   │   ├── 📂 g3_nodiff_pe_p3_l24_s42/          #     实验 4: noDiff pre3
-│   │   ├── 📂 g3_nodiff_pe_p3_l12_s42/          #     实验 5: noDiff seq12 pre3
-│   │   ├── 📂 g3_nodiff_pe_p6_l12_s42/          #     实验 6: noDiff seq12 pre6
-│   │   ├── 📂 g3_pedw_p6_l12_s62/               #     实验 7: seed=62 主实验
-│   │   ├── 📂 g3_noPEgraph_p6_l12_s62/          #     实验 8: no PE Graph seq12 pre6
-│   │   ├── 📂 g3_noPEgraph_p3_l12_s62/          #     实验 9: no PE Graph seq12 pre3
-│   │   ├── 📂 g3_noPEgraph_p3_l24_s62/          #     实验 10: no PE Graph seq24 pre3
-│   │   └── 📂 g3_noPEgraph_p6_l24_s62/          #     实验 11: no PE Graph seq24 pre6
+│   │   ├── 📂 g3_pedw_p6_l24_s42/               #     实验 0: 基准 s42 ×4 参数扫描
+│   │   ├── 📂 g3_pedw_p3_l24_s42/               #     实验 1-3
+│   │   ├── 📂 g3_pedw_p3_l12_s42/
+│   │   ├── 📂 g3_pedw_p6_l12_s42/
+│   │   ├── 📂 g3_nodiff_pe_p*_s42/              #     实验 0b,4-6: 扩散消融 ×4
+│   │   ├── 📂 g3_pedw_p*_s62/                   #     实验 7-10: seed=62 主实验 ×4
+│   │   ├── 📂 g3_noPEgraph_p*_s62/              #     实验 11-14: PE Graph 消融 ×4
+│   │   └── 📂 g3_noPEfilm_p*_s62/               #     实验 15-16: PE-FiLM 消融 ×2
 │   │
 │   └── 📂 week3/                                #   第 3 周: 图表、报告和验收
-
+│
+├── 📂 code/                                     # 通用代码（模型、训练脚本、PE 实现）
+├── 📂 templates/                                # 实验输出规范模板
+│   ├── 📄 experiment_output_standard.md
+│   ├── 📄 experiment_result_template.csv
+│   └── 📄 experiment_log_template.md
+│
+├── 📂 matrix_N95/                               # 数据矩阵（原始 O₃ + 气象缓存）
+├── 📂 weights_N95/                              # 模型权重文件
+└── 📂 matrix_N95_PEDiffWaveNet_noleak_*/       # 各实验的输出目录
 ```
 
 ---
@@ -66,28 +70,29 @@
 
 ---
 
-### ✅ 第 2 周: 批量实验（13 组完成）
+### ✅ 第 2 周: 批量实验（18 组完成）
 
 > 详见 [experiment_comparison_summary.md](week2/experiment_comparison_summary.md) 和 [experiment_reflection.md](week2/experiment_reflection.md)
 
 | 维度 | 实验范围 | 组数 | 状态 |
 |------|----------|:--:|:--:|
-| 参数扫描 | pre_len=3/6, seq_len=12/24 | 3 | ✅ |
-| 扩散消融 | use_diffusion=0 × 4 配置 | 4 | ✅ |
-| PE Graph 消融 | use_pe_graph=0 × 4 配置 (seed=62) | 4 | ✅ |
-| 多种子 | seed=42 vs seed=62 | 2 | ✅ |
+| 参数扫描 + 多种子 | pre_len=3/6, seq_len=12/24, seed=42/62 | 8 | ✅ |
+| 扩散消融 | use_diffusion=0 × 4 配置 (seed=42) | 4 | ✅ |
+| PE Graph 消融 | use_pe_graph=0 × 4 配置 (seed=62, 同种子受控) | 4 | ✅ |
+| PE-FiLM 消融 | use_pe_film=0 × 2 配置 (seed=62) | 2 | ✅ |
 
 **核心结论**:
 
 | 发现 | 详细 |
 |------|------|
-| 参数重要性 | pre_len ≫ seq_len ≫ seed ≈ diffusion > PE Graph |
-| 扩散模块价值 | 整体 RMSE 影响 < 3%，但 Peak RMSE 恶化 1.4~1.8 |
-| PE Graph 贡献 | 同种子下开关结果完全一致（Δ=0.00），与 S/T 矩阵高度冗余 |
-| 最佳配置 | seed=42, seq24, pre3, diff=1 → RMSE=8.62, MAPE=24.00% |
-| 跨种子对比 | 种子差异 ~0.05，与消融效应同量级，不可混用 |
+| 组件重要性 | **PE-FiLM ≫ pre_len ≫ seq_len ≫ PE Graph ≈ diffusion ≈ seed** |
+| PE-FiLM | 关闭后 RMSE 暴涨 1.12~1.82（10~16%），Step5-6 尤其恶化，是三个 PE 组件中贡献最大的 |
+| PE Graph | 贡献因配置而异——seq12 下关闭有损（+0.45~0.63），seq24 pre6 下反而有益（−0.66） |
+| 扩散模块价值 | 整体 RMSE 影响有限（< 3%），但 Peak RMSE 恶化 1.4~1.8，核心价值在峰值预测 |
+| 最佳配置 | seed=42, seq24, pre3, diff=1, PG=1, PF=1 → RMSE=8.62, MAPE=24.00% |
+| 代码 bug | PE 缓存中 `use_pe_graph=0` 置零未生效，4 组消融实验作废并重跑，教训已记录 |
 
-**待补**: seed=62 的 PE Graph=1 主实验（3 组，由小组成员运行）
+**待补**: PE-FiLM 消融剩余 2 组（seq24 pre3/pre6）；PE shuffle；Baseline 对比
 
 ### 📅 第 3 周: 图表、报告和验收
 

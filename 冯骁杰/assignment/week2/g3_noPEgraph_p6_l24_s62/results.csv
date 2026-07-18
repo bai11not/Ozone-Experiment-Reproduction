@@ -1,0 +1,2 @@
+group,student,experiment_id,model,seq_len,pre_len,seed,use_diffusion,use_pe_graph,use_pe_film,pe_adaptive_loss,lr,epochs,best_epoch,rmse,mae,mape,peak_rmse,step1_rmse,step6_rmse,output_dir,log_file,notes
+g3,A,g3_noPEgraph_p6_l24_s62,PE-DiffWaveNet(noPEgraph),24,6,62,1,0,1,0,7e-4,120,30,11.1580,8.0206,32.56,13.3895,7.3223,13.4438,matrix_N95_PEDiffWaveNet_noleak_g3_noPEgraph_p6_l24_s62,assignment/week2/g3_noPEgraph_p6_l24_s62/training.log,seed=62; no_pe_graph(FIXED); seq_len=24; pre_len=6; PE from cache; early_stop@30; torch_env(Win); RTX4070

@@ -75,6 +75,7 @@ week1/
 
 ## 运行命令
 
+### Week1
 ```bash
 # 数据整理
 python3 "week1/数据整理/analyze_missing_data.py"
@@ -101,6 +102,28 @@ python3 "week1/DiffSTG/train.py" --data AIR_N95 --T_h 24 --T_p 6 --batch_size 32
 python3 "week1/结果整理/consolidate_results.py"
 ```
 
+### Week2 — DiffSTG 进阶实验
+
+```bash
+cd week2/DiffSTG
+
+# 不同预测步长
+python -u train_full.py --seed 42 --data AIR_N95 --T_h 24 --T_p 1   --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/prelen1_train.log
+python -u train_full.py --seed 42 --data AIR_N95 --T_h 24 --T_p 3   --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/pre3_train.log
+python -u train_full.py --seed 42 --data AIR_N95 --T_h 24 --T_p 6   --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/baseline_train.log
+python -u train_full.py --seed 42 --data AIR_N95 --T_h 24 --T_p 12  --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/pre12_train.log
+python -u train_full.py --seed 42 --data AIR_N95 --T_h 24 --T_p 24  --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/pre24_train.log
+
+# 多污染物
+python -u train_full.py --seed 42 --data AIR_N95_PM25 --T_h 24 --T_p 6 --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/pm25_train.log
+python -u train_full.py --seed 42 --data AIR_N95_PM10 --T_h 24 --T_p 6 --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/pm10_train.log
+
+# 不同邻接矩阵
+python -u train_full.py --seed 42 --data AIR_N95_CORR --T_h 24 --T_p 6 --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/corr_train.log
+python -u train_full.py --seed 42 --data AIR_N95_PE   --T_h 24 --T_p 6 --hidden_size 32 --N 200 --batch_size 32 --lr 0.0001 --epochs 300 --early_stop 10 --min_delta 0.001 --output_dir ./output 2>&1 | tee ./output/pe_train.log
+```
+详细结果见 [week2/README.md](week2/README.md)。
+
 ## 依赖数据
 
 所有脚本依赖 `../臭氧预测资料/` 目录下的数据：
@@ -114,6 +137,10 @@ python3 "week1/结果整理/consolidate_results.py"
 | 数据集 | 站点数 | 时间步 | 特征数 | 用途 |
 |--------|--------|--------|--------|------|
 | AIR_N95 | 95 | 8,717 | 1 (O3) | 臭氧预测任务 |
+| AIR_N95_PM25 | 95 | 8,717 | 1 (PM2.5) | PM2.5 预测 |
+| AIR_N95_PM10 | 95 | 8,717 | 1 (PM10) | PM10 预测 |
+| AIR_N95_CORR | 95 | 8,717 | 1 (O3) | 相关图邻接矩阵 |
+| AIR_N95_PE | 95 | 8,717 | 1 (O3) | PE图邻接矩阵 |
 | PEMS08 | 170 | 17,856 | 3 | 原始论文示例（交通流量） |
 
-**注意**：训练臭氧预测任务应使用 `AIR_N95` 数据集。
+**注意**：训练臭氧预测任务应使用 `AIR_N95` 数据集，进阶实验扩展了污染物类型和邻接矩阵变体。
